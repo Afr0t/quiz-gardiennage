@@ -1006,7 +1006,14 @@ function renderQ(){
     f.autocomplete = "off"; f.spellcheck = false;
     f.setAttribute("aria-labelledby","qtext");
     f.addEventListener("keydown", e=>{
-      if(e.key==="Enter" && (q.t!=="liste" || e.ctrlKey || e.metaKey)){ e.preventDefault(); if(!S.answered) check(); else next(); }
+      /* Dans une énumération, Entrée sert à passer à la ligne : on valide avec Ctrl/Cmd + Entrée. */
+      if(e.key !== "Enter" || (q.t === "liste" && !e.ctrlKey && !e.metaKey)) return;
+      e.preventDefault();
+      /* Sans cela, le même événement remonte au gestionnaire global, qui enchaîne
+         aussitôt sur « question suivante » : la correction n'est jamais vue. */
+      e.stopPropagation();
+      if(e.repeat || S.answered) return;
+      if(reponsePrete()) check();
     });
     f.addEventListener("input", syncPrimary);
     box.appendChild(f); A.appendChild(box);
@@ -1016,16 +1023,22 @@ function renderQ(){
   renderSegs();
 }
 
-/* Le bouton principal ne s'active qu'une fois une réponse donnée :
-   on ne perd plus un point en cliquant « Vérifier » à vide. */
+/* Une réponse est-elle saisie ou sélectionnée ? Sert au bouton comme au clavier,
+   pour qu'une validation à vide ne coûte jamais un point. */
+function reponsePrete(){
+  if(!S) return false;
+  const q = S.list[S.i];
+  if(q.t === "qcm" || q.t === "vf") return sel != null;
+  if(q.t === "multi") return !!(sel && sel.size);
+  const f = document.getElementById("field");
+  return !!(f && f.value.trim());
+}
+
+/* Le bouton principal ne s'active qu'une fois une réponse donnée. */
 function syncPrimary(){
   const b = document.getElementById("goBtn");
   if(!b || !S || S.answered) return;
-  const q = S.list[S.i];
-  let pret;
-  if(q.t === "multi") pret = sel && sel.size > 0;
-  else { const f = document.getElementById("field"); pret = !!(f && f.value.trim()); }
-  b.disabled = !pret;
+  b.disabled = !reponsePrete();
 }
 
 /* Bande de résultats : un cran par question. Au-delà de 60 questions,
@@ -1064,14 +1077,19 @@ function renderActions(){
     const sk = el("button","btn ghost","Passer et voir la réponse"); sk.type="button";
     sk.title = "Compte comme une erreur";
     sk.addEventListener("click", ()=>check(true)); bar.appendChild(sk);
-    const k = el("span","kbd", q.t==="qcm"||q.t==="vf" ? "touches 1–9" : q.t==="multi" ? "touches 1–9 · Entrée pour valider" : "Entrée");
+    const k = el("span","kbd",
+      q.t==="qcm"||q.t==="vf" ? "touches 1–9"
+      : q.t==="multi" ? "touches 1–9 · Entrée pour valider"
+      : q.t==="liste" ? "Ctrl + Entrée pour valider"
+      : "Entrée pour valider");
     bar.appendChild(k);
     syncPrimary();
   } else {
     const b = el("button","btn go", S.i===S.list.length-1 ? "Voir le résultat" : "Question suivante");
     b.type="button"; b.id="nextBtn"; b.addEventListener("click", next); bar.appendChild(b);
     const k = el("span","kbd","Entrée"); bar.appendChild(k);
-    setTimeout(()=>b.focus(), 30);
+    /* Le bouton ne prend pas le focus : une touche Entrée encore enfoncée
+       l'activerait aussitôt et la correction passerait inaperçue. */
   }
 }
 function check(reveal){
@@ -1109,6 +1127,7 @@ function check(reveal){
   }
 
   S.answered = true;
+  S.tAnswered = Date.now();
   S.results.push({q, good, given});
   // stats
   store.stats = store.stats || {};
@@ -1170,13 +1189,17 @@ function next(){
 }
 document.addEventListener("keydown", e=>{
   if($("#quiz").hidden || !S) return;
+  /* Une touche maintenue enfoncée émet des keydown en rafale : sans ce garde,
+     le premier valide la réponse et le suivant enchaîne sur la question d'après. */
+  if(e.repeat) return;
   const q = S.list[S.i];
   if(e.key==="Enter"){
     const t = document.activeElement && document.activeElement.tagName;
-    if(t==="TEXTAREA" && !(e.ctrlKey||e.metaKey)) return;
-    if(t==="INPUT") return;
+    if(t==="TEXTAREA" || t==="INPUT") return;   /* le champ gère lui-même sa validation */
     e.preventDefault();
-    if(S.answered) next(); else if(q.t==="multi"||q.t==="txt"||q.t==="liste") check();
+    /* Délai de garde : on ne passe pas à la suite dans la foulée de la validation. */
+    if(S.answered){ if(Date.now() - (S.tAnswered||0) > 400) next(); }
+    else if(reponsePrete()) check();
     return;
   }
   if(S.answered) return;
