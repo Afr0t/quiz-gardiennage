@@ -90,11 +90,15 @@
   dl.wide dt{color:var(--ink); font-family:inherit; font-size:14.5px; font-weight:400; white-space:normal}
   dl.wide dd{font-family:"IBM Plex Mono",monospace; font-size:12.5px; font-weight:600; color:var(--accent); white-space:nowrap; text-align:right}
 
+  /* Le compteur est positionné en absolu : le contenu du li reste du texte
+     qui coule normalement, gras et précisions inline compris. Un display:grid
+     ici ferait de chaque enfant inline une cellule séparée. */
   ol.steps{margin:0; padding-left:0; list-style:none; counter-reset:s}
-  ol.steps li{counter-increment:s; display:grid; grid-template-columns:auto 1fr; gap:9px; margin-bottom:3px}
-  ol.steps li::before{content:counter(s); font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:600;
-    color:var(--accent); background:var(--accent-soft); border-radius:4px; min-width:18px; height:18px;
-    display:grid; place-items:center; margin-top:3px}
+  ol.steps li{counter-increment:s; position:relative; padding-left:27px; margin-bottom:3px}
+  ol.steps li::before{content:counter(s); position:absolute; left:0; top:2px;
+    font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:600;
+    color:var(--accent); background:var(--accent-soft); border-radius:4px; width:18px; height:18px;
+    display:grid; place-items:center}
   ul.tight{margin:0; padding-left:17px}
   ul.tight li{margin-bottom:2px}
   .vs{display:grid; grid-template-columns:1fr 1fr; gap:10px}
@@ -125,7 +129,8 @@
     .cols{columns:2; column-gap:13pt; break-inside:auto}
     .card{padding:4.5pt 6pt; margin-bottom:5pt; border-radius:0; border-color:#999}
     h2{margin:9pt 0 4pt; break-before:auto; break-after:avoid; font-size:11pt}
-    h3{font-size:10.5pt} dl{gap:1.5pt 8pt} ol.steps li{margin-bottom:1pt}
+    h3{font-size:10.5pt} dl{gap:1.5pt 8pt} ol.steps li{margin-bottom:1pt; padding-left:20pt}
+    ol.steps li::before{width:14pt; height:11pt; font-size:8pt; top:1pt}
     .vs{gap:6pt} .vs > div{padding:4pt 5pt; border:0.5pt solid #ccc}
     .foot{font-size:7pt; margin-top:10pt}
     @page{margin:9mm}
