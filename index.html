@@ -1,0 +1,1013 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Quiz de revision couvrant le manuel de formation en gardiennage de l'Academie XGuard : 247 questions, choix multiples et reponses a saisir.">
+<style>
+  html{-webkit-text-size-adjust:100%}
+  :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+</style>
+<title>Révision Gardiennage BSP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+  :root{
+    --bg:#EDEEF0; --surface:#FFFFFF; --surface-2:#F4F5F8; --surface-3:#E7E9ED;
+    --ink:#14171C; --ink-2:#555C69; --ink-3:#7D8592;
+    --line:#D2D7DE; --line-strong:#B6BDC8;
+    --accent:#B85F04; --accent-soft:#FBEEDD; --accent-ink:#FFFFFF;
+    --ok:#0D7361; --ok-bg:#E1F2EE; --ok-line:#8ECFC1;
+    --bad:#AE221E; --bad-bg:#FAE8E6; --bad-line:#E6A6A2;
+    --shadow:0 1px 2px rgba(20,23,28,.06), 0 8px 24px -16px rgba(20,23,28,.28);
+    --radius:10px;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#13161B; --surface:#1B1F26; --surface-2:#22272F; --surface-3:#2B313A;
+      --ink:#ECEFF3; --ink-2:#9FA8B5; --ink-3:#7A8492;
+      --line:#2D333D; --line-strong:#3C444F;
+      --accent:#F2A93B; --accent-soft:#33260F; --accent-ink:#14171C;
+      --ok:#57C6B0; --ok-bg:#12302B; --ok-line:#2C6459;
+      --bad:#F0837B; --bad-bg:#331B1A; --bad-line:#6B322E;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#13161B; --surface:#1B1F26; --surface-2:#22272F; --surface-3:#2B313A;
+    --ink:#ECEFF3; --ink-2:#9FA8B5; --ink-3:#7A8492;
+    --line:#2D333D; --line-strong:#3C444F;
+    --accent:#F2A93B; --accent-soft:#33260F; --accent-ink:#14171C;
+    --ok:#57C6B0; --ok-bg:#12302B; --ok-line:#2C6459;
+    --bad:#F0837B; --bad-bg:#331B1A; --bad-line:#6B322E;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size:16px; line-height:1.55; -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding-inline:16px; padding-block:0 56px}
+  h1,h2,h3,.disp{font-family:"Barlow Condensed", "IBM Plex Sans", sans-serif; font-weight:600; letter-spacing:.01em; text-wrap:balance}
+  .mono{font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums}
+
+  /* ---------- top bar ---------- */
+  .bar{
+    position:sticky; top:env(safe-area-inset-top, 0px); z-index:20;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px); border-bottom:1px solid var(--line);
+  }
+  .bar-in{max-width:760px; margin:0 auto; padding:10px 16px; display:flex; align-items:center; gap:12px}
+  .brand{display:flex; align-items:baseline; gap:8px; margin-right:auto; min-width:0}
+  .brand b{font-family:"Barlow Condensed",sans-serif; font-size:22px; font-weight:700; letter-spacing:.02em; text-transform:uppercase; white-space:nowrap}
+  .brand span{font-size:11px; color:var(--ink-3); text-transform:uppercase; letter-spacing:.09em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .iconbtn{
+    border:1px solid var(--line); background:var(--surface); color:var(--ink-2);
+    width:34px; height:34px; border-radius:8px; display:grid; place-items:center;
+    cursor:pointer; font-size:15px; flex:none;
+  }
+  .iconbtn:hover{border-color:var(--line-strong); color:var(--ink)}
+  .progress{height:3px; background:var(--surface-3)}
+  .progress i{display:block; height:100%; background:var(--accent); width:0; transition:width .25s ease}
+
+  /* ---------- home ---------- */
+  .hero{padding-block:34px 22px; border-bottom:1px solid var(--line)}
+  .kicker{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:10px}
+  h1{font-size:clamp(34px,8vw,52px); line-height:.98; margin:0 0 12px; text-transform:uppercase}
+  .lede{color:var(--ink-2); max-width:56ch; margin:0}
+  .lede b{color:var(--ink); font-weight:600}
+
+  .statrow{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px}
+  .stat{
+    background:var(--surface); border:1px solid var(--line); border-radius:8px;
+    padding:8px 12px; display:flex; align-items:baseline; gap:7px;
+  }
+  .stat .n{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:17px; font-variant-numeric:tabular-nums}
+  .stat .l{font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-3)}
+
+  section.blk{padding-block:26px; border-bottom:1px solid var(--line)}
+  section.blk:last-of-type{border-bottom:0}
+  .blk-h{display:flex; align-items:baseline; gap:10px; margin-bottom:14px}
+  .blk-h h2{font-size:15px; margin:0; text-transform:uppercase; letter-spacing:.11em}
+  .blk-h em{font-style:normal; font-size:12px; color:var(--ink-3)}
+
+  .modes{display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+  .mode{
+    text-align:left; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:14px 15px; cursor:pointer; color:inherit; font:inherit; display:grid; gap:3px;
+    transition:border-color .12s, transform .12s;
+  }
+  .mode:hover{border-color:var(--accent); transform:translateY(-1px)}
+  .mode strong{font-family:"Barlow Condensed",sans-serif; font-size:21px; font-weight:600; letter-spacing:.01em}
+  .mode small{color:var(--ink-2); font-size:13px; line-height:1.4}
+  .mode.primary{background:var(--accent); border-color:var(--accent); color:var(--accent-ink)}
+  .mode.primary small{color:color-mix(in srgb, var(--accent-ink) 78%, transparent)}
+  .mode:disabled{opacity:.45; cursor:not-allowed; transform:none}
+
+  .segrow{display:flex; flex-wrap:wrap; gap:6px}
+  .seg{
+    border:1px solid var(--line); background:var(--surface); color:var(--ink-2);
+    padding:6px 12px; border-radius:99px; cursor:pointer; font:inherit; font-size:13px;
+  }
+  .seg[aria-pressed="true"]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+
+  .chaps{display:grid; gap:8px}
+  .chap{
+    display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:12px;
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:11px 14px; cursor:pointer; color:inherit; font:inherit; text-align:left;
+  }
+  .chap:hover{border-color:var(--accent)}
+  .chap .num{
+    font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:600; color:var(--ink-3);
+    border:1px solid var(--line); border-radius:6px; width:34px; height:28px; display:grid; place-items:center;
+  }
+  .chap .ttl{font-weight:500; line-height:1.3}
+  .chap .ttl i{display:block; font-style:normal; font-size:12px; color:var(--ink-3); margin-top:1px}
+  .chap .meta{display:flex; align-items:center; gap:10px}
+  .chap .cnt{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-3)}
+  .ring{width:26px; height:26px; flex:none}
+
+  /* ---------- quiz ---------- */
+  .qhead{display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding-block:20px 0}
+  .tag{
+    font-size:11px; letter-spacing:.09em; text-transform:uppercase; font-weight:600;
+    color:var(--accent); background:var(--accent-soft); border-radius:99px; padding:4px 10px;
+  }
+  .tag.plain{color:var(--ink-3); background:var(--surface-3)}
+  .qcount{margin-left:auto; font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--ink-3)}
+
+  .qtext{font-size:clamp(20px,4.4vw,25px); line-height:1.3; margin:14px 0 4px; font-weight:500; text-wrap:pretty}
+  .qhint{color:var(--ink-3); font-size:13px; margin:0 0 18px}
+
+  .opts{display:grid; gap:8px; margin-bottom:18px}
+  .opt{
+    display:grid; grid-template-columns:auto 1fr; gap:11px; align-items:start;
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:12px 14px; cursor:pointer; font:inherit; color:inherit; text-align:left; line-height:1.45;
+    transition:border-color .12s, background .12s;
+  }
+  .opt:hover:not(:disabled){border-color:var(--line-strong)}
+  .opt .k{
+    font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600; color:var(--ink-3);
+    border:1px solid var(--line); border-radius:5px; min-width:22px; height:22px; display:grid; place-items:center; margin-top:1px;
+  }
+  .opt[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-soft)}
+  .opt[aria-pressed="true"] .k{border-color:var(--accent); color:var(--accent)}
+  .opt.is-ok{border-color:var(--ok-line); background:var(--ok-bg)}
+  .opt.is-ok .k{border-color:var(--ok); color:var(--ok)}
+  .opt.is-bad{border-color:var(--bad-line); background:var(--bad-bg)}
+  .opt.is-bad .k{border-color:var(--bad); color:var(--bad)}
+  .opt:disabled{cursor:default}
+
+  .typed{display:grid; gap:8px; margin-bottom:18px}
+  .typed input, .typed textarea{
+    width:100%; font:inherit; color:var(--ink); background:var(--surface);
+    border:1px solid var(--line-strong); border-radius:var(--radius); padding:12px 14px; resize:vertical;
+  }
+  .typed input:focus, .typed textarea:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  .typed input:disabled, .typed textarea:disabled{background:var(--surface-2); color:var(--ink-2)}
+
+  .actions{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+  .btn{
+    font:inherit; font-weight:500; border-radius:8px; padding:10px 18px; cursor:pointer;
+    border:1px solid var(--line-strong); background:var(--surface); color:var(--ink);
+  }
+  .btn:hover{border-color:var(--ink-2)}
+  .btn.go{background:var(--accent); border-color:var(--accent); color:var(--accent-ink); font-weight:600}
+  .btn.go:hover{filter:brightness(1.06)}
+  .btn.ghost{border-color:transparent; background:transparent; color:var(--ink-3); padding-inline:10px}
+  .btn.ghost:hover{color:var(--ink)}
+  .kbd{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); margin-left:auto}
+
+  .fb{border-radius:var(--radius); padding:14px 16px; margin-bottom:18px; border:1px solid}
+  .fb.ok{background:var(--ok-bg); border-color:var(--ok-line)}
+  .fb.bad{background:var(--bad-bg); border-color:var(--bad-line)}
+  .fb .v{display:flex; align-items:center; gap:8px; font-family:"Barlow Condensed",sans-serif; font-size:20px; font-weight:600; text-transform:uppercase; letter-spacing:.04em}
+  .fb.ok .v{color:var(--ok)} .fb.bad .v{color:var(--bad)}
+  .fb .ans{margin-top:9px; padding-top:9px; border-top:1px solid color-mix(in srgb, var(--ink) 12%, transparent)}
+  .fb .ans .lbl{font-size:11px; text-transform:uppercase; letter-spacing:.09em; color:var(--ink-2); display:block; margin-bottom:3px}
+  .fb .ans .val{font-weight:600}
+  .fb .why{margin:9px 0 0; color:var(--ink-2); font-size:14.5px}
+  .fb .src{margin-top:8px; font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3)}
+  .chk{display:grid; gap:4px; margin-top:8px}
+  .chk div{display:grid; grid-template-columns:auto 1fr; gap:8px; font-size:14.5px; align-items:start}
+  .chk .m{font-weight:700}
+  .chk .yes .m{color:var(--ok)} .chk .no .m{color:var(--bad)}
+
+  /* ---------- results ---------- */
+  .score{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; display:flex; gap:20px; align-items:center; flex-wrap:wrap; box-shadow:var(--shadow);
+  }
+  .score .big{font-family:"Barlow Condensed",sans-serif; font-size:64px; line-height:.9; font-weight:700; font-variant-numeric:tabular-nums}
+  .score .side{display:grid; gap:2px}
+  .verdict{font-family:"Barlow Condensed",sans-serif; font-size:24px; text-transform:uppercase; letter-spacing:.03em}
+  .verdict.pass{color:var(--ok)} .verdict.fail{color:var(--bad)}
+  .breakdown{display:grid; gap:6px; margin-top:16px}
+  .brow{display:grid; grid-template-columns:1fr auto auto; gap:12px; align-items:center; font-size:14px; padding:7px 0; border-bottom:1px solid var(--line)}
+  .brow .b{height:5px; border-radius:3px; background:var(--surface-3); width:84px; overflow:hidden}
+  .brow .b i{display:block; height:100%; background:var(--ok)}
+  .brow .s{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-3); min-width:42px; text-align:right}
+
+  .missed{display:grid; gap:8px; margin-top:12px}
+  .miss{background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--bad); border-radius:8px; padding:11px 13px}
+  .miss .q{font-weight:500; font-size:14.5px}
+  .miss .a{font-size:13.5px; color:var(--ink-2); margin-top:4px}
+  .miss .a b{color:var(--ok)}
+
+  .foot{margin-top:30px; padding-top:16px; border-top:1px solid var(--line); color:var(--ink-3); font-size:12.5px}
+  @media (prefers-reduced-motion: reduce){*{transition:none !important; animation:none !important}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="brand"><b>Gardiennage</b><span id="barsub">Bureau de la sécurité privée · Québec</span></div>
+    <button class="iconbtn" id="homeBtn" hidden title="Retour à l'accueil" aria-label="Retour à l'accueil">✕</button>
+    <button class="iconbtn" id="themeBtn" title="Changer le thème" aria-label="Changer le thème">◐</button>
+  </div>
+  <div class="progress"><i id="bar"></i></div>
+</div>
+
+<main class="wrap">
+
+  <!-- ============ ACCUEIL ============ -->
+  <div id="home">
+    <div class="hero">
+      <div class="kicker">Manuel du participant · Académie XGuard</div>
+      <h1>Révision<br>gardiennage</h1>
+      <p class="lede">Les <b id="qtot">0</b> questions couvrent l'intégralité du manuel : introduction au BSP, les 10 chapitres et les annexes. Choix multiples, vrai ou faux, <b>saisie libre</b> et énumérations — avec la bonne réponse et la référence au manuel après chaque essai.</p>
+      <div class="statrow">
+        <div class="stat"><span class="n mono" id="sDone">0</span><span class="l">questions vues</span></div>
+        <div class="stat"><span class="n mono" id="sRate">—</span><span class="l">taux de réussite</span></div>
+        <div class="stat"><span class="n mono" id="sWrong">0</span><span class="l">à revoir</span></div>
+      </div>
+    </div>
+
+    <section class="blk">
+      <div class="blk-h"><h2>Commencer</h2><em>note de passage du BSP : 60 %</em></div>
+      <div class="modes">
+        <button class="mode primary" data-go="exam"><strong>Examen blanc</strong><small>50 questions tirées de tout le manuel, dans le désordre. Score final et correction.</small></button>
+        <button class="mode" data-go="all"><strong>Tout le cours</strong><small>Les questions dans l'ordre du manuel, de l'introduction aux annexes.</small></button>
+        <button class="mode" data-go="wrong" id="wrongBtn" disabled><strong>Mes erreurs</strong><small>Reprendre uniquement les questions ratées lors des sessions précédentes.</small></button>
+      </div>
+      <div style="margin-top:16px" class="blk-h"><h2 style="font-size:13px">Format des réponses</h2></div>
+      <div class="segrow" id="fmtRow">
+        <button class="seg" data-fmt="mix" aria-pressed="true">Mixte (recommandé)</button>
+        <button class="seg" data-fmt="pick" aria-pressed="false">Choix seulement</button>
+        <button class="seg" data-fmt="type" aria-pressed="false">Saisie seulement</button>
+      </div>
+    </section>
+
+    <section class="blk">
+      <div class="blk-h"><h2>Par chapitre</h2><em>le cercle indique votre dernier score</em></div>
+      <div class="chaps" id="chaps"></div>
+    </section>
+
+    <p class="foot">Contenu tiré du <i>Manuel du participant</i> de l'Académie XGuard (© Sécurité XGuard, 2021). Outil de révision personnel non officiel, sans affiliation avec XGuard ni le Bureau de la sécurité privée — il ne remplace ni le manuel ni la formation.</p>
+  </div>
+
+  <!-- ============ QUIZ ============ -->
+  <div id="quiz" hidden>
+    <div class="qhead">
+      <span class="tag" id="qchap"></span>
+      <span class="tag plain" id="qtype"></span>
+      <span class="qcount mono" id="qnum"></span>
+    </div>
+    <p class="qtext" id="qtext"></p>
+    <p class="qhint" id="qhint"></p>
+    <div id="answer"></div>
+    <div id="fbslot"></div>
+    <div class="actions" id="actions"></div>
+  </div>
+
+  <!-- ============ RÉSULTATS ============ -->
+  <div id="done" hidden>
+    <div class="qhead"><span class="tag" id="dchap"></span></div>
+    <h1 style="font-size:clamp(28px,6vw,40px); margin:14px 0 18px">Résultat</h1>
+    <div class="score">
+      <div class="big mono" id="dpct">0 %</div>
+      <div class="side">
+        <div class="verdict" id="dverdict"></div>
+        <div style="color:var(--ink-2); font-size:14px" id="dline"></div>
+      </div>
+    </div>
+    <div class="blk-h" style="margin-top:26px"><h2>Par chapitre</h2></div>
+    <div class="breakdown" id="dbreak"></div>
+    <div id="dmisswrap" hidden>
+      <div class="blk-h" style="margin-top:26px"><h2>À revoir</h2><em id="dmisscount"></em></div>
+      <div class="missed" id="dmissed"></div>
+    </div>
+    <div class="actions" style="margin-top:26px">
+      <button class="btn go" id="againWrong">Reprendre mes erreurs</button>
+      <button class="btn" id="againAll">Refaire la série</button>
+      <button class="btn ghost" id="backHome">Accueil</button>
+    </div>
+  </div>
+</main>
+
+<script>
+/* ============================================================
+   DONNÉES — Manuel du participant, Académie XGuard (2021)
+   c  : chapitre (index)
+   t  : qcm | multi | vf | txt | liste
+   q  : question   o : options   a : réponse
+   d  : réponse affichée (pour txt/liste)   e : explication   s : source
+   ============================================================ */
+const CHAPS = [
+  {n:"Intro", t:"Le BSP, la LSP et le milieu de la sécurité", s:"Introduction"},
+  {n:"1", t:"Droits et responsabilités de l'agent", s:"Chapitre 1"},
+  {n:"2", t:"Service à la clientèle", s:"Chapitre 2"},
+  {n:"3", t:"Gardiennage : mandats, pouvoirs et techniques", s:"Chapitre 3"},
+  {n:"4", t:"Technologie et équipement", s:"Chapitre 4"},
+  {n:"5", t:"Communication", s:"Chapitre 5"},
+  {n:"6", t:"Emploi de la force", s:"Chapitre 6"},
+  {n:"7", t:"Coopération en milieu de travail", s:"Chapitre 7"},
+  {n:"8", t:"Mesures d'urgence et risques", s:"Chapitre 8"},
+  {n:"9", t:"Incendies et matières dangereuses", s:"Chapitre 9"},
+  {n:"10", t:"Rédaction de rapports", s:"Chapitre 10"},
+  {n:"Ann.", t:"Annexes : chartes, Code criminel, embauche", s:"Annexes"}
+];
+
+const Q = [
+/* ---------------- INTRODUCTION ---------------- */
+{c:0,t:"txt",q:"Combien d'heures dure la formation obligatoire en gardiennage pour obtenir un permis d'agent au Québec ?",a:["70"],d:"70 heures",e:"Trois modules obligatoires : 30 h (milieu, fonction, législation et normes de comportement), 24 h (procédures en situation d'urgence) et 16 h (secourisme reconnu par la CNESST).",s:"Introduction, §1.1"},
+{c:0,t:"qcm",q:"Quelle est la durée du module « Procédures en situation d'urgence » ?",o:["16 heures","24 heures","30 heures","70 heures"],a:1,e:"30 h pour le module 1, 24 h pour les procédures d'urgence, 16 h pour le secourisme reconnu par la CNESST.",s:"Introduction, §1.1"},
+{c:0,t:"qcm",q:"Quel organisme est le seul à pouvoir émettre, renouveler ou révoquer un permis d'agent de sécurité ?",o:["Le ministère de la Sécurité publique","La CNESST","Le Bureau de la sécurité privée (BSP)","L'agence qui embauche l'agent"],a:2,e:"Le BSP est l'organisme d'autoréglementation de l'industrie de la sécurité privée au Québec.",s:"Introduction, §1.1 et §2"},
+{c:0,t:"txt",q:"Quelle est la note de passage de l'évaluation finale de la formation XGuard ?",a:["60"],d:"60 %",e:"Une reprise d'examen est possible. Le formateur évalue aussi l'attitude du participant.",s:"Introduction, §1.3"},
+{c:0,t:"liste",q:"Nommez les six secteurs d'activité encadrés par la Loi sur la sécurité privée (article 1).",n:6,items:[["gardiennage"],["investigation"],["serrurerie"],["electronique","systemes electroniques","systeme electronique"],["convoyage"],["conseil","service conseil"]],d:"Gardiennage · Investigation · Serrurerie · Systèmes électroniques de sécurité · Convoyage de biens de valeur · Service conseil en sécurité",e:"La formation XGuard vise l'obtention du permis de gardiennage : la surveillance et la protection de personnes, de biens ou de lieux.",s:"Introduction, §1.1.1 et §2.1"},
+{c:0,t:"qcm",q:"En quelle année la Loi sur la sécurité privée (LSP) a-t-elle été votée ?",o:["1962","2003","2006","2010"],a:2,e:"Votée en 2006 (projet de loi 88), elle est entrée en vigueur dans son entièreté le 22 juillet 2010. Le BSP a vu le jour en 2008.",s:"Introduction, §2.1 et §4.4"},
+{c:0,t:"txt",q:"Quelle loi de 1962 la Loi sur la sécurité privée est-elle venue remplacer ?",a:["agences d investigation","investigation ou de securite"],d:"La Loi sur les agences d'investigation ou de sécurité (1962)",e:"Cette loi n'avait jamais été adaptée ni révisée pour répondre aux nouvelles exigences de l'industrie et aux avancées technologiques.",s:"Introduction, §2.1"},
+{c:0,t:"txt",q:"En une phrase : quelle est la mission du Bureau de la sécurité privée ?",a:["protection du public","proteger le public","protection du publique"],d:"Veiller à la protection du public",e:"Pour ce faire, il applique la LSP, délivre les permis, traite les plaintes, favorise la cohérence avec la sécurité publique et conseille le ministre de la Sécurité publique.",s:"Introduction, §2.2"},
+{c:0,t:"multi",q:"Pour quels motifs le BSP peut-il suspendre, révoquer ou refuser de renouveler le permis d'un agent ?",o:["Il ne paie pas ses frais de permis annuels","Il occupe un emploi incompatible, notamment au sein d'un corps de police","Il a été reconnu coupable d'une infraction à la LSP ou à ses règlements","Il a contrevenu au Règlement sur les normes de comportement","Il a changé d'agence de sécurité"],a:[0,1,2,3],e:"Changer d'agence n'a aucun effet sur le permis. Une condamnation criminelle liée au type de permis peut aussi entraîner la révocation.",s:"Introduction, §2.4.1"},
+{c:0,t:"txt",q:"À quel tribunal un titulaire doit-il s'adresser pour contester une décision administrative défavorable du BSP ?",a:["tribunal administratif"],d:"Le Tribunal administratif du Québec",e:"Ce recours vaut notamment en cas de révocation de permis.",s:"Introduction, §2.4.1"},
+{c:0,t:"liste",q:"Quelles sont les trois sanctions administratives possibles contre un agent qui n'a pas respecté les normes de comportement ?",n:3,items:[["reprimande"],["suspension"],["revocation"]],d:"Une réprimande au dossier · La suspension du permis pour une durée déterminée · La révocation du permis",e:"À distinguer des sanctions pénales (contraventions et amendes), par exemple pour une agence qui embauche des agents sans permis ou un agent qui travaille sans permis.",s:"Introduction, §2.4.3"},
+{c:0,t:"vf",q:"Un inspecteur du BSP peut pénétrer à toute heure raisonnable dans un lieu où une activité de sécurité est offerte et y prendre des photos.",a:true,e:"C'est l'article 70 de la LSP. Il peut aussi exiger tout renseignement et tout document utile à ses fonctions.",s:"Introduction, §2.4.3"},
+{c:0,t:"qcm",q:"Quel syndicat représente tous les agents de sécurité du Québec ?",o:["La FTQ directement","Le Syndicat des Métallos, section locale 8922","La CSN, secteur sécurité","L'Association provinciale des agences de sécurité (APAS)"],a:1,e:"Le Syndicat de la sécurité privée au Québec est la section locale 8922 du Syndicat des Métallos (affilié FTQ). L'APAS est la partie patronale signataire de la convention.",s:"Introduction, §3.1"},
+{c:0,t:"qcm",q:"Où un agent trouve-t-il le salaire minimum de sa profession ainsi que les règles sur l'uniforme et les vacances ?",o:["Dans la Loi sur la sécurité privée","Dans le Décret sur les agents de sécurité","Dans le Règlement sur les normes de comportement","Dans le Code civil du Québec"],a:1,e:"Le Décret découle de la convention collective de 2017 ; le plus récent est entré en vigueur le 4 décembre 2019 et fixe les conditions minimales de toute l'industrie.",s:"Introduction, §3.2"},
+{c:0,t:"qcm",q:"Comment appelle-t-on, en anglais, la sécurité interne et la sécurité externe ?",o:["Internal Security / External Security","Corporate Security / Contract Security","In-house Security / Outsourced Security","Private Security / Public Security"],a:1,e:"Sécurité interne = Corporate Security (l'organisation embauche ses propres agents). Sécurité externe = Contract Security (on fait affaire avec une agence).",s:"Introduction, §4.3"},
+{c:0,t:"multi",q:"Quels sont les désavantages de la sécurité interne (Corporate Security) pour un client ?",o:["Coûts élevés : salaires, assurances, formations, pensions","Risques de grève si les employés sont syndiqués","Risque de vols ou méfaits non signalés si une trop grande fraternité unit agents et personnel","Rotation élevée des agents sur le terrain"],a:[0,1,2],e:"La rotation élevée, le faible sentiment d'appartenance et la supervision moins constante sont plutôt les désavantages de la sécurité externe.",s:"Introduction, §4.3.1 et §4.3.2"},
+{c:0,t:"vf",q:"Au Québec, la sécurité publique et la sécurité privée relèvent de deux ministères différents.",a:false,e:"Les deux relèvent du même ministère : le ministère de la Sécurité publique. Ce sont des milieux complémentaires, pas concurrents.",s:"Introduction, §4.2"},
+{c:0,t:"txt",q:"Quelle expression désigne l'ensemble des actions et des moyens utilisés pour prévenir les sinistres ?",a:["securite civile"],d:"La sécurité civile",e:"À ne pas confondre avec la sécurité publique (police, agents correctionnels, douaniers, constables spéciaux) ni avec la sécurité privée.",s:"Introduction, §4.2"},
+{c:0,t:"qcm",q:"En 1870, quel double événement marque l'histoire de la sécurité au Québec ?",o:["La création des premiers corps de police municipaux de Montréal et Québec","L'apparition de la police provinciale et les débuts de la sécurité privée","L'adoption de la première loi encadrant les agences de sécurité","La création du Bureau de la sécurité privée"],a:1,e:"L'ancêtre de la Sûreté du Québec apparaît, et la sécurité privée débute avec la surveillance des banques et des chemins de fer. Les polices municipales de Montréal et Québec datent de 1843.",s:"Introduction, §4.4"},
+{c:0,t:"qcm",q:"Quel document, déposé à l'Assemblée nationale en 2003, a mené à la réforme de la sécurité privée ?",o:["Le rapport Poitras","Le livre blanc « La sécurité privée, partenaire de la sécurité intérieure »","Le Guide de sécurisation de sites du SPVM","Le Décret sur les agents de sécurité"],a:1,e:"Déposé par le ministère de la Sécurité publique, il a mené aux comités de 2004, puis au projet de loi 88 adopté en juin 2006.",s:"Introduction, §4.4"},
+
+/* ---------------- CHAPITRE 1 ---------------- */
+{c:1,t:"qcm",q:"Aux yeux de la loi, quel est le statut d'un agent de sécurité ?",o:["Un agent de la paix à pouvoirs limités","Un simple citoyen","Un auxiliaire de la police","Un officier public"],a:1,e:"L'article 3 de la LSP est clair : aucune disposition de la loi ne peut être interprétée comme octroyant le statut d'agent de la paix à un titulaire de permis d'agent.",s:"Chapitre 1, §2.1"},
+{c:1,t:"qcm",q:"Laquelle de ces chartes s'applique aux relations entre les individus, les entreprises et les organisations du Québec ?",o:["La Charte canadienne des droits et libertés","La Charte des droits et libertés de la personne (Québec)","Les deux, également","Aucune des deux"],a:1,e:"La Charte canadienne (1982) protège contre les abus du gouvernement et de ses institutions et ne s'applique pas aux relations entre personnes. La Charte québécoise (1976) s'applique à tous : c'est celle que l'agent du secteur privé doit respecter.",s:"Chapitre 1, §1.1 et §1.2"},
+{c:1,t:"qcm",q:"À partir de quel âge le Code criminel du Canada s'applique-t-il à une personne ?",o:["12 ans","14 ans","16 ans","18 ans"],a:0,e:"Le Code criminel (L.R.C. 1985, ch. C-46) concerne toute personne de 12 ans et plus et décrit les sentences applicables, de l'amende à l'emprisonnement.",s:"Chapitre 1, §1.1"},
+{c:1,t:"qcm",q:"Quel article du Code criminel définit le vol ?",o:["Article 264","Article 265","Article 322","Article 430"],a:2,e:"264 = proférer des menaces ; 265 = voies de fait ; 322 = vol ; 430 = méfait.",s:"Chapitre 1, §1.1"},
+{c:1,t:"qcm",q:"Volontairement détruire ou détériorer un bien, par exemple en commettant du vandalisme : de quelle infraction s'agit-il ?",o:["Méfait (art. 430)","Intimidation (art. 423)","Voies de fait (art. 265)","Attroupement illégal (art. 63)"],a:0,e:"Le méfait couvre aussi le fait de rendre un bien dangereux, inutile ou inopérant, ou d'en gêner l'usage légitime.",s:"Chapitre 1, §1.1 · Annexe III"},
+{c:1,t:"txt",q:"Combien de personnes faut-il, au minimum, pour qu'il y ait attroupement illégal (art. 63 C.cr.) ?",a:["3","trois"],d:"Trois individus ou plus",e:"Se réunir à trois ou plus pour troubler la paix ou inciter d'autres personnes à la troubler. Un attroupement illégal qui commence à troubler la paix tumultueusement devient une émeute (art. 64).",s:"Chapitre 1, §1.1 · Annexe III"},
+{c:1,t:"txt",q:"Quel article du Code criminel encadre l'arrestation sans mandat par un simple citoyen ?",a:["494"],d:"L'article 494",e:"494(1) : arrestation par quiconque. 494(2) : arrestation par le propriétaire d'un bien ou la personne qu'il autorise. 494(3) : obligation de livrer aussitôt la personne à un agent de la paix.",s:"Chapitre 1, §2.2.1"},
+{c:1,t:"multi",q:"Selon les notes importantes du manuel, dans quels cas un agent peut-il procéder à une arrestation citoyenne ?",o:["Il est témoin de l'acte criminel","Il a des motifs raisonnables de croire que la personne a commis un acte criminel ET qu'elle risque de s'échapper avant l'arrivée d'un agent de la paix","Il a un soupçon sérieux fondé sur son intuition","Un collègue lui a rapporté avoir vu l'infraction"],a:[0,1],e:"Un soupçon n'est jamais suffisant pour intervenir. Et il ne faut jamais risquer une blessure ou la mort si le suspect semble armé.",s:"Chapitre 1, §2.3"},
+{c:1,t:"qcm",q:"Quelle est la toute première chose à faire lorsqu'on procède à une arrestation ?",o:["Appeler le 9-1-1","Noter l'heure exacte de l'arrestation","Fouiller la personne","Lui réciter ses droits"],a:1,e:"Ensuite : appeler la police, s'identifier (nom et fonction), informer la personne de son arrestation et du motif, s'assurer qu'elle comprend, vérifier qu'elle n'a pas d'arme, etc.",s:"Chapitre 1, §2.3"},
+{c:1,t:"liste",q:"Nommez les cinq droits d'une personne en état d'arrestation.",n:5,items:[["raison","motif"],["avocat"],["silence"],["prevenir quelqu un","prevenir une personne","aviser quelqu un"],["mineur","parent"]],d:"Connaître les raisons de l'arrestation · Parler à un avocat · Garder le silence · Prévenir quelqu'un · Pour un mineur, être accompagné d'un parent",e:"Réciter ces droits n'est pas obligatoire pour l'agent : c'est la responsabilité des policiers. Mais avant de noter les propos du suspect, il faut s'assurer qu'il connaît son droit au silence.",s:"Chapitre 1, §2.3"},
+{c:1,t:"vf",q:"Un agent qui arrête une personne sans mandat doit la livrer aussitôt à un agent de la paix.",a:true,e:"C'est l'article 494(3) du Code criminel. Il lui remet aussi tout objet dangereux, volé ou illégal.",s:"Chapitre 1, §2.2.1"},
+{c:1,t:"qcm",q:"Quels articles du Code criminel encadrent respectivement le droit de recourir à la force et la responsabilité pour excès de force ?",o:["Articles 24 et 25","Articles 25 et 26","Articles 26 et 27","Articles 34 et 35"],a:1,e:"L'article 25 autorise l'emploi de la force nécessaire sur des motifs raisonnables ; l'article 26 rend criminellement responsable de tout excès de force.",s:"Chapitre 1, §2.4"},
+{c:1,t:"multi",q:"Dans quelles circonstances la fouille préventive est-elle autorisée à un agent de sécurité ?",o:["Le contrôle d'accès","Une arrestation","Un simple soupçon de vol","La demande verbale d'un client"],a:[0,1],e:"Ce sont les deux seules circonstances. La fouille lors d'une arrestation ne vise pas à trouver des preuves (rôle du policier) mais à s'assurer que la personne n'a pas d'objet dangereux.",s:"Chapitre 1, §2.5"},
+{c:1,t:"qcm",q:"Un règlement interne du client semble contrevenir à la loi. Que doit faire l'agent ?",o:["Appliquer le règlement : le client paie pour le service","Respecter la loi et avertir un superviseur","Refuser d'intervenir et quitter son poste","Appeler la police immédiatement"],a:1,e:"L'agent veille à l'application des règlements internes, mais la loi prime toujours. Ne pas la respecter peut entraîner la suspension ou la révocation de son permis par le BSP.",s:"Chapitre 1, §3.1"},
+{c:1,t:"qcm",q:"Quel article du Code civil rend l'employeur responsable du préjudice causé par la faute de ses employés dans l'exécution de leurs fonctions ?",o:["Article 947","Article 1457","Article 1463","Article 49"],a:2,e:"« Le commettant est tenu de réparer le préjudice causé par la faute de ses préposés dans l'exécution de leurs fonctions ; il conserve, néanmoins, ses recours contre eux. »",s:"Chapitre 1, §4"},
+{c:1,t:"multi",q:"Selon le Règlement sur les normes de comportement, que l'agent ne doit-il PAS faire dans l'exercice de ses fonctions ?",o:["Faire usage d'un langage obscène, blasphématoire ou offensant","Tenir des propos discriminatoires","Manquer de respect ou de politesse envers une personne","Être sous l'influence d'alcool, de stupéfiants ou de toute substance perturbant ses facultés","Présenter son permis lorsqu'on lui demande de s'identifier"],a:[0,1,2,3],e:"Présenter son permis est au contraire une obligation (article 2 du Règlement).",s:"Chapitre 1, §5.1 · Annexe I"},
+{c:1,t:"multi",q:"L'abus d'autorité (article 3 du Règlement sur les normes de comportement) comprend notamment :",o:["Recourir à une force plus grande que nécessaire","Faire des menaces, de l'intimidation ou du harcèlement","Porter sciemment une fausse accusation contre une personne","Détenir une personne qui n'est pas en état d'arrestation ou qu'on n'a pas le droit de détenir"],a:[0,1,2,3],e:"Ces quatre comportements sont nommément interdits par l'article 3 du Règlement.",s:"Chapitre 1, §5.1 · Annexe I"},
+{c:1,t:"qcm",q:"Des journalistes contactent un agent au sujet d'un événement survenu à son travail. Que doit-il faire ?",o:["Répondre factuellement, sans donner d'opinion","Leur demander de s'adresser à son superviseur","Répondre uniquement si le client l'autorise sur place","Publier sa version sur les médias sociaux pour rétablir les faits"],a:1,e:"Tout renseignement obtenu au travail est confidentiel. L'agent ne commente jamais publiquement un événement lié à son travail, médias sociaux compris.",s:"Chapitre 1, §5.2"},
+{c:1,t:"multi",q:"Un agent arrive le premier sur les lieux d'un crime. Quel est son rôle ?",o:["Sécuriser l'endroit et établir un périmètre de sécurité","S'assurer que les preuves demeurent intactes","S'assurer que les témoins restent sur place","Interroger les témoins et rédiger leur déclaration officielle","Recueillir les éléments de preuve pour les remettre à la police"],a:[0,1,2],e:"Recueillir les preuves et interroger les témoins relèvent de l'enquête policière. L'agent utilise ruban, barrières, etc. et ne touche à un élément de preuve qu'en cas de nécessité réelle.",s:"Chapitre 1, §6"},
+{c:1,t:"qcm",q:"Quelle est la peine maximale générale pour une infraction punissable par procédure sommaire ?",o:["1 000 $ et/ou 3 mois d'emprisonnement","2 000 $ et/ou 6 mois d'emprisonnement","5 000 $ et/ou 1 an d'emprisonnement","Aucun maximum prévu"],a:1,e:"Le délai de prescription est également de six mois : une personne peut être accusée jusqu'à six mois après l'infraction.",s:"Chapitre 1, §8.2"},
+{c:1,t:"vf",q:"Un acte criminel n'a aucun délai de prescription : une personne peut être accusée des années après les faits.",a:true,e:"C'est l'une des grandes différences avec l'infraction sommaire, prescrite après six mois.",s:"Chapitre 1, §8.1"},
+{c:1,t:"qcm",q:"Le vol, les agressions, les menaces et la fausse alerte appartiennent à quelle catégorie d'infractions ?",o:["Des actes criminels purs","Des infractions sommaires","Des infractions mixtes (hybrides)","Des infractions civiles"],a:2,e:"La majorité des infractions du Code criminel sont mixtes : le procureur aux poursuites criminelles et pénales choisit entre la mise en accusation et la procédure sommaire.",s:"Chapitre 1, §8.3"},
+{c:1,t:"qcm",q:"Un agent cause un préjudice moral à une personne lors d'une intervention. De quel type de responsabilité relève d'abord cette situation ?",o:["La responsabilité civile","La responsabilité criminelle","La responsabilité pénale","Aucune : il est couvert par son employeur"],a:0,e:"La responsabilité civile est l'obligation de réparer le dommage causé (art. 1457 C.c.Q.). La responsabilité criminelle ou pénale relève de l'État et vise à protéger la société entière.",s:"Chapitre 1, §10"},
+
+/* ---------------- CHAPITRE 2 ---------------- */
+{c:2,t:"vf",q:"Un agent de sécurité peut répondre aux questions d'un journaliste si celles-ci portent sur des faits publics.",a:false,e:"Peu importe la situation, un agent ne s'adresse jamais à un journaliste et n'y répond jamais : il en parle immédiatement à son superviseur.",s:"Chapitre 2, §2"},
+{c:2,t:"liste",q:"Nommez au moins quatre qualités recherchées chez un agent de sécurité.",n:4,items:[["ponctualite","ponctuel"],["esprit logique","logique"],["apparence soignee","apparence"],["esprit d initiative","initiative"],["amabilite","aimable"],["serieux"],["confiance en soi","confiance"],["ouverture d esprit","ouverture"]],d:"Ponctualité · Esprit logique · Apparence soignée · Esprit d'initiative · Amabilité · Sérieux · Confiance en soi · Ouverture d'esprit",e:"Quatre de ces huit suffisent. La ponctualité est répétée aux agents tout au long de leur carrière : un retard peut permettre un vol ou un incident.",s:"Chapitre 2, §2"},
+{c:2,t:"multi",q:"Un agent doit agir comme s'il était observé en tout temps par :",o:["Le client de l'agence","Son superviseur ou d'autres employés de l'agence","Le public","Les concurrents de l'agence"],a:[0,1,2],e:"Au travail, il représente l'image de l'organisation du client, celle de son employeur, celle de la profession et la sienne propre (crédibilité, réputation).",s:"Chapitre 2, §4"},
+{c:2,t:"multi",q:"Parmi ces règles de gestion d'appels téléphoniques, lesquelles sont recommandées ?",o:["Limiter l'utilisation du mains libres pour protéger la confidentialité","Ne pas se fier à l'afficheur, qui peut être trompeur","Refuser de transmettre tout renseignement personnel, sauf directive claire","Ne jamais mentionner où se trouve une personne absente","Indiquer à l'interlocuteur quand le client sera de retour pour lui rendre service"],a:[0,1,2,3],e:"On se limite à noter le message à transmettre. On offre toujours son aide : « Bonjour ! Comment puis-je vous aider ? ».",s:"Chapitre 2, §6"},
+{c:2,t:"qcm",q:"En matière d'écoute, quand une intervention est-elle terminée ?",o:["Quand l'agent a transmis toute l'information","Quand le problème est complètement résolu","Après cinq minutes d'échange","Quand le superviseur a été avisé"],a:1,e:"Il ne faut pas se dépêcher de clore une conversation. Reformuler les propos de l'interlocuteur permet de vérifier sa compréhension.",s:"Chapitre 2, §7"},
+{c:2,t:"vf",q:"Un agent de sécurité peut accepter un pourboire ou un petit cadeau d'un client satisfait, à condition de le déclarer à son superviseur.",a:false,e:"Impartialité : il ne doit jamais accepter de dons, de faveurs, etc. L'article 7 du Règlement sur les normes de comportement interdit d'accepter toute somme ou considération en plus de ce qui lui est alloué.",s:"Chapitre 2, §3 · Annexe I"},
+{c:2,t:"qcm",q:"Sur quoi les accusations d'un agent doivent-elles toujours reposer ?",o:["Sur des faits","Sur des soupçons sérieux","Sur son expérience du terrain","Sur les consignes du client"],a:0,e:"Jamais sur des opinions ou des soupçons. L'agent doit aussi pouvoir justifier chacune de ses interventions par la loi ou le règlement qui lui donne la légitimité d'agir.",s:"Chapitre 2, §3"},
+{c:2,t:"vf",q:"Utiliser son téléphone cellulaire pour se divertir pendant un quart de travail démontre un manque de respect envers le client et l'employeur.",a:true,e:"L'agent utilise son téléphone comme outil de travail, jamais pour son divertissement.",s:"Chapitre 2, §1"},
+
+/* ---------------- CHAPITRE 3 ---------------- */
+{c:3,t:"liste",q:"Le gardiennage combine quatre activités complémentaires. Nommez-les.",n:4,items:[["surveillance"],["prevention"],["controle"],["protection"]],d:"Surveillance · Prévention · Contrôle · Protection",e:"Surveillance = observer et récolter des renseignements ; Prévention = réduire ou éliminer risques et dangers ; Contrôle = identifier et vérifier les autorisations ; Protection = défendre en cas de danger réel ou prévisible.",s:"Chapitre 3, §1.1"},
+{c:3,t:"qcm",q:"Dans le vocabulaire du gardiennage, laquelle de ces activités est le résultat d'une prévention insuffisante ou d'un événement imprévisible ?",o:["La surveillance","Le contrôle","La protection","Le renseignement"],a:2,e:"La protection est la défense d'une personne, d'un bien ou d'un lieu en cas de danger réel ou prévisible (agression, vol).",s:"Chapitre 3, §1.1"},
+{c:3,t:"liste",q:"On parle aussi des quatre fonctions des services de sécurité. Nommez-les.",n:4,items:[["renseignement"],["prevention"],["repression"],["gestion de crise","crise"]],d:"Le renseignement · La prévention · La répression · La gestion de crise",e:"Selon Maurice Cusson, « De l'action de sécurité », dans le Traité de sécurité intérieure.",s:"Chapitre 3, §1.1"},
+{c:3,t:"qcm",q:"Quelle est la différence entre un motif et un soupçon ?",o:["Le motif repose sur l'intuition, le soupçon sur des faits","Le motif est objectif : un collègue verrait la même chose ; le soupçon présume un déroulement sans en être témoin","Le motif vient du client, le soupçon vient de l'agent","Il n'y en a pas : les deux permettent d'intervenir"],a:1,e:"Un motif raisonnable signifie que l'agent n'a absolument aucun doute. En cas de simple soupçon, l'agent n'intervient pas : il continue de récolter des renseignements et transmet l'information à son superviseur ou au client.",s:"Chapitre 3, §1.2.1"},
+{c:3,t:"qcm",q:"Quelle est la différence entre détention et arrestation ?",o:["La détention suit toujours l'arrestation","Dès que la liberté d'une personne est limitée, elle est détenue ; pour l'arrestation, il faut dire clairement « Vous êtes en état d'arrestation »","La détention est le fait des agents de sécurité, l'arrestation celui des policiers","Ce sont deux mots pour la même réalité"],a:1,e:"Exemple du manuel : un conducteur intercepté par un policier avec gyrophares est détenu, sans être en état d'arrestation.",s:"Chapitre 3, §1.2.2"},
+{c:3,t:"multi",q:"Notes importantes sur l'arrestation citoyenne — lesquelles sont exactes ?",o:["L'agent ne doit pas mettre un suspect en état d'arrestation s'il souhaite uniquement l'expulser","L'agent ne doit jamais accuser la personne à moins d'avoir une preuve de l'infraction","L'agent ne peut utiliser la force que si le suspect résiste physiquement à son arrestation","Pour qu'une poursuite soit possible, l'arrestation doit avoir été faite légalement et selon la procédure","L'agent doit menotter le suspect en attendant la police"],a:[0,1,2,3],e:"Le manuel ne prévoit aucune utilisation de menottes par l'agent. Sans motif, l'agent peut procéder à une simple vérification selon les règles en place.",s:"Chapitre 3, §1.2.2"},
+{c:3,t:"qcm",q:"Lors d'une arrestation citoyenne, où l'agent devrait-il amener le suspect ?",o:["À l'extérieur du bâtiment","Au centre de contrôle du lieu de travail","Dans le bureau du client","Le laisser où il se trouve jusqu'à l'arrivée de la police"],a:1,e:"Pour le mettre à l'abri des regards et protéger sa vie privée.",s:"Chapitre 3, §1.2.2"},
+{c:3,t:"qcm",q:"Lors d'une expulsion, à quel moment l'agent appelle-t-il la police ?",o:["Dès le début, par précaution","Si la personne refuse toujours de partir après qu'on lui a ordonné de sortir","Seulement si la personne devient violente","Jamais : l'expulsion relève du propriétaire"],a:1,e:"Procédure : expliquer la situation, préciser les règlements et droits du propriétaire, demander de quitter, ordonner de sortir en annonçant l'appel à la police, puis appeler. La force seulement si elle est essentielle à la sécurité des gens présents.",s:"Chapitre 3, §1.2.3"},
+{c:3,t:"multi",q:"Pour qu'une fouille soit légale, l'agent doit :",o:["Avoir un motif raisonnable","Procéder de la manière la moins intrusive possible","N'employer que la force nécessaire","Rechercher les objets volés pour les remettre à la police"],a:[0,1,2],e:"La fouille d'un agent vise uniquement la sécurité de l'agent et du public, jamais la recherche d'éléments de preuve. Si la fouille est illégale, elle ne pourra pas servir de preuve.",s:"Chapitre 3, §1.2.4"},
+{c:3,t:"liste",q:"Nommez les trois types de postes en gardiennage.",n:3,items:[["stationnaire"],["mobile"],["patrouille"]],d:"Poste stationnaire · Poste mobile · Poste de patrouille",e:"Stationnaire : demeurer à un endroit précis. Mobile : comme le stationnaire, mais avec des rondes régulières à proximité (souvent seul, de soir ou de nuit). Patrouille : patrouiller tout le quart selon un plan défini.",s:"Chapitre 3, §2"},
+{c:3,t:"txt",q:"Que signifie l'abréviation RAS, utilisée par un agent en patrouille ?",a:["rien a signaler"],d:"Rien à signaler",e:"Pour chaque emplacement à patrouiller, l'agent indique RAS ou signale le problème à résoudre.",s:"Chapitre 3, §2.3"},
+{c:3,t:"qcm",q:"Une personne autorisée se présente accompagnée d'une personne non autorisée. Que fait l'agent (sauf directive contraire du client) ?",o:["Il refuse l'accès aux deux","Il note les renseignements personnels de l'accompagnateur et indique à la personne autorisée qu'elle en est responsable pendant la visite","Il laisse entrer sans formalité puisque quelqu'un se porte garant","Il appelle son superviseur avant toute décision"],a:1,e:"Si les directives du client diffèrent, l'agent s'en tient à celles-ci. En tout temps, tout le monde doit être bien identifié.",s:"Chapitre 3, §3.1"},
+{c:3,t:"qcm",q:"Lors d'une fouille manuelle complète, dans quel sens l'agent vérifie-t-il les côtés du corps ?",o:["Il commence à sa gauche, dans le sens antihoraire","Il commence à sa droite et poursuit dans le sens horaire","Il commence par le haut et descend","L'ordre n'a pas d'importance"],a:1,e:"Pour l'avant et l'arrière du corps, il fait une fouille en « U ». Commencer à sa droite et aller dans le sens horaire garantit une fouille méthodique.",s:"Chapitre 3, §4.1"},
+{c:3,t:"qcm",q:"Comment un agent doit-il fouiller le sac d'une personne ?",o:["En y mettant la main pour bien vérifier le fond","En touchant l'extérieur du sac, notamment le dessous, et en demandant à la personne d'ouvrir et de bouger le contenu","En vidant le sac sur une table","En le passant obligatoirement au portique détecteur"],a:1,e:"Ne jamais mettre la main dans le sac : cela évite une blessure ou une accusation de vol. Et il faut garder en tête la possibilité d'un double fond.",s:"Chapitre 3, §4.2"},
+{c:3,t:"vf",q:"Lors d'une fouille manuelle, l'agent vérifie le contenu des poches en les frôlant avec le dos de la main, puis demande à la personne de les vider et de les retourner.",a:true,e:"Si la personne porte un chapeau ou une casquette, il lui demande de le retirer brièvement pour vérifier qu'il n'y a rien dessous. Le port de gants est recommandé.",s:"Chapitre 3, §4.1 et §4.2"},
+{c:3,t:"qcm",q:"Selon le manuel, quel auteur a décrit la foule comme une entité distincte, influençable, impulsive et dépendante de ses meneurs ?",o:["Maurice Cusson","Gustave Le Bon","Benoît Dupont","Frédéric Lemieux"],a:1,e:"Gustave Le Bon, « Psychologie des foules ». Pour lui, une foule n'est pas la simple somme des gens qui la composent.",s:"Chapitre 3, §5.1"},
+{c:3,t:"liste",q:"Nommez les quatre types de foules.",n:4,items:[["passive","classique"],["sympathisants","manifestants","manifestation"],["curieux","improvisee"],["hostile","agressive"]],d:"Foule passive (ou classique) · Foule de sympathisants ou de manifestants · Foule de curieux (ou improvisée) · Foule hostile (ou agressive)",e:"La foule de curieux se forme spontanément lors d'un incendie ou d'un accident ; la foule hostile agit souvent sans but clair, sous l'impulsion du moment, et est très difficile à maîtriser.",s:"Chapitre 3, §5.2"},
+{c:3,t:"vf",q:"Une foule passive ne présente aucun risque : les agents peuvent y relâcher leur vigilance.",a:false,e:"Si un geste agressif est posé, il peut être reproduit par d'autres. L'effet de foule peut inciter les gens à mettre de côté leur intégrité pour se conformer au groupe.",s:"Chapitre 3, §5.2"},
+{c:3,t:"qcm",q:"Quelle patrouille vise d'abord à rassurer le public et à dissuader de potentiels malfaiteurs ?",o:["La patrouille de vérification","La patrouille d'observation","La patrouille de recherche","La patrouille de visibilité (ou de présence)"],a:3,e:"On place des agents identifiables (uniforme, couleurs voyantes, inscription « sécurité ») à des endroits stratégiques : c'est une forme de prévention.",s:"Chapitre 3, §6.1"},
+{c:3,t:"qcm",q:"Un agent doit retrouver un enfant égaré dans un centre commercial. De quel type de patrouille s'agit-il ?",o:["Patrouille de recherche","Patrouille de surveillance","Patrouille de contrôle","Patrouille de visibilité"],a:0,e:"La patrouille de recherche a un but défini et se fait de façon méthodique.",s:"Chapitre 3, §6.1"},
+{c:3,t:"vf",q:"En cas d'alarme, un agent en patrouille mobile peut dépasser les limites de vitesse pour arriver plus vite, son véhicule étant assimilé à un véhicule d'urgence.",a:false,e:"Le véhicule d'un agent n'est PAS un véhicule d'urgence. En tout temps, même en cas d'alarme, l'agent doit respecter le Code de la sécurité routière.",s:"Chapitre 3, §6.2"},
+{c:3,t:"qcm",q:"En gestion de la circulation, quelle est la règle numéro 1 ?",o:["L'attitude de l'agent","La sécurité de l'agent","La fluidité de la circulation","La visibilité de l'uniforme"],a:1,e:"Règle 1 : la sécurité de l'agent ; règle 2 : son attitude, sa posture et ses gestes, exemplaires en tout temps car beaucoup de gens le voient et le jugent.",s:"Chapitre 3, §7"},
+{c:3,t:"qcm",q:"Qui peut diriger la circulation dans un lieu public ?",o:["Tout agent de sécurité en uniforme","Seulement les agents de la paix ; un agent de sécurité uniquement lors d'un événement spécial ou d'un mandat avec la sécurité publique, autorisé par l'autorité compétente","N'importe quel agent, à la demande du client","Les agents titulaires d'un permis de conduire valide"],a:1,e:"Même à la demande du propriétaire, un agent ne peut pas fermer une rue ou en bloquer l'accès sans l'autorisation de l'autorité compétente. Hors exception, il ne s'occupe de la circulation que sur la propriété privée du client.",s:"Chapitre 3, §7.1 et §7.2"},
+{c:3,t:"liste",q:"Nommez quatre équipements essentiels pour gérer la circulation de façon sécuritaire.",n:4,items:[["dossard","bandes reflechissantes","reflechissant"],["cone","cones"],["baton","baton lumineux"],["sifflet"]],d:"Dossard et accessoires à bandes réfléchissantes · Cônes de signalisation · Bâton de circulation lumineux · Sifflet",e:"L'uniforme de l'agent est souvent noir et blanc, des couleurs peu voyantes : il faut bien voir et être vu.",s:"Chapitre 3, §7.4"},
+{c:3,t:"qcm",q:"Lors d'un événement extérieur, où l'agent doit-il se placer par rapport aux barrières qui bloquent une rue fermée ?",o:["Loin des barrières, pour surveiller la foule","Près des barrières, afin de laisser passer rapidement les véhicules d'urgence","À l'entrée principale du site","Au centre du site"],a:1,e:"Les véhicules d'urgence pourraient devoir accéder au site à tout moment.",s:"Chapitre 3, §7.3"},
+{c:3,t:"qcm",q:"Quelle est la différence entre une grève et un lock-out ?",o:["La grève vient des employés, le lock-out de l'employeur qui refuse de donner du travail","La grève est légale, le lock-out ne l'est pas","La grève touche un service, le lock-out toute l'entreprise","Il n'y en a pas"],a:0,e:"La grève est la cessation du travail par un groupe d'employés pour faire pression sur l'employeur ; le lock-out, le refus de l'employeur de donner du travail pour pousser les employés à accepter des conditions. Les deux droits sont protégés.",s:"Chapitre 3, §8.1"},
+{c:3,t:"vf",q:"Pendant une grève, l'employeur peut demander à l'agent de sécurité d'effectuer une tâche normalement faite par un employé en grève, comme passer le balai.",a:false,e:"Un employeur ne peut jamais le demander. L'agent doit aussi rester impartial, ne jamais prendre position dans le conflit et ne jamais répondre à la provocation.",s:"Chapitre 3, §8.2"},
+{c:3,t:"multi",q:"Lors d'un conflit de travail, quelles consignes s'appliquent à la patrouille de l'agent ?",o:["Effectuer des rondes de surveillance plus souvent pour prévenir le vandalisme","Rester imprévisible pour que personne ne tire avantage de sa routine","Garder exactement le même horaire pour rassurer les employés","Détailler tout incident dans un rapport, avec photo si possible"],a:[0,1,3],e:"Le contrôle d'accès prend aussi plus d'importance : certaines personnes n'ont peut-être plus les mêmes autorisations.",s:"Chapitre 3, §8.2"},
+
+/* ---------------- CHAPITRE 4 ---------------- */
+{c:4,t:"qcm",q:"Qu'est-ce que le centre de contrôle ?",o:["Le bureau du superviseur de l'agence","Le principal poste de surveillance des agents, d'où l'on visionne les caméras et contacte les services d'urgence","La salle des machines d'un bâtiment","Le poste de garde à l'entrée d'un site"],a:1,e:"Il permet d'observer beaucoup de gens en même temps pour repérer les situations douteuses ; une vérification en personne est faite ensuite par un agent. Selon le type de centre, une alarme déclenche un appel direct au 9-1-1 ou une vérification préalable par les agents.",s:"Chapitre 4, §1"},
+{c:4,t:"qcm",q:"Quelles caméras sont surtout utilisées dans les endroits publics grâce à leur angle de vue très large ?",o:["Les caméras fixes","Les caméras Bullet","Les caméras de type dôme","Les caméras jour et nuit"],a:2,e:"Les caméras Bullet ont les mêmes fonctions que les fixes mais sont plus petites ; les caméras jour et nuit adaptent automatiquement leur lentille à la luminosité.",s:"Chapitre 4, §2"},
+{c:4,t:"liste",q:"Nommez au moins quatre systèmes de contrôle d'accès et de reconnaissance.",n:4,items:[["memoire visuelle","memoire"],["carte","cartes d acces"],["laissez passer","badge"],["cle","verrouillage","cles"],["reconnaissance faciale","biometrique","faciale"]],d:"Mémoire visuelle de l'agent · Cartes d'accès · Laissez-passer et badges · Clés et verrouillage · Reconnaissance faciale",e:"Des logiciels similaires existent aussi pour reconnaître les plaques d'immatriculation.",s:"Chapitre 4, §3.1"},
+{c:4,t:"qcm",q:"Une carte d'accès est perdue ou volée. Que doit faire l'agent responsable ?",o:["Attendre les directives du client","La désactiver immédiatement","Remplacer la serrure concernée","En émettre une nouvelle et conserver l'ancienne au dossier"],a:1,e:"C'est une question de sécurité immédiate. Selon le lecteur, la carte fonctionne par simple contact (carte à puce) ou exige un NIP.",s:"Chapitre 4, §3.1"},
+{c:4,t:"qcm",q:"Quel est le principal désavantage du système de clés et verrouillage ?",o:["Il est le plus coûteux à installer","Quand une clé est perdue, la serrure doit être changée — et plusieurs serrures s'il s'agit d'un passe-partout","Il exige un NIP difficile à mémoriser","Il ne fonctionne pas en cas de panne d'électricité"],a:1,e:"Quand la gestion des clés relève de l'agent, il doit faire un suivi rigoureux de la distribution, du retour et de l'entreposage sécuritaire.",s:"Chapitre 4, §3.1"},
+{c:4,t:"vf",q:"Sauf s'il s'agit d'une fouille de sécurité après une arrestation citoyenne, la fouille exige le consentement verbal de la personne, qui peut le retirer à tout moment.",a:true,e:"Si elle retire son consentement, refuser l'accès au bâtiment ou au site est légitime puisque la fouille n'a pas été complétée. L'agent signale la situation à son superviseur.",s:"Chapitre 4, §4.1"},
+{c:4,t:"qcm",q:"À quoi sert un poste de garde ?",o:["À entreposer l'équipement de l'agence","À contrôler l'accès à un bâtiment ou un site, où les gens sont obligés de s'arrêter avant d'entrer","À accueillir les services d'urgence","À surveiller les caméras du bâtiment"],a:1,e:"Comme dans le métro, il peut utiliser des tourniquets pour faciliter le contrôle.",s:"Chapitre 4, §5"},
+{c:4,t:"multi",q:"Parmi ces équipements de contrôle de foule et de sécurisation de périmètre, lesquels sont mentionnés dans le manuel ?",o:["Les barrières d'acier de contrôle de foule","Le ruban de sécurité","Les objets à proximité (poteaux de guidage, cônes, meubles)","Les panneaux et affiches","Les gaz lacrymogènes"],a:[0,1,2,3],e:"Faire preuve de créativité en cas d'urgence permet de gérer rapidement une situation en attendant l'aide appropriée — une table peut bloquer une porte, par exemple.",s:"Chapitre 4, §5"},
+
+/* ---------------- CHAPITRE 5 ---------------- */
+{c:5,t:"liste",q:"Nommez les cinq éléments du schéma de la communication.",n:5,items:[["destinateur"],["destinataire"],["contexte"],["message"],["code"]],d:"Destinateur · Destinataire · Contexte · Message · Code",e:"Destinateur = celui qui émet ; destinataire = celui à qui on s'adresse ; contexte = les conditions qui entourent l'échange ; message = le sujet ; code = le moyen de transmission (une langue, un langage propre au client, « code 7 » pour demande d'assistance, etc.).",s:"Chapitre 5, §1.1"},
+{c:5,t:"multi",q:"Parmi ces éléments, lesquels relèvent de la communication non verbale ?",o:["Le contact visuel","Les expressions faciales","Le choix des mots","La posture","La distance avec l'interlocuteur"],a:[0,1,3,4],e:"Les mots relèvent de la communication verbale. Les gestes, le ton de la voix et le langage corporel font aussi partie du non verbal.",s:"Chapitre 5, §1.2"},
+{c:5,t:"liste",q:"Quelles sont les étapes de la résolution efficace d'un conflit ?",n:5,items:[["reconnaitre"],["decrire"],["enumerer","solutions potentielles","lister"],["analyser"],["choisir","meilleure solution"],["mettre en oeuvre","appliquer","mise en oeuvre"],["evaluer","resultat"]],d:"Reconnaître le problème · Le décrire · Énumérer les solutions potentielles · Les analyser · Choisir la meilleure · La mettre en œuvre · Évaluer le résultat",e:"Cinq des sept étapes suffisent ici. Les stratégies adoptées en situation conflictuelle sont l'évitement, la compétition, le compromis et la collaboration.",s:"Chapitre 5, §2.1"},
+{c:5,t:"multi",q:"Quelles sont des barrières de communication données par le manuel ?",o:["La langue","La religion","Le temps (canicule, tempête de neige)","Le bruit","La fatigue"],a:[0,1,2,3,4],e:"L'agent est responsable de pallier ces problèmes avec les moyens à sa disposition et de ne pas s'attarder sur ses différences avec son interlocuteur.",s:"Chapitre 5, §2.1"},
+{c:5,t:"qcm",q:"En situation de conflit, quel pronom l'agent doit-il utiliser ?",o:["« Tu », pour créer une proximité","« Vous », par respect","« On », pour inclure","Peu importe"],a:1,e:"Le récapitulatif ajoute : maîtriser ses émotions, maintenir le contact visuel, rester mobile, être à un endroit sécuritaire, laisser parler sans interrompre ni juger, reformuler, poser des questions, trouver une solution et passer à l'action.",s:"Chapitre 5, §2.2"},
+{c:5,t:"qcm",q:"Quelle technique avancée de communication tactique le manuel recommande-t-il pour désamorcer la tension ?",o:["Hausser légèrement le ton pour marquer l'autorité","Trouver des similitudes, vraies ou fausses, avec son interlocuteur","Faire intervenir un collègue plus expérimenté","Garder le silence jusqu'à ce que la personne se calme"],a:1,e:"L'agent centre l'interaction sur un ou des points communs. Aucun type d'intimidation n'est acceptable, même s'il peut être amené à influencer les choix d'une personne.",s:"Chapitre 5, §2.1"},
+{c:5,t:"multi",q:"Règles d'utilisation du talkie-walkie — lesquelles sont exactes ?",o:["Toujours s'identifier : nom, poste et emplacement exact","Une seule personne peut parler à la fois, mais on peut interrompre au besoin","S'abstenir de transmettre des renseignements personnels ou confidentiels","Il existe un langage codé universel à tous les établissements","C'est un outil de travail uniquement : pas de conversations inutiles"],a:[0,1,2,4],e:"Il n'y a pas de langage universel : l'agent s'adapte aux codes de l'établissement où il se trouve.",s:"Chapitre 5, §3.1"},
+{c:5,t:"txt",q:"Comment épelle-t-on « XGUARD » avec l'alphabet radio de l'OTAN ?",a:["x ray golf uniform alfa romeo delta","xray golf uniform alfa romeo delta","x ray golf uniform alpha romeo delta","xray golf uniform alpha romeo delta"],d:"X-RAY · GOLF · UNIFORM · ALFA · ROMEO · DELTA",e:"Cet alphabet phonétique international, normalisé par l'UIT, permet d'épeler des mots pour assurer une compréhension optimale du message.",s:"Chapitre 5, §3.1"},
+{c:5,t:"qcm",q:"Quelle lettre de l'alphabet radio correspond au mot « QUEBEC » ?",o:["K","Q","U","C"],a:1,e:"A Alpha, B Bravo, C Charlie, D Delta, E Echo, F Fox-trot, G Golf, H Hotel, I India, J Juliet, K Kilo, L Lima, M Mike, N November, O Oscar, P Papa, Q Quebec, R Romeo, S Sierra, T Tango, U Uniform, V Victor, W Whiskey, X X-ray, Y Yankee, Z Zulu.",s:"Chapitre 5, §3.1"},
+{c:5,t:"multi",q:"Pour un appel au 9-1-1 réussi, l'agent doit :",o:["Rester calme et bien articuler","Fournir son nom, son numéro de téléphone et son emplacement dès le début de l'appel","Effectuer les premiers soins exactement comme le répartiteur le demande","Demander « est-ce que je peux raccrocher ? » avant de rompre la communication","Raccrocher dès que les secours sont en route pour libérer la ligne"],a:[0,1,2,3],e:"On donne ses coordonnées dès le début pour que le répartiteur puisse rappeler ou envoyer les secours si la conversation s'interrompt.",s:"Chapitre 5, §4"},
+
+/* ---------------- CHAPITRE 6 ---------------- */
+{c:6,t:"qcm",q:"Quel article du Code criminel autorise une personne à employer la force nécessaire lorsqu'elle agit sur des motifs raisonnables dans l'application de la loi ?",o:["Article 24","Article 25","Article 27","Article 34"],a:1,e:"Article 25 : protection des personnes autorisées. L'article 26 ajoute que quiconque est autorisé à employer la force est criminellement responsable de tout excès.",s:"Chapitre 6, §1"},
+{c:6,t:"qcm",q:"Quel article du Code criminel porte sur la défense des biens ?",o:["Article 27","Article 28","Article 34","Article 35"],a:3,e:"L'article 34 porte sur la défense de la personne (emploi ou menace d'emploi de la force) ; l'article 35 sur la défense des biens.",s:"Chapitre 6, §1"},
+{c:6,t:"qcm",q:"Que signifie « employer la force nécessaire » ?",o:["Employer autant de force que la personne en face","Employer la force minimale requise","Employer la force permise par le client","Employer la force jusqu'à ce que la personne se soumette"],a:1,e:"Toute force excessive peut mener à des poursuites. La force employée doit toujours être proportionnelle à l'intensité de l'attaque, et la force visant à infliger des blessures graves ou la mort est strictement interdite.",s:"Chapitre 6, §3"},
+{c:6,t:"liste",q:"Quelles sont les trois étapes de la méthode d'intervention ?",n:3,items:[["analyser","analyse"],["planifier","planification"],["agir","action"]],d:"Analyser · Planifier · Agir",e:"Il ne faut pas hésiter à revenir plusieurs fois aux phases d'analyse et de planification pendant l'intervention.",s:"Chapitre 6, §3.2"},
+{c:6,t:"txt",q:"Quel terme anglais désigne le fait, pour un agent, de concentrer toute son attention sur quelques détails du problème sans voir l'ensemble de la situation ?",a:["tunnel vision","vision tunnel"],d:"Le tunnel vision",e:"C'est l'un des pièges de la phase d'analyse : des facteurs externes au problème peuvent à tout moment faire évoluer la situation.",s:"Chapitre 6, §3.2"},
+{c:6,t:"qcm",q:"Dans le Modèle national de l'emploi de la force, à quelle catégorie de comportement correspondent le refus de communiquer, le refus de bouger et la désobéissance aux règles ?",o:["La coopération","La résistance passive","La résistance active","L'agression"],a:1,e:"La résistance active correspond à la tentative de s'enfuir et à l'expression physique du refus d'obéir ; l'agression aux coups et au langage corporel menaçant.",s:"Chapitre 6, §3.3"},
+{c:6,t:"qcm",q:"Dans la progression de l'emploi de la force, que trouve-t-on immédiatement après la présence de l'agent ?",o:["Le contrôle physique léger","Une communication claire et simple","Les armes intermédiaires","Le contrôle physique puissant"],a:1,e:"Progression : présence de l'agent → communication claire et simple → contrôle physique léger (escorte, immobilisation) → contrôle physique puissant (contrôle articulaire, points de pression, coups à mains nues, amener au sol) → armes intermédiaires (bâton, aérosols, pistolet à impulsion électrique) → force mortelle.",s:"Chapitre 6, §3.4"},
+{c:6,t:"qcm",q:"Quand la force mortelle peut-elle être employée ?",o:["Lorsque le suspect refuse d'obéir","En dernier recours et uniquement dans le but de sauver une vie","Lorsque le client l'autorise","Lorsque le suspect est armé"],a:1,e:"Elle ne doit jamais être utilisée dans d'autres circonstances. Et le retrait reste une solution possible à tout moment lors d'une intervention.",s:"Chapitre 6, §3.4"},
+{c:6,t:"multi",q:"Si une agression physique semble sur le point de se produire, l'agent doit d'abord :",o:["Analyser son environnement pour rester ou aller à l'écart du public et des dangers","Observer la communication verbale et non verbale de la personne agressive","Maintenir un dialogue pour démontrer son écoute et réduire la tension","Employer immédiatement une clé de bras préventive"],a:[0,1,2],e:"Si malgré tout l'agression est imminente : appeler du renfort, employer la force strictement nécessaire, ne pas laisser l'intervention s'éterniser (cela pourrait être perçu comme de la brutalité).",s:"Chapitre 6, §2"},
+{c:6,t:"vf",q:"L'agent peut laisser un membre du public l'aider à immobiliser une personne si la situation le dépasse.",a:false,
+e:"Le public peut aider en appelant le 9-1-1 ou en participant aux premiers soins, mais l'agent ne doit pas le laisser intervenir autrement, par exemple en immobilisant ou en frappant une personne.",s:"Chapitre 6, §3.5"},
+{c:6,t:"multi",q:"Qu'est-ce que l'agent ne doit pas laisser paraître en communication tactique ?",o:["Sa peur","Son stress","Sa colère","Son impatience","Ses préjugés"],a:[0,1,2,3,4],e:"Une personne a davantage tendance à écouter un agent confiant. En règle générale, une communication réfléchie évite que l'emploi de la force soit nécessaire.",s:"Chapitre 6, §3.5"},
+{c:6,t:"qcm",q:"La force a été nécessaire lors d'une intervention. Que doit faire l'agent ensuite ?",o:["Rédiger son rapport à la fin du quart, sans plus","Contacter la police et, en l'attendant, veiller à la sécurité de tous en maintenant la tension au plus bas","Laisser partir la personne si elle s'est calmée","Demander au client s'il souhaite porter plainte avant d'agir"],a:1,e:"L'agent doit aussi rester conscient qu'il est observé et peut être filmé : l'intervention peut avoir un impact majeur sur sa réputation, celle de l'agence et du client, et l'exposer à des poursuites.",s:"Chapitre 6, §2 et §3.5"},
+
+/* ---------------- CHAPITRE 7 ---------------- */
+{c:7,t:"liste",q:"Nommez les trois corps de police du Québec.",n:3,items:[["municipaux","municipal","cpm","spvm"],["surete du quebec","sq","provinciale"],["gendarmerie","grc","federale"]],d:"Les corps de police municipaux (CPM) · La Sûreté du Québec (provinciale) · La Gendarmerie royale du Canada (fédérale)",e:"Selon la Loi sur la police, ils ont pour mission de maintenir la paix, l'ordre et la sécurité publique, de prévenir et réprimer le crime et d'en rechercher les auteurs.",s:"Chapitre 7, §2.1"},
+{c:7,t:"qcm",q:"Les services d'un corps de police municipal sont classés par niveau. Que représente le niveau 1 ?",o:["Moins de 100 000 habitants","Entre 100 000 et 250 000 habitants","1 million d'habitants ou plus","Les enquêtes interrégionales"],a:0,e:"Du niveau 1 (moins de 100 000 habitants) au niveau 5 (1 million ou plus). Plus le niveau est bas, moins le nombre de services du CPM est élevé.",s:"Chapitre 7, §2.1.1"},
+{c:7,t:"qcm",q:"Qui est responsable du niveau 6 de services policiers ?",o:["Le SPVM","La Sûreté du Québec","La GRC","Le ministère de la Sécurité publique"],a:1,e:"Le niveau 6 n'est pas lié à la taille d'une municipalité : il concerne les enquêtes ou services touchant plusieurs villes ou régions, ou ayant des implications à l'extérieur du Québec.",s:"Chapitre 7, §2.1.2"},
+{c:7,t:"qcm",q:"À partir de quelle population une ville peut-elle former son propre corps de police municipal, avec l'autorisation du ministère de la Sécurité publique ?",o:["10 000 habitants","25 000 habitants","50 000 habitants","100 000 habitants"],a:2,e:"Dans certaines grandes villes, la responsabilité du CPM s'étend à un regroupement de villes : le SPVM couvre toute l'île de Montréal.",s:"Chapitre 7, §2.1.1"},
+{c:7,t:"qcm",q:"Au Québec, à quoi se limite principalement le rôle de la GRC ?",o:["À l'application de toutes les lois fédérales et provinciales","À mener des enquêtes, partager des renseignements et collaborer avec les autres corps policiers","Au contrôle de la circulation sur les autoroutes","À la surveillance des palais de justice"],a:1,e:"Ses enquêtes portent sur les crimes de compétence fédérale ou d'aspect national ou international : sécurité nationale, frontières, finance, crime organisé. Elle protège aussi les politiciens canadiens et les dignitaires étrangers en visite.",s:"Chapitre 7, §2.1.3"},
+{c:7,t:"qcm",q:"Quelle formation est habituellement exigée d'un agent de sécurité selon la Classification nationale des professions ?",o:["Un DEC en techniques policières","Un diplôme d'études secondaires et une formation reconnue par le BSP","Une formation de 15 semaines à l'ENPQ","Aucune formation particulière"],a:1,e:"Le policier (CNP 4311) doit détenir un DEC en techniques policières et suivre 15 semaines à l'École nationale de police du Québec. L'agent de sécurité porte le code CNP 6541.",s:"Chapitre 7, §2.2"},
+{c:7,t:"qcm",q:"Qui doit fournir les services de sécurité incendie au Québec ?",o:["Le ministère de la Sécurité publique","Les municipalités","La Sûreté du Québec","Les MRC exclusivement"],a:1,e:"Le ministère coordonne la sécurité incendie ; les municipalités fournissent les services. En décembre 2020, la province comptait 656 services de sécurité incendie (SSI).",s:"Chapitre 7, §3"},
+{c:7,t:"liste",q:"Quels sont les trois rôles principaux des services de sécurité incendie ?",n:3,items:[["analyser les risques","risques"],["prevention","prevenir"],["intervention","sauvetage","lutte contre les incendies","gerer les interventions"]],d:"Analyser les risques d'incendie · Participer activement à la prévention · Gérer les interventions de sauvetage et de lutte contre les incendies",e:"Les SSI agissent aussi comme premiers répondants dans diverses situations d'urgence, notamment avant l'arrivée des ambulanciers.",s:"Chapitre 7, §3"},
+{c:7,t:"vf",q:"La relation entre la sécurité privée et la sécurité publique est complémentaire : leurs pouvoirs diffèrent, mais leur objectif principal est le même.",a:true,e:"Assurer la sécurité des personnes et des biens. La sécurité privée appuie la police en intervenant dans le secteur privé, moins accessible aux policiers.",s:"Chapitre 7, §4"},
+
+/* ---------------- CHAPITRE 8 ---------------- */
+{c:8,t:"multi",q:"Témoin de violence, l'agent doit :",o:["Ne rien tenter qui pourrait mettre sa vie ou celle d'autrui en danger","Composer le 9-1-1 et décrire précisément les faits","Une fois le danger écarté, porter secours aux blessés et réconforter les témoins","Éviter d'utiliser son cellulaire pour ne pas congestionner le réseau","Rester en ligne avec ses proches pour les rassurer pendant l'événement"],a:[0,1,2,3],e:"Si l'on doit communiquer, être bref et privilégier les messages textes, courriels et messages privés, moins problématiques pour le réseau. Dès leur arrivée, les services d'urgence ont la priorité.",s:"Chapitre 8, §1.2"},
+{c:8,t:"liste",q:"Selon la vidéo de l'Université de Sherbrooke citée par le manuel, quelles sont les trois réponses possibles en situation de tireur actif ?",n:3,items:[["fuir","s enfuir","enfuir"],["cacher","barricader","se barricader"],["combattre","force","attaquer","neutraliser"]],d:"Fuir · Se barricader (se cacher) · Combattre (utiliser la force)",e:"La priorité est de s'enfuir ; si c'est impossible sans risque, se cacher ; et seulement s'il n'y a aucune autre option et que c'est une question de vie ou de mort, utiliser la force.",s:"Chapitre 8, §3.1 et §3.3"},
+{c:8,t:"multi",q:"Un agent fuit un tireur actif. Que doit-il faire ?",o:["Quitter par une sortie qu'il connaît et sait sécuritaire","Abandonner ses effets personnels","Éviter les ascenseurs et privilégier les escaliers","Composer le 9-1-1 dès qu'il est en sécurité","Retourner chercher les collègues restés à l'intérieur"],a:[0,1,2,3],e:"Il ne doit laisser personne entrer ou retourner dans l'endroit évacué. Il dit aux gens croisés pendant sa fuite d'évacuer les lieux.",s:"Chapitre 8, §3.1.1"},
+{c:8,t:"multi",q:"L'agent doit se cacher d'un tireur actif. Quelles consignes s'appliquent ?",o:["Fermer et verrouiller ou bloquer les portes avec des objets lourds","Fermer les rideaux et éteindre les lumières","Éteindre les appareils pouvant attirer l'attention","Rester silencieux et faire le mort au besoin","Sortir dès que les coups de feu cessent"],a:[0,1,2,3],e:"Il faut attendre les consignes des policiers avant de sortir de sa cachette.",s:"Chapitre 8, §3.1.2"},
+{c:8,t:"multi",q:"Pour qu'on sache immédiatement qu'il n'est pas le tireur, l'agent doit :",o:["Demeurer calme","Garder ses mains libres et bien visibles","Éviter tout mouvement qui pourrait prêter à confusion","Crier son nom et sa fonction en continu"],a:[0,1,2],e:"Ces trois consignes valent lors de l'arrivée de la police.",s:"Chapitre 8, §3.1.3"},
+{c:8,t:"txt",q:"Quel périmètre de sécurité faut-il établir autour d'un objet suspect en cas d'alerte à la bombe ?",a:["100"],d:"100 pieds",e:"À ne pas confondre avec le périmètre d'au moins 50 pieds établi autour d'une fuite de gaz.",s:"Chapitre 8, §4.1"},
+{c:8,t:"txt",q:"Quel périmètre de sécurité faut-il établir autour d'une fuite de gaz, en attendant les pompiers ?",a:["50"],d:"Au moins 50 pieds",e:"Procédure : aviser le superviseur, qui se déplace pour constater ; si la fuite semble réelle, appel au 9-1-1 ; le directeur des lieux est informé ; périmètre d'au moins 50 pieds ; puis appui aux pompiers.",s:"Chapitre 8, §5"},
+{c:8,t:"vf",q:"Une alerte à la bombe doit toujours être considérée comme réelle.",a:true,e:"En cas d'alerte : contacter le 9-1-1, prévenir le superviseur, évacuer en attendant les policiers, établir un périmètre de 100 pieds, assister la police et rédiger un rapport complet.",s:"Chapitre 8, §4.1"},
+{c:8,t:"qcm",q:"Un agent découvre un colis suspect. Pourquoi ne doit-il pas utiliser son cellulaire ou son talkie-walkie à proximité ?",o:["Parce que le réseau serait congestionné","Parce que cela pourrait déclencher une explosion accidentelle","Parce que l'appel ne serait pas confidentiel","Parce que les ondes brouillent les caméras"],a:1,e:"Il ne doit en aucun cas déplacer ou toucher le colis. Il inspecte les environs sans rien déplacer et signale tout autre objet suspect ou déplacé.",s:"Chapitre 8, §4.4"},
+{c:8,t:"txt",q:"Que doit répondre un agent questionné par les médias lors d'une alerte à la bombe ?",a:["aucun renseignement"],d:"« Je n'ai aucun renseignement à vous communiquer. »",e:"Il doit ensuite prévenir la personne responsable (superviseur, chargé de communication) de la présence des médias.",s:"Chapitre 8, §4.1"},
+{c:8,t:"qcm",q:"Lors d'une tempête de neige ou d'un froid extrême, que doit vérifier l'agent ?",o:["Uniquement l'état des stationnements","L'état de la tuyauterie, la formation de plaques de glace et que les issues de secours ne sont pas bloquées par la neige","Le niveau de carburant de la génératrice","Le fonctionnement des caméras extérieures"],a:1,e:"Ces trois vérifications sont nommées explicitement dans le manuel.",s:"Chapitre 8, §6.2"},
+{c:8,t:"multi",q:"En cas de panne d'ascenseur, l'agent doit :",o:["Entrer en contact avec les personnes à l'intérieur et les rassurer","Vérifier combien elles sont et si quelqu'un a besoin d'assistance médicale","Contacter la compagnie responsable de la réparation et demander une assistance immédiate","Tenter d'ouvrir les portes lui-même pour accélérer les choses","Communiquer chaque étape aux personnes dans l'ascenseur"],a:[0,1,2,4],e:"Il attend l'arrivée du mécanicien sans rien tenter lui-même, sauf si la vie d'une personne est en danger.",s:"Chapitre 8, §7.1"},
+{c:8,t:"qcm",q:"Le feu semble impossible à maîtriser. Que fait l'agent ?",o:["Il tente une dernière fois avec un second extincteur","Il quitte les lieux immédiatement et déclenche l'alarme incendie","Il attend les pompiers à l'entrée","Il ferme toutes les portes coupe-feu avant de sortir"],a:1,e:"Ensuite : appeler le 9-1-1, procéder à l'évacuation et vérifier qui a évacué aux points de rassemblement, établir un périmètre, vérifier s'il y a des victimes, rendre le site accessible aux pompiers et les guider.",s:"Chapitre 8, §7.4"},
+{c:8,t:"multi",q:"Que doit contenir, au minimum, un plan de mesures d'urgence ?",o:["Un répertoire des employés ou des résidents","Le processus décisionnel en cas d'urgence","Des plans détaillés de chaque secteur et des plans d'évacuation","Une fiche de renseignements à utiliser en cas d'alerte à la bombe","Les directives en cas de tireur actif, d'incendie et d'incidents liés à la météo","La liste des fournisseurs de l'entreprise"],a:[0,1,2,3,4],e:"Il comprend aussi une fiche décrivant les rôles des employés participant à la gestion des mesures d'urgence, dont le coordonnateur, et des procédures en cas de sinistre et d'incidents d'origine humaine.",s:"Chapitre 8, §8"},
+{c:8,t:"qcm",q:"Quel guide le manuel désigne-t-il comme référence en sécurité événementielle ?",o:["Le Guide des opérations du ministère de la Sécurité publique","Le Guide de sécurisation de sites et de rassemblements populaires du SPVM","Le Guide d'utilisation d'une fiche de données de sécurité de la CNESST","Le Modèle national de l'emploi de la force de l'ENPQ"],a:1,e:"Les grands rassemblements exigent des règles et des stratégies de sécurité bien précises.",s:"Chapitre 8, §9.1"},
+{c:8,t:"multi",q:"Dans le contexte de la COVID-19, quel équipement l'agent doit-il porter ?",o:["Un masque, obligatoire dans les lieux publics fermés","Des gants jetables lorsque la situation le requiert","Une visière ou des lunettes de protection, selon le client","Une combinaison intégrale"],a:[0,1,2],e:"Ses rôles-clés sur le terrain sont la transmission d'information, la prévention et la surveillance : affiches sur le lavage des mains et la distanciation, gel hydroalcoolique, mouchoirs et lingettes, poubelles accessibles.",s:"Chapitre 8, §2.2"},
+{c:8,t:"qcm",q:"Selon le manuel, quelles personnes sont les plus à risque de complications de la COVID-19 ?",o:["Les personnes de 60 ans et plus","Les personnes au système immunitaire affaibli, atteintes d'une maladie chronique, et les 70 ans ou plus","Uniquement les personnes hospitalisées","Les personnes asymptomatiques"],a:1,e:"N'importe qui, peu importe son âge ou son état de santé, peut toutefois être infecté et tomber gravement malade. Les personnes asymptomatiques transmettent aussi le virus.",s:"Chapitre 8, §2.1"},
+
+/* ---------------- CHAPITRE 9 ---------------- */
+{c:9,t:"liste",q:"Quelles sont les trois composantes du triangle du feu ?",n:3,items:[["chaleur","source de chaleur"],["combustible"],["comburant","oxygene"]],d:"Une source de chaleur · Un combustible · Un comburant (le plus souvent l'oxygène)",e:"Sans ces trois composantes, un feu ne peut pas éclater ; si l'un des éléments est retiré, il peut s'interrompre.",s:"Chapitre 9, §1.1"},
+{c:9,t:"qcm",q:"Comment le manuel définit-il un comburant ?",o:["Un matériau qui a la propriété de brûler","L'énergie d'activation du feu","Une substance chimique qui se combine au combustible en l'oxydant","La réaction chimique de combustion"],a:2,e:"Le feu = la réaction chimique de combustion ; la chaleur = l'énergie d'activation ; le combustible = le matériau qui brûle.",s:"Chapitre 9, §1"},
+{c:9,t:"qcm",q:"À quelle classe appartient un feu de liquides inflammables (essence, peintures, huiles, graisses) ?",o:["Classe A","Classe B","Classe C","Classe K"],a:1,e:"A = combustibles ordinaires (bois, papier, chiffons) ; B = liquides inflammables ; C = équipement électrique ; D = métaux combustibles ; K = huiles et graisses de cuisson.",s:"Chapitre 9, §1.2"},
+{c:9,t:"qcm",q:"À quelle classe appartient un feu d'huiles et de graisses de cuisson ?",o:["Classe B","Classe C","Classe D","Classe K"],a:3,e:"Ne jamais utiliser d'eau ni un autre liquide pour éteindre un feu de classe K. Les classes B et D proscrivent également l'eau.",s:"Chapitre 9, §1.2"},
+{c:9,t:"qcm",q:"Le magnésium, le potassium et le titane sont des exemples de quelle classe de feu ?",o:["Classe A","Classe C","Classe D","Classe K"],a:2,e:"Classe D : métaux combustibles. Ne pas utiliser d'eau.",s:"Chapitre 9, §1.2"},
+{c:9,t:"liste",q:"Nommez les trois méthodes d'extinction d'un feu.",n:3,items:[["refroidissement","refroidir"],["etouffement","etouffer"],["retrait du combustible","retrait","retirer le combustible"]],d:"Le refroidissement · L'étouffement · Le retrait du combustible",e:"Refroidissement = faire baisser la température du combustible sous sa température d'inflammation ; étouffement = éliminer ou réduire le comburant ; retrait = enlever le matériau inflammable.",s:"Chapitre 9, §1.4"},
+{c:9,t:"qcm",q:"Au Québec, à quoi sert un déclencheur manuel de couleur jaune ?",o:["À déclencher l'alarme incendie","À verrouiller les portes coupe-feu","À déclencher manuellement une alarme de fuite de gaz","À appeler directement le 9-1-1"],a:2,e:"Rouge = alarme incendie (parfois extinction automatique d'une zone) ; bleu = verrouillage des portes coupe-feu par verrou magnétique, avec signal au panneau sans déclencher l'alarme ; jaune = détection de gaz.",s:"Chapitre 9, §2.1"},
+{c:9,t:"qcm",q:"Quelle est la différence entre un système d'alarme incendie à une étape et à deux étapes ?",o:["Le système à deux étapes exige du personnel de surveillance et présente un faible taux d'alarmes intempestives","Le système à une étape est réservé aux grands bâtiments","Le système à deux étapes ne déclenche jamais d'alarme sonore","Il n'y a aucune différence fonctionnelle"],a:0,e:"Une étape : aucun personnel de surveillance, trois fonctions (détection, traitement, alarme), taux élevé d'alarmes intempestives. Deux étapes : quatre fonctions (détection, alerte validée par le personnel, traitement ou annulation, alarme ou remise à l'état d'origine).",s:"Chapitre 9, §2.2"},
+{c:9,t:"qcm",q:"De quoi est rempli un extincteur à eau ?",o:["D'eau seulement","De 2/3 d'eau et 1/3 d'air comprimé","De 1/3 d'eau et 2/3 d'air comprimé","D'eau et de mousse"],a:1,e:"Utilisé pour les feux de classe A, il agit par refroidissement. Jamais sur un feu électrique (l'eau conduit l'électricité) ni sur les classes B et K (elle disperse le liquide et propage l'incendie).",s:"Chapitre 9, §3.1.1"},
+{c:9,t:"qcm",q:"Pour quelles classes de feux l'extincteur à anhydride carbonique (CO₂) est-il utilisé ?",o:["Classes A et B","Classes B et C","Classes C et D","Classes A et K"],a:1,e:"Il agit par étouffement. Son jet dure de 10 à 30 secondes. À ne pas utiliser en espace clos (déplacement de l'oxygène), ni sur un feu de classe A : le feu ne s'éteindra pas ou se rallumera une fois le CO₂ dispersé.",s:"Chapitre 9, §3.1.1"},
+{c:9,t:"qcm",q:"Quel type d'extincteur est le plus commun ?",o:["L'extincteur à eau","L'extincteur à anhydride carbonique","L'extincteur à poudre chimique","L'extincteur à mousse"],a:2,e:"Il crée un espace entre le combustible et l'oxygène, mettant fin à la réaction de combustion. Portée faible ou moyenne, jet de 10 à 25 secondes ; la poudre peut endommager moteurs, ordinateurs et équipements électriques. Un extincteur ABC éteint les feux A, B et C.",s:"Chapitre 9, §3.1.1"},
+{c:9,t:"txt",q:"Que signifie l'acronyme EVAB, la procédure d'utilisation d'un extincteur ?",a:["enlever viser appuyer balayer"],d:"Enlever la goupille · Viser la base des flammes · Appuyer sur le levier · Balayer la zone en feu",e:"Elle s'applique à tous les types d'extincteurs. Viser la BASE des flammes, pas les flammes elles-mêmes.",s:"Chapitre 9, §3.1.3"},
+{c:9,t:"qcm",q:"Où l'agent doit-il toujours se placer lorsqu'il utilise un extincteur ?",o:["Dos à la sortie","Entre la sortie et l'incendie","Le plus près possible du foyer","Sous une bouche de ventilation"],a:1,e:"Pour pouvoir fuir en toute sécurité si le feu se propage. Il ne doit jamais s'éloigner de l'incendie même s'il le croit éteint : les résidus peuvent s'enflammer à nouveau.",s:"Chapitre 9, §3.1.3"},
+{c:9,t:"vf",q:"Un agent qui ne se sent pas assez compétent pour utiliser l'extincteur de façon sécuritaire doit tout de même tenter d'éteindre le feu.",a:false,e:"S'il ne croit pas être en mesure d'éteindre l'incendie en toute sécurité, notamment s'il ne l'a jamais fait, il doit attendre les services de sécurité incendie.",s:"Chapitre 9, §3.1.3"},
+{c:9,t:"qcm",q:"Que fait le système de rappel d'ascenseur ?",o:["Il bloque les ascenseurs à l'étage où ils se trouvent","Il fait descendre tous les ascenseurs au rez-de-chaussée et empêche leur utilisation en cas d'incendie, sauf pour les pompiers","Il annonce l'évacuation par haut-parleur","Il verrouille les portes coupe-feu"],a:1,e:"Ce système est automatique ou manuel.",s:"Chapitre 9, §3.4"},
+{c:9,t:"multi",q:"Pendant sa ronde, que doit vérifier un agent en matière de sécurité incendie ?",o:["Les extincteurs","Les panneaux de signalisation des sorties de secours (lumière allumée)","Les portes des sorties de secours, dégagées et fonctionnelles","L'éclairage d'urgence, les valves et robinets, les raccords-pompier","Les bornes d'incendie visibles et accessibles, et les emplacements réservés aux véhicules d'urgence"],a:[0,1,2,3,4],e:"La plupart des alarmes incendie sont déclenchées par une personne plutôt qu'automatiquement : d'où l'importance de demeurer alerte.",s:"Chapitre 9, §1"},
+{c:9,t:"txt",q:"Que signifie l'acronyme SIMDUT ?",a:["systeme d information sur les matieres dangereuses utilisees au travail","information sur les matieres dangereuses utilisees au travail"],d:"Système d'information sur les matières dangereuses utilisées au travail",e:"C'est un système pancanadien qui chapeaute la classification des produits dangereux, l'étiquetage, les fiches de données de sécurité et la formation des travailleurs.",s:"Chapitre 9, §5"},
+{c:9,t:"qcm",q:"Qui doit fournir les fiches de données de sécurité (FDS) d'un produit dangereux ?",o:["Le fournisseur","L'employeur","Le travailleur","La CNESST"],a:0,e:"Le fournisseur fabrique, distribue ou vend ; l'employeur achète, utilise ou fabrique pour son usage, fait le suivi des FDS et étiquette les produits ; le travailleur utilise les produits et doit lire et comprendre les étiquettes.",s:"Chapitre 9, §5.1"},
+{c:9,t:"txt",q:"Combien de rubriques réglementaires une fiche de données de sécurité doit-elle compter ?",a:["16","seize"],d:"16 rubriques, dans un ordre établi",e:"De « Identification » (1) à « Autres informations » (16), en passant par les premiers soins (4), les mesures en cas d'incendie (5) et en cas de déversement accidentel (6).",s:"Chapitre 9, §5.3.2"},
+{c:9,t:"qcm",q:"Combien de renseignements doivent apparaître sur une étiquette du fournisseur ?",o:["Trois","Quatre","Six","Seize"],a:2,e:"Identificateur du produit, identificateur du fournisseur initial, pictogrammes, mention d'avertissement, mentions de danger et conseils de prudence. L'étiquette du lieu de travail (employeur) n'en comporte que trois.",s:"Chapitre 9, §5.2.1"},
+{c:9,t:"liste",q:"Quels sont les trois renseignements obligatoires sur une étiquette du lieu de travail (employeur) ?",n:3,items:[["nom du produit","nom"],["conseils de prudence","prudence"],["fds","fiche de donnees"]],d:"Le nom du produit · Les conseils de prudence · La mention que la FDS peut être consultée",e:"Le nom doit être celui qui apparaît dans la fiche de données de sécurité.",s:"Chapitre 9, §5.2.2"},
+{c:9,t:"qcm",q:"Sur une étiquette SIMDUT, quelle mention d'avertissement est utilisée pour les dangers les plus graves ?",o:["« Attention »","« Danger »","« Avertissement »","« Prudence »"],a:1,e:"« Danger » pour les dangers les plus graves (une substance corrosive pour la peau) ; « Attention » pour les dangers moins graves (un produit qui risque d'irriter la peau).",s:"Chapitre 9, §5.2.1"},
+{c:9,t:"qcm",q:"Que signifie le pictogramme SIMDUT « tête de mort sur deux tibias » ?",o:["Danger d'explosion ou de réactivité","Produit corrosif pour les métaux, la peau ou les yeux","Produit pouvant être toxique ou mortel après une courte exposition à de petites quantités","Danger biologique"],a:2,e:"La flamme = dangers d'incendie ; la flamme sur un cercle = matières comburantes ; la bombe explosant = explosion ou réactivité ; la bouteille de gaz = gaz sous pression ; le point d'exclamation = effets moins sévères ou couche d'ozone.",s:"Chapitre 9, §5.1"},
+{c:9,t:"qcm",q:"Quel pictogramme désigne les matières comburantes ?",o:["La flamme","La flamme sur un cercle","Le point d'exclamation","La corrosion"],a:1,e:"La flamme seule signale les dangers d'incendie ; la flamme sur un cercle, les matières comburantes.",s:"Chapitre 9, §5.1"},
+{c:9,t:"multi",q:"Quel est le rôle de l'agent de sécurité en cas d'incendie, selon le récapitulatif du manuel ?",o:["Observer et sécuriser la zone responsable du déclenchement de l'alarme","Bloquer les accès et établir un périmètre de sécurité","Guider les services d'urgence à leur arrivée","Être les yeux des pompiers, car il connaît mieux les lieux qu'eux","Diriger l'extinction du feu avec les pompiers"],a:[0,1,2,3],e:"Connaître les lieux permet aux pompiers de gagner du temps et d'effectuer une intervention efficace et sécuritaire.",s:"Chapitre 9, §4"},
+{c:9,t:"multi",q:"Lors de la procédure en cas d'incendie, l'agent doit :",o:["Rester calme et déclencher l'alarme (ou s'assurer que quelqu'un le fasse)","Choisir une personne calme pour appeler le 9-1-1","Commencer l'évacuation et dégager les sorties d'urgence","Diriger les gens vers les points de rassemblement prévus","Désigner une personne pour attendre et guider les services d'urgence"],a:[0,1,2,3,4],e:"L'agent peut faire l'appel lui-même, mais il fait plus facilement respecter les consignes s'il n'est pas au téléphone. Il demande aussi à une personne de confirmer la présence des gens pour s'assurer que tout le monde a évacué.",s:"Chapitre 9, §1.5"},
+
+/* ---------------- CHAPITRE 10 ---------------- */
+{c:10,t:"qcm",q:"Quel stylo l'agent doit-il utiliser pour son cahier de notes ?",o:["N'importe quel stylo","Un stylo à encre bleue ou noire non effaçable","Un crayon à mine, pour pouvoir corriger","Un stylo rouge pour les incidents"],a:1,e:"Il doit avoir son cahier de notes et son stylo avec lui en tout temps.",s:"Chapitre 10, §1"},
+{c:10,t:"multi",q:"Éléments-clés de l'utilisation du cahier de notes — lesquels sont exacts ?",o:["Il est la mémoire écrite de l'agent et ne contient que des renseignements liés au travail","Il détaille les faits précisément et de manière chronologique","Il est confidentiel : seuls l'agent, son superviseur, son directeur et le responsable du lieu peuvent le consulter","Il doit rester sur le lieu de travail","L'agent le conserve chez lui pour sa protection personnelle"],a:[0,1,2,3],e:"Il peut être considéré comme un document légal officiel et être utilisé pendant un procès. Il est remis à l'employeur ou au client lorsqu'il est plein ou que l'agent quitte son mandat.",s:"Chapitre 10, §1.1"},
+{c:10,t:"liste",q:"Quelles sont les trois sections du cahier de notes pour chaque quart de travail ?",n:3,items:[["debut","debut du quart"],["evenements","notes","evenements et notes"],["fin","fin du quart"]],d:"Début du quart de travail · Événements et notes · Fin du quart de travail",e:"Le début comprend nom et numéro d'agent, date, adresse complète, horaire, heure de début et collègue remplacé, équipements et leur état, directives additionnelles.",s:"Chapitre 10, §1.2"},
+{c:10,t:"txt",q:"Que signifie l'acronyme QQCOQP, qu'un bon rapport doit permettre de renseigner ?",a:["qui quand comment ou quoi pourquoi"],d:"Qui · Quand · Comment · Où · Quoi · Pourquoi",e:"Ces six questions sont essentielles à la bonne description d'une situation. Un rapport complet doit permettre d'y répondre facilement.",s:"Chapitre 10, §3 et §3.1"},
+{c:10,t:"liste",q:"Nommez les quatre caractéristiques d'un bon rapport.",n:4,items:[["clair"],["precis"],["concis"],["complet"]],d:"Clair · Précis · Concis · Complet",e:"Clair : lisible, stylo non effaçable, mots simples. Précis : que des faits, pas de suppositions ni d'opinions. Concis : droit au but, sans détails inutiles. Complet : répond au QQCOQP.",s:"Chapitre 10, §3"},
+{c:10,t:"qcm",q:"À quelle personne et à quel temps un rapport doit-il être rédigé ?",o:["À la troisième personne, au passé","À la première personne (je), au présent","À la première personne, au passé composé","Peu importe, tant que c'est clair"],a:1,e:"On indique aussi les heures exactes selon le système horaire de 24 heures, sans codes ni abréviations.",s:"Chapitre 10, §4"},
+{c:10,t:"multi",q:"Règles de rédaction d'un rapport manuscrit — lesquelles sont exactes ?",o:["Ne pas laisser de ligne vide et faire un trait si une ligne est partiellement remplie","En cas d'erreur, la barrer proprement et inclure ses initiales","Rédiger à la main en majuscules si l'on n'a pas d'ordinateur","Signer le rapport et rayer le reste de la page","Effacer proprement les erreurs au correcteur liquide"],a:[0,1,2,3],e:"Le but de ces règles est que rien ne puisse être ajouté au rapport après coup, notamment après la signature de l'agent.",s:"Chapitre 10, §4"},
+{c:10,t:"txt",q:"Par quelles initiales un superviseur doit-il faire précéder un commentaire ajouté dans le cahier de notes ou un rapport ?",a:["c s","cs"],d:"C.S. (commentaire superviseur)",e:"Après lecture et ajout de commentaires, le superviseur signe le document consulté. L'agent indique dans son rapport journalier quels documents ont été consultés et par qui.",s:"Chapitre 10, §4"},
+{c:10,t:"qcm",q:"Quelle est la différence entre le rapport journalier et le rapport d'incident ?",o:["Le rapport journalier est facultatif","Le journalier résume tout le quart de travail ; chaque incident exige en plus son propre rapport distinct","Le rapport d'incident remplace le rapport journalier ce jour-là","Le journalier est remis au client, l'incident au BSP"],a:1,e:"Le rapport journalier est la version soignée du cahier de notes ; il permet à l'employeur d'assurer le respect des consignes et peut servir en cas de litige ou de plainte.",s:"Chapitre 10, §2"},
+{c:10,t:"qcm",q:"Pourquoi faut-il poser des questions ouvertes plutôt que fermées aux témoins ?",o:["Pour gagner du temps","Pour ne pas influencer leur version des faits et éviter une réponse inventée sous pression","Parce que le Code criminel l'exige","Pour rendre le rapport plus long"],a:1,e:"Exemple du manuel : éviter « est-ce que la voiture était noire ? » et préférer « de quelle couleur était la voiture ? ».",s:"Chapitre 10, §4"},
+{c:10,t:"multi",q:"Sous le « Qui » du QQCOQP, que faut-il inclure ?",o:["Toutes les personnes concernées : victimes, suspects, témoins","Les intervenants présents : police, pompiers","Le nom, l'adresse et le numéro de téléphone de chaque personne","Les numéros d'immatriculation des véhicules impliqués","Les plaques des véhicules d'urgence, systématiquement"],a:[0,1,2,3],e:"On n'inclut pas les immatriculations des véhicules d'urgence, sauf s'ils sont impliqués dans l'événement.",s:"Chapitre 10, §3.1"},
+{c:10,t:"vf",q:"Si la raison d'un événement est inconnue, l'agent doit proposer l'hypothèse la plus probable dans son rapport.",a:false,e:"Il doit mentionner que la raison est inconnue : ne jamais inventer de raison. Un objet manquant n'a pas nécessairement été volé.",s:"Chapitre 10, §3.1"},
+{c:10,t:"liste",q:"Nommez au moins cinq éléments à inclure dans la description d'un véhicule.",n:5,items:[["type","nombre de portes"],["marque","modele"],["couleur"],["particularites","vitres","teintees","aileron","phares"],["plaque","immatriculation"],["etat","rouille","dommages"],["occupants","nombre d occupants"]],d:"Type · Marque et modèle · Couleur · Particularités · Plaque d'immatriculation · État · Nombre d'occupants",e:"Pour la plaque : numéro, province ou pays d'origine, présence d'une plaque décorative. Pour l'état : rouille, bosses, rayures, bruits.",s:"Chapitre 10, §3.4"},
+{c:10,t:"multi",q:"Que faut-il inclure dans la description d'un lieu ?",o:["Le type de sol","La météo, s'il s'agit d'un lieu extérieur","L'éclairage","Les caractéristiques distinctives (sol mouillé, disposition des meubles)","La valeur des biens qui s'y trouvent"],a:[0,1,2,3],e:"Pour le « Où » du QQCOQP, il faut une précision extrême : adresse complète, étage, local, et repères (« deux mètres à gauche de l'ascenseur du 3e étage »).",s:"Chapitre 10, §3.5 et §3.1"},
+{c:10,t:"vf",q:"Sur son lieu de travail, l'agent doit en règle générale prendre ses photos avec un appareil fourni par son employeur plutôt qu'avec son téléphone personnel.",a:true,e:"Selon les directives de l'agence et du client, la situation peut varier. Les photos doivent être bien identifiées et sauvegardées de façon sécuritaire.",s:"Chapitre 10, §3.2"},
+
+/* ---------------- ANNEXES ---------------- */
+{c:11,t:"qcm",q:"Quel article de la Charte canadienne protège contre les fouilles, perquisitions ou saisies abusives ?",o:["Article 7","Article 8","Article 9","Article 10"],a:1,e:"Art. 7 : vie, liberté et sécurité ; art. 8 : fouilles abusives ; art. 9 : détention ou emprisonnement arbitraires ; art. 10 : droits en cas d'arrestation ou de détention.",s:"Annexe II"},
+{c:11,t:"qcm",q:"Quel article de la Charte canadienne garantit d'être informé dans les plus brefs délais des motifs de son arrestation et d'avoir recours sans délai à un avocat ?",o:["Article 7","Article 8","Article 9","Article 10"],a:3,e:"L'article 10 prévoit aussi le contrôle de la légalité de la détention par habeas corpus.",s:"Annexe II"},
+{c:11,t:"qcm",q:"Selon l'article 30 du Code criminel, que peut faire le témoin d'une violation de la paix ?",o:["Rien : seul un agent de la paix peut intervenir","Intervenir pour en empêcher la continuation et détenir la personne afin de la livrer à un agent de la paix, en n'employant que la force raisonnablement nécessaire","Employer toute force qu'il juge utile","Porter plainte dans les six mois"],a:1,e:"La force doit être raisonnablement proportionnée au danger à craindre par suite de la continuation ou du renouvellement de la violation.",s:"Annexe III"},
+{c:11,t:"qcm",q:"Selon l'article 24 du Code criminel, une tentative d'infraction est-elle punissable si l'infraction n'a pas été commise ?",o:["Non, il faut que l'infraction soit consommée","Oui : quiconque, ayant l'intention de commettre une infraction, fait ou omet de faire quelque chose pour arriver à son but est coupable de tentative","Seulement s'il y a eu des dommages","Seulement pour les actes criminels"],a:1,e:"Et ce, qu'il fût possible ou non, dans les circonstances, de commettre l'infraction.",s:"Annexe III"},
+{c:11,t:"qcm",q:"Selon l'article 334, à partir de quelle valeur le vol devient-il passible d'un emprisonnement maximal de dix ans par mise en accusation ?",o:["1 000 $","2 000 $","5 000 $","10 000 $"],a:2,e:"Au-delà de 5 000 $ (ou s'il s'agit d'un acte testamentaire) : jusqu'à dix ans. En deçà : acte criminel passible de deux ans au maximum ou infraction sommaire.",s:"Annexe III"},
+{c:11,t:"qcm",q:"Qu'est-ce qu'un vol qualifié (art. 343) ?",o:["Un vol de plus de 5 000 $","Un vol accompagné de violence ou de menaces de violence, ou commis alors qu'on est muni d'une arme","Un vol commis par un employé","Un vol avec introduction par effraction"],a:1,e:"L'introduction par effraction dans un dessein criminel est l'article 348 ; elle est passible de l'emprisonnement à perpétuité lorsqu'elle vise une maison d'habitation.",s:"Annexe III"},
+{c:11,t:"qcm",q:"Selon l'article 265, le consentement existe-t-il lorsqu'un plaignant ne résiste pas en raison de l'exercice de l'autorité ?",o:["Oui, l'absence de résistance vaut consentement","Non : ne constitue pas un consentement la soumission due à la force, aux menaces, à la fraude ou à l'exercice de l'autorité","Seulement si c'est écrit","Cela dépend du contexte"],a:1,e:"Cette précision est capitale pour un agent de sécurité, qui est une figure d'autorité.",s:"Annexe III"},
+{c:11,t:"qcm",q:"Quelle est la norme de preuve dans un procès civil ?",o:["Hors de tout doute raisonnable","Selon la prépondérance des probabilités","La certitude absolue","L'intime conviction du juge"],a:1,e:"Au civil : la responsabilité probable doit être prouvée. Au criminel ou pénal : la preuve doit être établie hors de tout doute raisonnable.",s:"Annexe V"},
+{c:11,t:"multi",q:"Quelles sanctions sont possibles au terme d'un procès criminel ou pénal ?",o:["Amende","Dédommagement","Probation","Travaux communautaires","Emprisonnement","Injonction"],a:[0,1,2,3,4],e:"L'injonction et le jugement déclaratoire, comme les dommages-intérêts, relèvent du procès civil.",s:"Annexe V"},
+{c:11,t:"qcm",q:"Dans un procès criminel ou pénal, qui poursuit ?",o:["Le demandeur","La victime","L'État, par le Directeur des poursuites criminelles et pénales","L'employeur de l'accusé"],a:2,e:"Au civil, on parle d'un demandeur (personne physique ou morale) et d'un défendeur ; au criminel, de l'État et de l'accusé.",s:"Annexe V"},
+{c:11,t:"multi",q:"Quels sont les critères d'embauche d'un futur agent de sécurité selon l'annexe VI ?",o:["Avoir son diplôme d'études secondaires","Répondre aux conditions du permis d'agent ou en détenir un valide","Avoir une condition physique permettant d'accomplir ses tâches avec facilité","Avoir travaillé en sécurité ou dans un domaine connexe (un atout)","Avoir un permis de conduire valide (un atout)"],a:[0,1,2,3,4],e:"Les deux derniers critères sont présentés comme des atouts, non comme des exigences.",s:"Annexe VI"},
+{c:11,t:"multi",q:"Avant d'accepter un emploi, sur quoi un futur agent devrait-il se renseigner ?",o:["Le type de contrats et de milieux auxquels il sera affecté","Son statut (permanent ou occasionnel) et ses quarts de travail","Le fonctionnement des heures supplémentaires, son salaire et les primes","L'existence d'un syndicat","Le nom des clients de l'agence"],a:[0,1,2,3],e:"Ses droits sont précisés notamment dans le Décret sur les agents de sécurité et dans la réglementation de la CNESST.",s:"Annexe VI"},
+
+/* ===== COMPLÉMENT : sections non couvertes au premier passage ===== */
+
+/* --- Ch.1 : lois québécoises, identification, contrôle social --- */
+{c:1,t:"txt",q:"Selon la Loi concernant la lutte contre le tabagisme, à quelle distance minimale des portes d'un établissement de santé ou d'enseignement postsecondaire est-il interdit de fumer ?",a:["9"],d:"9 mètres",e:"La même règle vaut pour les lieux où se déroulent des activités destinées aux mineurs (bibliothèques, arénas). Il est aussi interdit de fumer dans tous les bars, clubs, chapiteaux et terrains d'école primaire ou secondaire. La loi s'applique depuis 2005.",s:"Chapitre 1, §1.2"},
+{c:1,t:"qcm",q:"Depuis le 1er novembre 2019, quel est l'âge légal pour posséder ou acheter du cannabis au Québec ?",o:["18 ans","19 ans","21 ans","25 ans"],a:2,e:"L'âge est passé de 18 à 21 ans. Il est également interdit de fumer ou de vapoter du cannabis dans tout lieu public, intérieur comme extérieur. Certains usages sont permis au Canada depuis le 17 octobre 2018.",s:"Chapitre 1, §1.2"},
+{c:1,t:"txt",q:"Quelle quantité maximale de cannabis séché une personne de 21 ans et plus peut-elle avoir en sa possession dans un lieu public au Québec ?",a:["30"],d:"30 grammes",e:"La réglementation québécoise est principalement définie dans la Loi encadrant le cannabis.",s:"Chapitre 1, §1.2"},
+{c:1,t:"qcm",q:"Quel organisme est responsable de l'application de la Loi sur les permis d'alcool ?",o:["Le ministère de la Sécurité publique","La Régie des alcools, des courses et des jeux du Québec","La Société des alcools du Québec","Le Bureau de la sécurité privée"],a:1,e:"À la moindre infraction, la Régie peut révoquer un permis d'alcool temporairement ou de manière permanente — souvent une question de survie pour un bar ou un restaurant. Connaître la Loi permet d'aider un client à garder son permis.",s:"Chapitre 1, §1.2"},
+{c:1,t:"qcm",q:"Sur quoi porte avant tout la Loi sur la santé et la sécurité du travail, adoptée en 1979 ?",o:["Sur le salaire minimum et les heures supplémentaires","Sur la prévention des accidents de travail et des maladies professionnelles","Sur le droit de grève et de lock-out","Sur l'équité salariale"],a:1,e:"Tout employeur doit garantir un environnement de travail sain et sécuritaire. Si un agent ne se sent pas en sécurité, il doit le signaler à son employeur. Il est aussi responsable de lire et de mettre en application le programme de prévention qu'on lui remet.",s:"Chapitre 1, §1.2"},
+{c:1,t:"liste",q:"Nommez au moins six catégories utilisées pour identifier et décrire une personne suspecte.",n:6,items:[["nom","surnom"],["peau"],["genre","perception du genre"],["age"],["taille","stature"],["poids","apparence physique","physique"],["cheveux"],["yeux"],["vetements","vetement"],["caracteristiques","tatouage","cicatrice","grain de beaute"]],d:"Nom · Peau · Perception du genre · Âge · Taille et stature · Poids et apparence physique · Cheveux · Yeux · Vêtements · Caractéristiques distinctives",e:"Si la personne refuse de s'identifier, on note le surnom ou le faux nom. L'identification se fait en parallèle avec la vérification des systèmes électroniques (caméras) et des documents du lieu, comme le registre de visites.",s:"Chapitre 1, §7"},
+{c:1,t:"qcm",q:"Selon le manuel, pourquoi les agents de sécurité appuient-ils l'État dans ses activités de surveillance et de prévention du crime ?",o:["Parce que la loi leur en fait l'obligation","Parce que les représentants gouvernementaux ne peuvent pas être partout en même temps","Parce qu'ils ont les mêmes pouvoirs que les policiers","Parce que le BSP le leur impose"],a:1,e:"Sans loi, la sécurité serait menacée et les citoyens pourraient choisir de se faire justice eux-mêmes. Les gouvernements sont responsables de l'équilibre entre libertés individuelles et contrôle social.",s:"Chapitre 1, §9"},
+{c:1,t:"qcm",q:"Quel article de la Charte des droits et libertés de la personne protège, en partie, le droit de propriété au Québec ?",o:["Article 6","Article 24","Article 49","Article 947"],a:0,e:"« Toute personne a droit à la jouissance paisible et à la libre disposition de ses biens, sauf dans la mesure prévue par la loi. » L'article 947 du Code civil ajoute que la propriété est le droit d'user, de jouir et de disposer librement d'un bien.",s:"Chapitre 1, §3"},
+{c:1,t:"qcm",q:"En vertu de quel article de la Charte québécoise une personne peut-elle solliciter des dommages-intérêts punitifs pour un préjudice moral ou matériel causé par un agent ?",o:["Article 6","Article 24","Article 49","Article 1457"],a:2,e:"Préjudice moral : humiliation, traitement injuste, atteinte à la réputation. Préjudice matériel : dommage à un bien ou blessure physique. Respecter les normes de comportement permet d'éviter toute enquête ou poursuite.",s:"Chapitre 1, §4"},
+{c:1,t:"qcm",q:"Un agent travaille au sein d'une institution gouvernementale. Quel article de la Charte canadienne pourrait s'appliquer à lui, puisqu'il représente cette institution pendant ses heures de travail ?",o:["Article 8","Article 10","Article 24","Article 34"],a:2,e:"L'article 24 permet à toute personne victime de violation de ses droits garantis par la Charte de s'adresser à un tribunal compétent pour obtenir réparation.",s:"Chapitre 1, §4"},
+
+/* --- Ch.2 : meilleures pratiques et conduite --- */
+{c:2,t:"liste",q:"Nommez les quatre meilleures pratiques d'un service à la clientèle exemplaire.",n:4,items:[["courtoisie","politesse","poli"],["attitude","positive"],["ecoute","alerte"],["anticipation","initiative","besoins"]],d:"Courtoisie · Attitude positive · Écoute · Anticipation des besoins",e:"Anticiper, c'est par exemple aller à la rencontre de quelqu'un qui semble chercher quelque chose, ou replacer un écriteau qui pourrait induire le public en erreur.",s:"Chapitre 2, §5"},
+{c:2,t:"qcm",q:"Pourquoi un agent doit-il toujours s'identifier auprès du public ?",o:["Pour faire respecter son autorité","Pour permettre à un client insatisfait d'en parler à l'agence","Parce que le client le paie pour cela","Pour faciliter le travail des policiers"],a:1,e:"C'est l'un des éléments de la conduite requise, avec l'apparence, le langage, l'attitude, la connaissance des lois, des accusations fondées sur des faits, l'absence de discrimination, l'impartialité et la lucidité.",s:"Chapitre 2, §3"},
+{c:2,t:"vf",q:"En tant que représentant du client, l'agent peut donner son opinion ou parler au nom du client lorsqu'on le questionne.",a:false,e:"Il doit veiller à ne pas donner son opinion ni parler pour le client. En cas de doute et selon la gravité, il peut faire appel au client — sans toutefois le déranger trop souvent.",s:"Chapitre 2, §2"},
+{c:2,t:"vf",q:"Même quand l'ambiance est calme et les tâches accomplies, les agents doivent éviter de se regrouper pour discuter.",a:true,e:"Des agents rassemblés ainsi ne présentent pas une image positive du métier ni de l'agence aux yeux du public et du client qui paie pour les services. Garder une posture adéquate en tout temps est important.",s:"Chapitre 2, §2"},
+
+/* --- Ch.3 : dispositifs et règles de fouille --- */
+{c:3,t:"qcm",q:"Une personne franchit le portique détecteur et l'alarme sonne. Que fait l'agent ?",o:["Il refuse l'accès immédiatement","Il détermine quelle partie du corps a déclenché l'alarme, au besoin en la faisant repasser, puis utilise un détecteur à main","Il procède directement à une fouille manuelle complète","Il appelle son superviseur"],a:1,e:"Si le détecteur ne sonne pas, aucune fouille supplémentaire n'est nécessaire. Le détecteur à main sert à localiser l'objet métallique : on demande à la personne de placer ses bras en croix et on frôle tout le corps avec l'appareil.",s:"Chapitre 3, §4.1"},
+{c:3,t:"multi",q:"Règles à respecter lors d'une fouille — lesquelles sont exactes ?",o:["Garder le sourire et faire preuve d'un grand professionnalisme","Communiquer à la personne tous les gestes qu'on va poser avant de les faire","Valider le consentement tout au long de la fouille, pas seulement au début","Établir et maintenir un contact visuel et verbal","Aller le plus vite possible pour ne pas retarder la file"],a:[0,1,2,3],e:"La personne fouillée ne devrait jamais être surprise par les gestes de l'agent.",s:"Chapitre 3, §4.2"},
+{c:3,t:"qcm",q:"Un agent trouve un objet interdit, dangereux ou illégal lors d'une fouille. Que doit-il faire ?",o:["Le confisquer et le remettre au client en fin de quart","Signaler la situation à son superviseur immédiatement","Le remettre à la personne en lui refusant l'accès","Le jeter par mesure de sécurité"],a:1,e:"Le port de gants est par ailleurs recommandé lors des fouilles manuelles, pour la sécurité de l'agent.",s:"Chapitre 3, §4.2"},
+
+/* --- Ch.4 : technologies récentes et badges --- */
+{c:4,t:"qcm",q:"Quels types de caméras le manuel donne-t-il comme exemples de technologies de plus en plus présentes dans le quotidien des agents ?",o:["Les caméras fixes et les caméras Bullet","Les caméras thermiques et les caméras qui comptent automatiquement le nombre de personnes","Les caméras de type dôme et les caméras jour et nuit","Les caméras à reconnaissance vocale"],a:1,e:"Comme les technologies évoluent rapidement, l'agent doit apprendre à utiliser de nouveaux outils lorsque c'est nécessaire.",s:"Chapitre 4, §2"},
+{c:4,t:"qcm",q:"Avant de remettre un laissez-passer ou un badge à un visiteur, que doit vérifier l'agent ?",o:["Rien, si le client l'a annoncé","Son identité à l'aide d'une pièce d'identité officielle avec photo","Son numéro d'assurance sociale","Qu'il est accompagné d'un employé"],a:1,e:"Permis de conduire, carte d'assurance maladie, etc. Dans la plupart des cas, un registre de présence doit clairement identifier les entrées et les sorties des personnes munies d'un laissez-passer ou d'un badge.",s:"Chapitre 4, §3.1"},
+
+/* --- Ch.5 : principes et dynamique du conflit --- */
+{c:5,t:"liste",q:"Le manuel regroupe les principes d'une bonne communication sous cinq verbes. Lesquels ?",n:5,items:[["s exprimer","exprimer"],["ecouter","ecoute"],["verifier"],["repondre","reponse"],["non verbal","communication non verbale","penser a la communication non verbale"]],d:"S'exprimer · Écouter · Vérifier · Répondre · Penser à la communication non verbale",e:"Vérifier est essentiel : s'assurer que le message a bien été compris et confirmer sa propre compréhension de celui de l'interlocuteur.",s:"Chapitre 5, §1.3"},
+{c:5,t:"multi",q:"Selon le manuel, qu'est-ce qu'un conflit peut permettre ?",o:["D'identifier des problèmes pour ensuite les régler","De se concentrer sur les sujets les plus pertinents","D'inciter les gens à collaborer","De faire des apprentissages","De reconnaître des différences pour ensuite se comprendre"],a:[0,1,2,3,4],e:"Une situation conflictuelle n'est pas automatiquement mauvaise ou négative. À l'inverse, un conflit peut entraîner une diminution de la productivité, une baisse de moral et des comportements inadaptés ou nocifs.",s:"Chapitre 5, §2.1"},
+{c:5,t:"liste",q:"Quelles sont les quatre stratégies que les gens adoptent en situation conflictuelle ?",n:4,items:[["evitement","eviter"],["competition"],["compromis"],["collaboration","collaborer"]],d:"L'évitement · La compétition · Le compromis · La collaboration",e:"Ces stratégies sont adoptées consciemment ou inconsciemment.",s:"Chapitre 5, §2.1"},
+{c:5,t:"multi",q:"Quelles sont les responsabilités de l'agent dans un conflit ?",o:["Garder en tête qu'il est une figure d'autorité","Ne pas se laisser perturber émotionnellement par l'agressivité verbale","Résumer le problème dans ses propres mots pour vérifier sa compréhension","Ne pas simplifier un problème qui semble complexe","Reconnaître que des erreurs peuvent être commises sans en blâmer autrui","Trancher rapidement en faveur du client"],a:[0,1,2,3,4],e:"Il doit aussi connaître, respecter et faire respecter les procédures de l'employeur et du client, puis rédiger un rapport et avertir son superviseur et le client.",s:"Chapitre 5, §2.1"},
+
+/* --- Ch.6 : articles 27, 28 et évaluation --- */
+{c:6,t:"qcm",q:"Quel article du Code criminel autorise l'emploi de la force raisonnablement nécessaire pour empêcher la perpétration d'une infraction de nature à causer des blessures graves ou des dégâts graves ?",o:["Article 25","Article 26","Article 27","Article 28"],a:2,e:"L'article 27 signifie que l'emploi de la force a pour but la défense plutôt que l'attaque. L'infraction doit être de celles pour lesquelles la personne pourrait être arrêtée sans mandat.",s:"Chapitre 6, §1 et §3.1"},
+{c:6,t:"qcm",q:"Que prévoit l'article 28 du Code criminel ?",o:["La défense des biens","L'arrestation par erreur : celui qui croit de bonne foi et pour des motifs raisonnables arrêter la personne nommée au mandat a la même protection que si c'était elle","L'obligation de livrer la personne à un agent de la paix","La responsabilité pour excès de force"],a:1,e:"La même protection s'étend à quiconque est appelé à prêter main-forte à l'exécution du mandat.",s:"Chapitre 6, §1"},
+{c:6,t:"multi",q:"Selon l'article 34(2), quels facteurs le tribunal considère-t-il pour décider si une personne a agi raisonnablement ?",o:["La nature de la force ou de la menace","L'imminence de l'emploi de la force et l'existence d'autres moyens","Le rôle joué par la personne lors de l'incident","La taille, l'âge, le sexe et les capacités physiques des parties","La proportionnalité de la réaction","Le coût des dommages matériels causés"],a:[0,1,2,3,4],e:"S'ajoutent l'utilisation ou la menace d'utilisation d'une arme, l'historique des rapports entre les parties, et le fait de savoir si la personne réagissait à un emploi de force qu'elle savait légitime.",s:"Chapitre 6, §1 et §3.1"},
+{c:6,t:"qcm",q:"Lors de l'évaluation de l'environnement, que recouvre « l'aspect humain » ?",o:["Le lieu, les dangers potentiels et la distance du poste de l'agent","Le nombre de personnes impliquées, leurs rapports avec le lieu, leur attitude, les facultés affaiblies, les traces de blessures","L'attitude et la posture de l'agent lui-même","Les consignes du client"],a:1,e:"L'autre volet, « environnement », couvre le lieu, l'intérieur ou l'extérieur, les dangers potentiels et la distance séparant l'agent de son poste. L'agent doit pouvoir décrire la situation rapidement et avec assez de détails pour informer ses collègues ou la police.",s:"Chapitre 6, §3.3"},
+{c:6,t:"qcm",q:"Comment le manuel décrit-il la posture d'attente idéale face à une personne agitée ?",o:["Bras croisés, pour marquer l'autorité","L'agent ne semble pas agressif, mais il est prêt à intervenir et ne quitte pas la personne des yeux","Dos tourné, pour ne pas provoquer","À plus de cinq mètres, hors de portée"],a:1,e:"L'assurance fait une différence : une personne a davantage tendance à écouter un agent confiant.",s:"Chapitre 6, §3.5"},
+
+/* --- Ch.7 : missions et responsabilités --- */
+{c:7,t:"multi",q:"Selon la Loi sur la police, quelle est la mission des corps de police ?",o:["Maintenir la paix, l'ordre et la sécurité publique","Prévenir et réprimer le crime","Rechercher les auteurs des crimes","Protéger les biens privés à la demande d'un client"],a:[0,1,2],e:"Protéger des biens à la demande d'un client est l'objectif de l'agent de sécurité privée, pas celui de la police.",s:"Chapitre 7, §2.1 et §4"},
+{c:7,t:"multi",q:"Quelles sont les responsabilités d'un corps de police municipal, premier intervenant sur son territoire ?",o:["Protéger la scène de l'incident","Parler avec les victimes, témoins et autres intervenants pour récolter leurs déclarations","Recueillir les éléments de preuve","Retrouver les suspects en fuite","Appliquer le Code de la sécurité routière sur son territoire"],a:[0,1,2,3,4],e:"Les policiers municipaux sont aussi responsables des agents de la circulation sur leur territoire.",s:"Chapitre 7, §2.1.1"},
+{c:7,t:"qcm",q:"L'application du Code criminel et de la Loi sur les armes à feu relève, au Québec, de quel corps de police ?",o:["De la GRC exclusivement","De la Sûreté du Québec","Des corps de police municipaux seulement","Du ministère de la Sécurité publique"],a:1,e:"La SQ doit aussi faire respecter les lois provinciales sur tout le territoire, notamment le Code de la sécurité routière et la Loi sur la Société des alcools du Québec, et selon la situation les règlements municipaux.",s:"Chapitre 7, §2.1.2"},
+{c:7,t:"multi",q:"Selon la Classification nationale des professions, quelles sont des fonctions principales d'un agent de sécurité (CNP 6541) ?",o:["Contrôler l'accès aux établissements et faire des rondes contre le vol, le vandalisme et le feu","Faire respecter les règlements de l'établissement et résoudre les conflits","Délivrer des laissez-passer, diriger les visiteurs et vérifier l'âge des clients","Conduire et garder des voitures blindées, livrer l'argent et les objets de valeur","Prévenir et déceler le vol à l'étalage","Exécuter des mandats de perquisition"],a:[0,1,2,3,4],e:"Les mandats de perquisition relèvent du policier (CNP 4311), tout comme l'appréhension et l'arrestation des suspects de délits criminels.",s:"Chapitre 7, §2.2"},
+
+/* --- Ch.8 : COVID, sinistres, attentat, colis --- */
+{c:8,t:"multi",q:"Quels sont des symptômes fréquents de la COVID-19 selon le manuel ?",o:["La fièvre","L'apparition ou l'aggravation d'une toux","Une perte de l'odorat sans congestion nasale","Une perte du goût","Des courbatures, des maux de tête et de la diarrhée","Une perte auditive soudaine"],a:[0,1,2,3,4],e:"S'ajoutent la difficulté à respirer, une fatigue importante, des vomissements et des éruptions ou changements cutanés. Ces symptômes peuvent être légers et apparaître progressivement ; certaines personnes sont asymptomatiques.",s:"Chapitre 8, §2.1"},
+{c:8,t:"multi",q:"Quels gestes permettent de prévenir des actes violents ou d'en réduire les conséquences ?",o:["Respecter les règles de sécurité en vigueur","Connaître l'emplacement des issues de secours","Faire confiance à son intuition et signaler toute situation inhabituelle","Refuser de s'occuper du colis ou des bagages d'un inconnu","Maîtriser les premiers soins","Intervenir seul pour neutraliser la menace le plus tôt possible"],a:[0,1,2,3,4],e:"Mieux vaut se tromper que regretter de ne pas avoir agi. L'agent doit aussi respecter les directives des autorités, par exemple une demande d'évacuation, et agir avec discernement. Il peut également aller chercher du soutien psychologique.",s:"Chapitre 8, §1 et §1.1"},
+{c:8,t:"qcm",q:"Un attentat se produit pendant le quart de travail d'un agent. Que doit-il faire ?",o:["Se rendre sur les lieux pour porter secours","Se réfugier dans un endroit sécuritaire et communiquer directement avec la police","Évacuer tout le bâtiment en déclenchant l'alarme incendie","Attendre les consignes de son superviseur"],a:1,e:"Si possible, il contacte le personnel des étages au-dessus du lieu de l'attentat pour lui dire de ne pas bouger ou d'évacuer par une issue loin du danger. Il est fort possible qu'il reste en communication continue avec le 9-1-1. Exemple donné : l'attentat de Nice en 2016.",s:"Chapitre 8, §7.3"},
+{c:8,t:"multi",q:"En cas de panne d'électricité sur son lieu de travail, l'agent doit :",o:["Contacter le personnel d'entretien et, au besoin, son superviseur","Contacter le fournisseur d'électricité si les directives le prévoient","Tenter de déterminer la raison de la panne et d'en évaluer la durée","Coordonner une évacuation partielle ou totale si la panne se prolonge","Couper l'alimentation des systèmes d'alarme pour éviter les faux signaux"],a:[0,1,2,3],e:"Un dispositif d'urgence peut alimenter le contrôle d'accès, les alarmes incendie et d'intrusion, l'éclairage d'urgence et les appareils de communication : la génératrice de secours doit toujours être en bon état et contenir assez de carburant.",s:"Chapitre 8, §7.2"},
+{c:8,t:"qcm",q:"Des vents violents créent une menace pendant le quart de travail d'un agent. Où doit-il se réfugier ?",o:["Au sous-sol du bâtiment","Dans un endroit sécuritaire, loin des portes et des fenêtres","Dans son véhicule de patrouille","Au centre de contrôle, quel qu'il soit"],a:1,e:"En cas de tremblement de terre important, il doit au contraire évacuer le bâtiment et tenir tout le monde loin de ce qui pourrait chuter, en vérifiant si possible que tous sont sortis à l'aide des outils technologiques disponibles.",s:"Chapitre 8, §6.3"},
+{c:8,t:"qcm",q:"Une personne signale un colis suspect, mais l'agent ne trouve rien sur place. Que fait-il ?",o:["Il classe l'affaire comme fausse alerte","Il fait une patrouille plus approfondie dans le secteur, le colis ayant pu être déplacé","Il évacue le bâtiment par précaution","Il appelle immédiatement le 9-1-1"],a:1,e:"S'il y a bel et bien un colis, il peut utiliser les vidéos de surveillance pour en vérifier l'origine — une personne ayant oublié ou perdu un sac, par exemple.",s:"Chapitre 8, §4.3"},
+{c:8,t:"multi",q:"En situation de tireur actif, quels renseignements l'agent doit-il être prêt à fournir à la police ?",o:["Les détails de la situation : qui, quoi, quand, où et comment","Les accès, les clés et les plans des étages","Les vidéos de surveillance montrant le tireur","L'identité, la description et la photo des otages connus et des personnes manquantes","Les meilleurs emplacements pour un poste de commandement et l'observation stratégique","Le nom des actionnaires de l'entreprise"],a:[0,1,2,3,4],e:"S'ajoutent les fournisseurs de services (Hydro-Québec) et les coupures récentes, l'accès aux communications des agents et du centre de contrôle, et les coordonnées des contacts-clés du lieu de travail.",s:"Chapitre 8, §3.2"},
+{c:8,t:"qcm",q:"En cas de pluies torrentielles ou d'inondation sur son lieu de travail, quelle est la démarche de l'agent ?",o:["Attendre les pompiers sans rien tenter","Déterminer les endroits touchés, tenter de localiser l'origine du problème et intervenir s'il peut le faire de façon sécuritaire","Couper l'électricité du bâtiment","Évacuer immédiatement tous les occupants"],a:1,e:"En tout temps, la personne responsable doit être prévenue et ses directives respectées.",s:"Chapitre 8, §6.1"},
+
+/* --- Ch.9 : gicleurs, coupe-feu, panneau, statistiques --- */
+{c:9,t:"liste",q:"Quels sont les trois modèles de têtes de gicleurs ?",n:3,items:[["basse","tetes basses","bas"],["haute","tetes hautes","haut"],["murale","tetes murales","mur"]],d:"À têtes basses (jet vers le bas) · À têtes hautes (jet vers le haut) · À têtes murales (installées au mur, à l'horizontale)",e:"Les principaux types de systèmes de gicleurs, eux, sont : à eau, à air, déluge et préaction.",s:"Chapitre 9, §3.2"},
+{c:9,t:"qcm",q:"À quoi servent les portes et rideaux coupe-feu ?",o:["À éteindre automatiquement le feu","À contenir le feu et la fumée dans une zone définie du bâtiment","À signaler l'emplacement des sorties de secours","À empêcher le déclenchement d'alarmes intempestives"],a:1,e:"C'est une manière passive de lutter contre le feu. Les portes coupe-feu doivent comporter un mécanisme de déverrouillage permettant de les ouvrir facilement, notamment pour l'évacuation. Les rideaux sont souvent utilisés dans les entrepôts, aux quais de chargement.",s:"Chapitre 9, §3.3"},
+{c:9,t:"qcm",q:"Pourquoi le panneau de commande est-il la partie la plus importante d'un système d'alarme incendie ?",o:["Parce qu'il est le seul à pouvoir appeler le 9-1-1","Parce que tous les autres dispositifs y sont connectés : il gère le déclenchement et l'arrêt de l'alarme et la mise en marche des extincteurs automatiques","Parce qu'il contient les plans d'évacuation","Parce qu'il alimente les gicleurs en eau"],a:1,e:"Il aide aussi l'agent à localiser la source de l'incendie, permet parfois de communiquer avec le public pendant l'évacuation et sert à coordonner les exercices d'évacuation.",s:"Chapitre 9, §2.2"},
+{c:9,t:"qcm",q:"Selon les statistiques sur les incendies résidentiels déclarés en 2015, dans quelle proportion l'avertisseur de fumée a-t-il fonctionné ?",o:["17,1 %","23,4 %","44 %","64 %"],a:2,e:"Il n'a pas fonctionné dans 17,1 % des cas, la situation était indéterminée dans 23,4 % et il était absent dans 15,5 % des cas.",s:"Chapitre 9, §1.3"},
+{c:9,t:"qcm",q:"À qui le fournisseur remet-il la fiche de données de sécurité, et quand ?",o:["Au travailleur, au moment de l'utilisation","À l'employeur, au moment de la vente du produit","À la CNESST, à chaque année","À l'agent de sécurité, lors des rondes"],a:1,e:"Elle doit être disponible en français et en anglais, conservée sur les lieux de travail par l'employeur dans un endroit connu des travailleurs, et facilement et rapidement accessible à ceux qui risquent d'être exposés.",s:"Chapitre 9, §5.3"},
+
+/* --- Ch.10 : description d'une personne, notes, heures --- */
+{c:10,t:"liste",q:"Nommez au moins six éléments à inclure dans la description d'une personne.",n:6,items:[["nom"],["peau"],["genre"],["age"],["taille","stature"],["poids","physique"],["cheveux"],["yeux"],["tete","visage"],["vetements","vetement"],["caracteristiques distinctives","tatouage","cicatrice","percage"]],d:"Nom · Peau · Perception du genre · Âge · Taille et stature · Poids et physique · Cheveux · Yeux · Tête et visage · Vêtements · Autres caractéristiques distinctives",e:"Les vêtements se décrivent de la tête aux pieds, avec forme, taille, couleur, marque ou apparence générale, accessoires compris. La taille et le poids s'estiment à l'aide de référents : un meuble, la taille d'un collègue.",s:"Chapitre 10, §3.3"},
+{c:10,t:"multi",q:"Que doit contenir la section « début du quart de travail » du cahier de notes ?",o:["Nom et numéro d'agent","Date et adresse complète du lieu de travail","Horaire de travail avec les heures exactes","Heure de début du quart et nom du collègue remplacé","Équipements disponibles et leur état","Le nom du superviseur de garde à l'agence"],a:[0,1,2,3,4],e:"S'ajoutent les directives additionnelles absentes des protocoles. L'agent est responsable du matériel mis à sa disposition : il est important d'en noter l'état dès le début du quart.",s:"Chapitre 10, §1.2"},
+{c:10,t:"multi",q:"Que doit comprendre la section « fin du quart de travail » du cahier de notes ?",o:["Le nom du collègue qui remplace l'agent","L'état des équipements, confirmé par la signature du collègue","L'heure exacte de la fin du quart","La signature de l'agent sous la dernière ligne de notes","Un trait pour séparer le quart du suivant"],a:[0,1,2,3,4],e:"Ces cinq éléments sont tous nommés dans le manuel.",s:"Chapitre 10, §1.2"},
+{c:10,t:"multi",q:"Sous le « Quand » du QQCOQP, que faut-il noter ?",o:["L'heure à laquelle la situation a d'abord été constatée","Toutes les heures-clés du déroulement (arrivée sur les lieux, appel au 9-1-1)","La date précise, jour/mois/année","La durée totale du quart de travail"],a:[0,1,2],e:"Le temps est un élément essentiel du rapport : il peut avoir un impact majeur dans un futur processus judiciaire.",s:"Chapitre 10, §3.1"},
+
+/* --- Annexes : articles complémentaires du Code criminel --- */
+{c:11,t:"qcm",q:"Selon l'article 21 du Code criminel, qui participe à une infraction ?",o:["Seulement celui qui la commet réellement","Celui qui la commet, celui qui accomplit ou omet quelque chose pour aider quelqu'un à la commettre, et celui qui encourage quelqu'un à la commettre","Celui qui la commet et le complice après le fait","Toute personne présente sur les lieux"],a:1,e:"Le complice après le fait (art. 23) est plutôt celui qui, sachant qu'une personne a participé à l'infraction, la reçoit, l'aide ou l'assiste en vue de lui permettre de s'échapper.",s:"Annexe III"},
+{c:11,t:"qcm",q:"Qu'est-ce qu'une émeute selon l'article 64 du Code criminel ?",o:["Une manifestation non déclarée","Un attroupement illégal qui a commencé à troubler la paix tumultueusement","Un rassemblement de plus de dix personnes","Un attroupement armé"],a:1,e:"L'attroupement illégal (art. 63) est la réunion de trois individus ou plus qui, dans l'intention d'atteindre un but commun, font craindre pour des motifs raisonnables qu'ils ne troublent tumultueusement la paix.",s:"Annexe III"},
+{c:11,t:"qcm",q:"Faire du tapage dans un endroit public en criant, en jurant ou en étant ivre constitue, selon l'article 175 :",o:["Un acte criminel","Une infraction punissable sur déclaration de culpabilité par procédure sommaire","Une infraction mixte","Une contravention municipale"],a:1,e:"L'article 175 couvre aussi le fait d'étaler des choses indécentes dans un endroit public, de flâner en gênant les personnes, et de troubler la paix et la tranquillité des occupants d'une maison d'habitation.",s:"Annexe III"},
+{c:11,t:"qcm",q:"Selon l'article 267, quelle est la peine maximale par mise en accusation pour une agression armée ou l'infliction de lésions corporelles ?",o:["Deux ans","Cinq ans","Dix ans","Quatorze ans"],a:2,e:"L'article 267 vise celui qui, en se livrant à des voies de fait, porte ou menace d'utiliser une arme, inflige des lésions corporelles, ou étouffe, suffoque ou étrangle le plaignant. Les voies de fait simples (art. 266) sont passibles de cinq ans au maximum.",s:"Annexe III"},
+{c:11,t:"qcm",q:"Que sont des voies de fait graves selon l'article 268 ?",o:["Des voies de fait commises avec une arme","Le fait de blesser, mutiler ou défigurer le plaignant, ou de mettre sa vie en danger","Des voies de fait répétées","Des voies de fait commises sur un agent de la paix"],a:1,e:"À distinguer de l'agression armée ou de l'infliction de lésions corporelles (art. 267).",s:"Annexe III"},
+{c:11,t:"qcm",q:"Selon l'article 351, avoir la figure couverte d'un masque dans l'intention de commettre un acte criminel est :",o:["Un simple facteur aggravant","Une infraction distincte, passible d'un maximum de dix ans par mise en accusation","Légal tant qu'aucune infraction n'est commise","Une infraction sommaire uniquement"],a:1,e:"Le même article vise la possession d'outils de cambriolage : un instrument pouvant servir à pénétrer par effraction, sachant qu'il a été ou sera utilisé à cette fin.",s:"Annexe III"},
+{c:11,t:"qcm",q:"Selon l'article 380, à partir de quelle valeur une fraude devient-elle passible d'un emprisonnement maximal de quatorze ans ?",o:["1 000 $","5 000 $","10 000 $","25 000 $"],a:1,e:"Au-delà de 5 000 $ (ou s'il s'agit d'un titre testamentaire) : jusqu'à quatorze ans. En deçà : acte criminel de deux ans au maximum, ou infraction sommaire.",s:"Annexe III"},
+{c:11,t:"vf",q:"Selon l'article 430, détruire ou modifier volontairement des données informatiques constitue un méfait.",a:true,e:"Le méfait à l'égard de données informatiques couvre aussi le fait de les dépouiller de leur sens, de les rendre inutiles ou inopérantes, d'en gêner l'emploi légitime ou d'en refuser l'accès à une personne qui y a droit.",s:"Annexe III"},
+{c:11,t:"qcm",q:"Selon l'article 437, faire sonner volontairement et sans cause raisonnable une alarme d'incendie est :",o:["Toujours un acte criminel passible de cinq ans","Une infraction mixte : acte criminel passible de deux ans au maximum, ou infraction sommaire","Une simple contravention","Légal si la personne croyait à un danger"],a:1,e:"L'infraction vise le fait de sonner ou de répandre une alarme d'incendie en criant, en sonnant des cloches, au moyen d'un avertisseur d'incendie, d'un téléphone, d'un télégraphe ou de toute autre manière.",s:"Annexe III"},
+{c:11,t:"qcm",q:"Selon l'article 354, que doit savoir une personne pour commettre l'infraction de possession de biens criminellement obtenus ?",o:["Rien : la simple possession suffit","Elle doit savoir que tout ou partie des biens proviennent de la perpétration d'une infraction punissable sur acte d'accusation","Elle doit avoir participé au vol","Elle doit avoir revendu le bien"],a:1,e:"L'infraction couvre aussi les biens provenant d'un acte commis à l'étranger qui aurait constitué, au Canada, une infraction punissable sur acte d'accusation.",s:"Annexe III"}
+];
+
+/* ============================================================
+   MOTEUR
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const el = (t,c,x) => { const n=document.createElement(t); if(c)n.className=c; if(x!=null)n.textContent=x; return n; };
+const norm = s => (s||"").toString().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"")
+  .replace(/[^a-z0-9]+/g," ").trim();
+
+const TYPE_LABEL = {qcm:"Choix unique", multi:"Choix multiples", vf:"Vrai ou faux", txt:"Réponse à saisir", liste:"Énumération"};
+
+let store = {};
+try { store = JSON.parse(localStorage.getItem("xg_quiz_v1") || "{}") || {}; } catch(e){ store = {}; }
+function save(){ try { localStorage.setItem("xg_quiz_v1", JSON.stringify(store)); } catch(e){} }
+
+Q.forEach((q,i)=> q.id = i);
+
+let fmt = store.fmt || "mix";
+let S = null; // session
+
+/* ---------- thème ---------- */
+const themeBtn = $("#themeBtn");
+try { if(store.theme) document.documentElement.setAttribute("data-theme", store.theme); } catch(e){}
+themeBtn.addEventListener("click", ()=>{
+  const cur = document.documentElement.getAttribute("data-theme");
+  const next = cur === "dark" ? "light" : cur === "light" ? "dark"
+    : (matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark");
+  document.documentElement.setAttribute("data-theme", next);
+  store.theme = next; save();
+});
+
+/* ---------- accueil ---------- */
+function poolFor(list){
+  if(fmt === "pick") return list.filter(q => q.t==="qcm"||q.t==="multi"||q.t==="vf");
+  if(fmt === "type") return list.filter(q => q.t==="txt"||q.t==="liste");
+  return list;
+}
+function wrongIds(){
+  const w = store.wrong || {};
+  return Q.filter(q => w[q.id]);
+}
+function renderHome(){
+  $("#qtot").textContent = Q.length;
+  const st = store.stats || {};
+  const ids = Object.keys(st);
+  let ok=0, tot=0;
+  ids.forEach(k=>{ ok += st[k].ok||0; tot += (st[k].ok||0)+(st[k].ko||0); });
+  $("#sDone").textContent = ids.length;
+  $("#sRate").textContent = tot ? Math.round(ok/tot*100)+" %" : "—";
+  const nw = wrongIds().length;
+  $("#sWrong").textContent = nw;
+  $("#wrongBtn").disabled = nw === 0;
+  $("#wrongBtn").querySelector("small").textContent = nw
+    ? nw + " question" + (nw>1?"s":"") + " ratée" + (nw>1?"s":"") + " en attente de reprise."
+    : "Aucune erreur enregistrée pour l'instant.";
+
+  document.querySelectorAll("#fmtRow .seg").forEach(b=>
+    b.setAttribute("aria-pressed", String(b.dataset.fmt === fmt)));
+
+  const box = $("#chaps"); box.innerHTML = "";
+  CHAPS.forEach((ch,i)=>{
+    const list = poolFor(Q.filter(q=>q.c===i));
+    const b = el("button","chap");
+    b.type = "button"; b.disabled = list.length===0;
+    if(list.length===0) b.style.opacity = ".4";
+    const num = el("span","num mono", ch.n); b.appendChild(num);
+    const t = el("span","ttl", ch.t);
+    const sub = el("i","", ch.s + " · " + list.length + " question" + (list.length>1?"s":""));
+    t.appendChild(sub); b.appendChild(t);
+    const meta = el("span","meta");
+    const last = (store.chap||{})[i];
+    meta.appendChild(ring(last));
+    b.appendChild(meta);
+    b.addEventListener("click", ()=> list.length && start(list, ch.s, {chap:i}));
+    box.appendChild(b);
+  });
+}
+function ring(pct){
+  const s = document.createElementNS("http://www.w3.org/2000/svg","svg");
+  s.setAttribute("class","ring"); s.setAttribute("viewBox","0 0 24 24");
+  const bg = document.createElementNS("http://www.w3.org/2000/svg","circle");
+  bg.setAttribute("cx","12"); bg.setAttribute("cy","12"); bg.setAttribute("r","9.5");
+  bg.setAttribute("fill","none"); bg.setAttribute("stroke","var(--surface-3)"); bg.setAttribute("stroke-width","3");
+  s.appendChild(bg);
+  if(typeof pct === "number"){
+    const c = 2*Math.PI*9.5;
+    const fg = document.createElementNS("http://www.w3.org/2000/svg","circle");
+    fg.setAttribute("cx","12"); fg.setAttribute("cy","12"); fg.setAttribute("r","9.5");
+    fg.setAttribute("fill","none");
+    fg.setAttribute("stroke", pct>=60 ? "var(--ok)" : "var(--bad)");
+    fg.setAttribute("stroke-width","3"); fg.setAttribute("stroke-linecap","round");
+    fg.setAttribute("stroke-dasharray", (c*pct/100)+" "+c);
+    fg.setAttribute("transform","rotate(-90 12 12)");
+    s.appendChild(fg);
+  }
+  return s;
+}
+document.querySelectorAll("#fmtRow .seg").forEach(b=>{
+  b.addEventListener("click", ()=>{ fmt = b.dataset.fmt; store.fmt = fmt; save(); renderHome(); });
+});
+document.querySelectorAll("[data-go]").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    const g = b.dataset.go;
+    if(g==="exam"){
+      const p = shuffle(poolFor(Q.slice())).slice(0,50);
+      start(p, "Examen blanc", {exam:true});
+    } else if(g==="all"){
+      start(poolFor(Q.slice()), "Tout le manuel", {});
+    } else {
+      const w = poolFor(wrongIds());
+      if(w.length) start(shuffle(w), "Mes erreurs", {});
+    }
+  });
+});
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
+
+/* ---------- session ---------- */
+function show(view){
+  $("#home").hidden = view!=="home";
+  $("#quiz").hidden = view!=="quiz";
+  $("#done").hidden = view!=="done";
+  $("#homeBtn").hidden = view==="home";
+  window.scrollTo(0,0);
+}
+function start(list, label, opt){
+  S = {list, label, opt:opt||{}, i:0, results:[], answered:false};
+  $("#barsub").textContent = label;
+  show("quiz"); renderQ();
+}
+$("#homeBtn").addEventListener("click", goHome);
+$("#backHome").addEventListener("click", goHome);
+function goHome(){ S=null; $("#barsub").textContent="Bureau de la sécurité privée · Québec"; $("#bar").style.width="0"; renderHome(); show("home"); }
+
+let sel = null;   // qcm/vf index | multi Set
+function renderQ(){
+  const q = S.list[S.i];
+  S.answered = false; sel = (q.t==="multi") ? new Set() : null;
+  $("#bar").style.width = (S.i / S.list.length * 100) + "%";
+  $("#qchap").textContent = CHAPS[q.c].s;
+  $("#qtype").textContent = TYPE_LABEL[q.t];
+  $("#qnum").textContent = (S.i+1) + " / " + S.list.length;
+  $("#qtext").textContent = q.q;
+  const hint = $("#qhint");
+  hint.textContent = q.t==="multi" ? "Plusieurs réponses possibles — sélectionnez toutes les bonnes."
+    : q.t==="liste" ? ("Écrivez vos réponses séparées par des virgules ou des retours à la ligne (" + q.n + " attendues).")
+    : q.t==="txt" ? "Répondez dans vos mots ; l'orthographe et les accents n'ont pas à être parfaits."
+    : "";
+  hint.hidden = !hint.textContent;
+
+  const A = $("#answer"); A.innerHTML = "";
+  $("#fbslot").innerHTML = "";
+
+  if(q.t==="qcm"||q.t==="multi"||q.t==="vf"){
+    const opts = q.t==="vf" ? ["Vrai","Faux"] : q.o;
+    const box = el("div","opts"); box.id = "opts";
+    opts.forEach((txt,idx)=>{
+      const b = el("button","opt"); b.type="button"; b.setAttribute("aria-pressed","false");
+      b.appendChild(el("span","k mono", String(idx+1)));
+      b.appendChild(el("span","", txt));
+      b.addEventListener("click", ()=>{
+        if(S.answered) return;
+        if(q.t==="multi"){
+          if(sel.has(idx)) sel.delete(idx); else sel.add(idx);
+          b.setAttribute("aria-pressed", String(sel.has(idx)));
+        } else {
+          sel = idx;
+          box.querySelectorAll(".opt").forEach((o,j)=> o.setAttribute("aria-pressed", String(j===idx)));
+          check();
+        }
+      });
+      box.appendChild(b);
+    });
+    A.appendChild(box);
+  } else {
+    const box = el("div","typed");
+    let f;
+    if(q.t==="liste"){ f = document.createElement("textarea"); f.rows = Math.min(6, Math.max(3, q.n)); }
+    else { f = document.createElement("input"); f.type = "text"; }
+    f.id = "field"; f.placeholder = q.t==="liste" ? "Une réponse par ligne…" : "Votre réponse…";
+    f.autocomplete = "off"; f.spellcheck = false;
+    f.addEventListener("keydown", e=>{
+      if(e.key==="Enter" && (q.t!=="liste" || e.ctrlKey || e.metaKey)){ e.preventDefault(); if(!S.answered) check(); else next(); }
+    });
+    box.appendChild(f); A.appendChild(box);
+    setTimeout(()=>f.focus(), 30);
+  }
+  renderActions();
+}
+function renderActions(){
+  const q = S.list[S.i], bar = $("#actions"); bar.innerHTML = "";
+  if(!S.answered){
+    if(q.t!=="qcm" && q.t!=="vf"){
+      const b = el("button","btn go","Vérifier"); b.type="button";
+      b.addEventListener("click", check); bar.appendChild(b);
+    }
+    const sk = el("button","btn ghost","Voir la réponse"); sk.type="button";
+    sk.addEventListener("click", ()=>check(true)); bar.appendChild(sk);
+    const k = el("span","kbd", q.t==="qcm"||q.t==="vf"||q.t==="multi" ? "touches 1–9 · Entrée" : "Entrée");
+    bar.appendChild(k);
+  } else {
+    const b = el("button","btn go", S.i===S.list.length-1 ? "Voir le résultat" : "Question suivante");
+    b.type="button"; b.id="nextBtn"; b.addEventListener("click", next); bar.appendChild(b);
+    const k = el("span","kbd","Entrée"); bar.appendChild(k);
+    setTimeout(()=>b.focus(), 30);
+  }
+}
+function check(reveal){
+  if(S.answered) return;
+  const q = S.list[S.i];
+  let good=false, given="", detail=null;
+
+  if(q.t==="qcm"||q.t==="vf"){
+    const right = q.t==="vf" ? (q.a?0:1) : q.a;
+    if(reveal) sel = null;
+    good = sel===right;
+    const opts = document.querySelectorAll("#opts .opt");
+    opts.forEach((o,j)=>{ o.disabled=true;
+      if(j===right) o.classList.add("is-ok");
+      else if(j===sel) o.classList.add("is-bad"); });
+    given = sel==null ? "—" : opts[sel].lastChild.textContent;
+  } else if(q.t==="multi"){
+    const right = new Set(q.a);
+    if(reveal) sel = new Set();
+    good = sel.size===right.size && [...right].every(i=>sel.has(i));
+    const opts = document.querySelectorAll("#opts .opt");
+    opts.forEach((o,j)=>{ o.disabled=true;
+      if(right.has(j)) o.classList.add("is-ok");
+      else if(sel.has(j)) o.classList.add("is-bad"); });
+  } else if(q.t==="txt"){
+    const f = $("#field"); const v = norm(f.value); f.disabled=true;
+    given = f.value.trim() || "—";
+    good = !reveal && v.length>0 && q.a.some(k => v.includes(k) || k.includes(v) && v.length >= Math.max(2, k.length-2));
+  } else { // liste
+    const f = $("#field"); const v = norm(f.value); f.disabled=true;
+    given = f.value.trim() || "—";
+    detail = q.items.map(syn => ({ hit: !reveal && v.length>0 && syn.some(k=> v.includes(k)), syn }));
+    const hits = detail.filter(d=>d.hit).length;
+    good = hits >= q.n;
+  }
+
+  S.answered = true;
+  S.results.push({q, good, given});
+  // stats
+  store.stats = store.stats || {};
+  const st = store.stats[q.id] || {ok:0,ko:0};
+  if(good) st.ok++; else st.ko++;
+  store.stats[q.id] = st;
+  store.wrong = store.wrong || {};
+  if(good) delete store.wrong[q.id]; else store.wrong[q.id] = 1;
+  save();
+
+  feedback(q, good, given, detail);
+  renderActions();
+  $("#bar").style.width = ((S.i+1) / S.list.length * 100) + "%";
+}
+function feedback(q, good, given, detail){
+  const fb = el("div","fb " + (good?"ok":"bad"));
+  const v = el("div","v"); v.appendChild(el("span","", good?"✓":"✕"));
+  v.appendChild(el("span","", good?"Bonne réponse":"Raté"));
+  fb.appendChild(v);
+
+  if(q.t==="liste" && detail){
+    const chk = el("div","chk");
+    detail.forEach((d,i)=>{
+      const row = el("div", d.hit?"yes":"no");
+      row.appendChild(el("span","m", d.hit?"✓":"✕"));
+      row.appendChild(el("span","", q.d.split(" · ")[i] || d.syn[0]));
+      chk.appendChild(row);
+    });
+    fb.appendChild(chk);
+  }
+  if(!good){
+    const a = el("div","ans");
+    a.appendChild(el("span","lbl", q.t==="txt"||q.t==="liste" ? "Réponse attendue" : "La bonne réponse"));
+    let txt;
+    if(q.t==="vf") txt = q.a ? "Vrai" : "Faux";
+    else if(q.t==="qcm") txt = q.o[q.a];
+    else if(q.t==="multi") txt = q.a.map(i=>"• "+q.o[i]).join("\n");
+    else txt = q.d;
+    const val = el("div","val", txt); val.style.whiteSpace = "pre-line";
+    a.appendChild(val);
+    if((q.t==="txt") && given && given!=="—"){
+      const yours = el("div","", "Votre réponse : " + given);
+      yours.style.cssText = "margin-top:6px;font-size:13.5px;color:var(--ink-2)";
+      a.appendChild(yours);
+    }
+    fb.appendChild(a);
+  }
+  if(q.e) fb.appendChild(el("p","why", q.e));
+  if(q.s) fb.appendChild(el("div","src", "→ " + q.s));
+  $("#fbslot").appendChild(fb);
+}
+function next(){
+  if(S.i < S.list.length-1){ S.i++; renderQ(); }
+  else results();
+}
+document.addEventListener("keydown", e=>{
+  if($("#quiz").hidden || !S) return;
+  const q = S.list[S.i];
+  if(e.key==="Enter"){
+    const t = document.activeElement && document.activeElement.tagName;
+    if(t==="TEXTAREA" && !(e.ctrlKey||e.metaKey)) return;
+    if(t==="INPUT") return;
+    e.preventDefault();
+    if(S.answered) next(); else if(q.t==="multi"||q.t==="txt"||q.t==="liste") check();
+    return;
+  }
+  if(S.answered) return;
+  if(/^[1-9]$/.test(e.key)){
+    if(document.activeElement && /INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+    const opts = document.querySelectorAll("#opts .opt");
+    const idx = +e.key - 1;
+    if(opts[idx]) { e.preventDefault(); opts[idx].click(); }
+  }
+});
+
+/* ---------- résultats ---------- */
+function results(){
+  const tot = S.results.length, ok = S.results.filter(r=>r.good).length;
+  const pct = Math.round(ok/tot*100);
+  $("#dchap").textContent = S.label;
+  $("#dpct").textContent = pct + " %";
+  const vd = $("#dverdict");
+  vd.textContent = pct>=60 ? "Seuil atteint" : "Sous le seuil";
+  vd.className = "verdict " + (pct>=60 ? "pass":"fail");
+  $("#dline").textContent = ok + " bonne" + (ok>1?"s":"") + " réponse" + (ok>1?"s":"") + " sur " + tot + " · note de passage : 60 %";
+  $("#bar").style.width = "100%";
+
+  if(S.opt.chap != null){ store.chap = store.chap || {}; store.chap[S.opt.chap] = pct; save(); }
+
+  const by = {};
+  S.results.forEach(r=>{ const c=r.q.c; by[c]=by[c]||{ok:0,n:0}; by[c].n++; if(r.good) by[c].ok++; });
+  const bd = $("#dbreak"); bd.innerHTML="";
+  Object.keys(by).map(Number).sort((a,b)=>a-b).forEach(c=>{
+    const row = el("div","brow");
+    row.appendChild(el("span","", CHAPS[c].s + " — " + CHAPS[c].t));
+    const b = el("span","b"); const i = el("i");
+    i.style.width = (by[c].ok/by[c].n*100)+"%";
+    i.style.background = (by[c].ok/by[c].n>=.6) ? "var(--ok)" : "var(--bad)";
+    b.appendChild(i); row.appendChild(b);
+    row.appendChild(el("span","s mono", by[c].ok+"/"+by[c].n));
+    bd.appendChild(row);
+  });
+
+  const miss = S.results.filter(r=>!r.good);
+  $("#dmisswrap").hidden = miss.length===0;
+  $("#dmisscount").textContent = miss.length + " question" + (miss.length>1?"s":"");
+  const mw = $("#dmissed"); mw.innerHTML="";
+  miss.forEach(r=>{
+    const d = el("div","miss");
+    d.appendChild(el("div","q", r.q.q));
+    const a = el("div","a");
+    a.appendChild(el("b","", "→ "));
+    let txt;
+    if(r.q.t==="vf") txt = r.q.a ? "Vrai" : "Faux";
+    else if(r.q.t==="qcm") txt = r.q.o[r.q.a];
+    else if(r.q.t==="multi") txt = r.q.a.map(i=>r.q.o[i]).join(" · ");
+    else txt = r.q.d;
+    a.appendChild(document.createTextNode(txt + "  (" + r.q.s + ")"));
+    d.appendChild(a); mw.appendChild(d);
+  });
+
+  $("#againWrong").disabled = miss.length===0;
+  $("#againWrong").onclick = ()=>{ if(miss.length) start(shuffle(miss.map(r=>r.q)), S.label + " — reprise", S.opt); };
+  $("#againAll").onclick = ()=> start(shuffle(S.list.slice()), S.label, S.opt);
+
+  show("done");
+}
+
+renderHome();
+</script>
+
+</body>
+</html>
