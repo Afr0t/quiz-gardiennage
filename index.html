@@ -134,10 +134,17 @@
     background:linear-gradient(90deg, var(--surface) 0%, var(--surface) 28%, color-mix(in srgb, var(--surface) 72%, transparent) 46%, transparent 64%),
                var(--hero-img) right center / cover no-repeat, var(--surface);
   }
+  /* Sur téléphone, la photo devient un bandeau net au-dessus du texte
+     plutôt qu'un fond voilé où l'on ne distingue plus rien. */
   @media (max-width:760px){
-    .hero{margin:0 -16px; padding:26px 16px 22px; min-height:0;
-      background:linear-gradient(180deg, color-mix(in srgb, var(--surface) 94%, transparent) 0%, color-mix(in srgb, var(--surface) 90%, transparent) 60%, color-mix(in srgb, var(--surface) 55%, transparent) 100%),
-                 var(--hero-img) center / cover no-repeat, var(--surface);}
+    .hero{margin:0 -16px; padding:0 0 22px; min-height:0; background:var(--surface)}
+    .hero::before{
+      content:""; display:block; height:158px;
+      background:var(--hero-img) center 32% / cover no-repeat;
+      -webkit-mask-image:linear-gradient(to bottom, #000 68%, transparent 100%);
+      mask-image:linear-gradient(to bottom, #000 68%, transparent 100%);
+    }
+    .hero-grid{padding:14px 16px 0}
   }
   .hero-grid{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:30px; align-items:start; position:relative}
   @media (max-width:1040px){ .hero-grid{grid-template-columns:1fr} }
