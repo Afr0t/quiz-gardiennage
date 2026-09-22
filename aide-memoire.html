@@ -125,6 +125,7 @@
   /* --- illustrations du manuel --- */
   .fig{margin:10px 0 0}
   .fig img{display:block; width:100%; height:auto; border-radius:6px}
+  .fig.narrow{max-width:210px}
   .fig figcaption{font-size:11px; color:var(--ink-3); margin-top:5px; line-height:1.35}
   .pictos{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px}
   .pictos figure{margin:0; text-align:center}
@@ -137,6 +138,7 @@
   .feux span{font-size:12px; color:var(--ink-2); line-height:1.3}
   @media print{
     .fig img{max-height:none}
+    .fig.narrow{max-width:96pt}
     .pictos{grid-template-columns:repeat(3,1fr); gap:4pt}
     .pictos img{max-width:46pt}
     .pictos figcaption{font-size:6.5pt}
@@ -519,7 +521,7 @@
       <p style="margin:0">Refroidissement · Étouffement · Retrait du combustible</p>
       <h3 style="margin-top:10px">Triangle du feu</h3>
       <p style="margin:0">Chaleur · Combustible · Comburant</p>
-      <figure class="fig"><img src="fig/triangle-du-feu.webp" alt="Triangle du feu : chaleur, combustible, comburant" loading="lazy" width="360" height="410"></figure>
+      <figure class="fig narrow"><img src="fig/triangle-du-feu.webp" alt="Triangle du feu : chaleur, combustible, comburant" loading="lazy" width="360" height="410"></figure>
     </div>
     <div class="card">
       <h3>Extincteur selon le feu</h3>
