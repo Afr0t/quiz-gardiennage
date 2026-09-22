@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="Aide-memoire d'une page : chiffres, articles de loi, procedures, pictogrammes SIMDUT et classes de feux.">
+<meta name="description" content="Aide-memoire illustre : chiffres, articles, procedures, pictogrammes SIMDUT, classes de feux et figures du manuel.">
 <style>
   html{-webkit-text-size-adjust:100%}
   :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -127,6 +127,12 @@
   .fig img{display:block; width:100%; height:auto; border-radius:6px}
   .fig.narrow{max-width:210px}
   .fig figcaption{font-size:11px; color:var(--ink-3); margin-top:5px; line-height:1.35}
+  .deux{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px}
+  .deux .fig{margin:0}
+  .quatre{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:8px}
+  .quatre .fig{margin:0; text-align:center}
+  .quatre img{max-height:74px; width:auto; margin:0 auto}
+  .quatre figcaption{text-align:center}
   .pictos{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px}
   .pictos figure{margin:0; text-align:center}
   .pictos img{width:100%; max-width:74px; height:auto; margin:0 auto; display:block}
@@ -139,6 +145,8 @@
   @media print{
     .fig img{max-height:none}
     .fig.narrow{max-width:96pt}
+    .quatre img{max-height:44pt}
+    .deux{gap:6pt}
     .pictos{grid-template-columns:repeat(3,1fr); gap:4pt}
     .pictos img{max-width:46pt}
     .pictos figcaption{font-size:6.5pt}
@@ -454,6 +462,13 @@
       <h3>Gestes réglementaires de circulation</h3>
       <figure class="fig"><img src="fig/gestes-circulation.webp" alt="Les cinq gestes réglementaires : arrêt obligatoire, s'arrêter, autorisation de passer, ralentir, circuler" loading="lazy" width="900" height="434">
       <figcaption>Vu de face ou de dos : arrêt obligatoire · De face, un bras levé : s'arrêter · Vu de profil : autorisation de passer · Geste de haut en bas de l'avant-bras : ralentir · Geste circulaire : circuler, accélérer.</figcaption></figure>
+      <h3 style="margin-top:12px">L'équipement</h3>
+      <div class="quatre">
+      <figure class="fig"><img src="fig/equipement-dossard.webp" alt="Dossard a bandes reflechissantes" loading="lazy"><figcaption>Dossard</figcaption></figure>
+      <figure class="fig"><img src="fig/equipement-cone.webp" alt="Cone de signalisation" loading="lazy"><figcaption>Cône</figcaption></figure>
+      <figure class="fig"><img src="fig/equipement-baton-lumineux.webp" alt="Baton de circulation lumineux" loading="lazy"><figcaption>Bâton lumineux</figcaption></figure>
+      <figure class="fig"><img src="fig/equipement-sifflet.webp" alt="Sifflet" loading="lazy"><figcaption>Sifflet</figcaption></figure>
+      </div>
     </div>
     <div class="card">
       <h3>5 types de patrouille</h3>
@@ -497,6 +512,7 @@
     <div class="card">
       <h3>Comportements — Modèle national</h3>
       <p style="margin:0">Coopération · Résistance passive · Résistance active · Agression · Lésions corporelles graves ou mort</p>
+      <figure class="fig"><img src="fig/echelle-comportements.webp" alt="Echelle des comportements du sujet" loading="lazy"></figure>
       <h3 style="margin-top:10px">Tireur actif — 3 réponses</h3>
       <p style="margin:0">Fuir · Se barricader · Combattre</p>
     </div>
@@ -531,8 +547,10 @@
         <dt>Poudre chimique ABC</dt><dd>A, B, C</dd>
       </dl>
       <p style="margin:8px 0 0"><em class="src">CO₂ : jamais en espace clos sans équipement, jamais sur un feu de classe A (il se rallumera).</em></p>
+      <figure class="fig narrow"><img src="fig/extincteur-selon-classe.webp" alt="Tableau des extincteurs approuves selon la classe d'incendie" loading="lazy"><figcaption>Catégorie d'incendie, type d'extincteur et extincteur approuvé.</figcaption></figure>
       <h3 style="margin-top:10px">Déclencheurs manuels</h3>
       <dl><dt>Rouge</dt><dd>alarme incendie</dd><dt>Bleu</dt><dd>verrouillage des portes coupe-feu</dd><dt>Jaune</dt><dd>alarme de fuite de gaz</dd></dl>
+      <figure class="fig narrow"><img src="fig/declencheur-manuel-rouge.webp" alt="Declencheur manuel rouge" loading="lazy"><figcaption>Déclencheur manuel. La couleur donne la fonction.</figcaption></figure>
     </div>
   </div>
 
@@ -589,6 +607,10 @@
         <div><h4>Lieu de travail — 3</h4><p style="margin:0">Nom du produit · Conseils de prudence · Mention que la FDS est consultable</p></div>
       </div>
       <p style="margin:8px 0 0"><b>« Danger »</b> = dangers les plus graves · <b>« Attention »</b> = moins graves. Fournisseur → FDS à l'employeur à la vente ; employeur → étiquetage et accès aux FDS ; travailleur → lire et comprendre.</p>
+      <div class="deux">
+      <figure class="fig"><img src="fig/etiquette-fournisseur.webp" alt="Exemple d etiquette du fournisseur" loading="lazy"><figcaption>Étiquette du fournisseur — 6 renseignements.</figcaption></figure>
+      <figure class="fig"><img src="fig/etiquette-lieu-travail.webp" alt="Exemple d etiquette du lieu de travail" loading="lazy"><figcaption>Étiquette du lieu de travail — 3 renseignements.</figcaption></figure>
+      </div>
       <h3 style="margin-top:12px">Les neuf pictogrammes</h3>
       <div class="pictos">
         <figure><img src="fig/simdut-flamme.webp" alt="Pictogramme SIMDUT : flamme" loading="lazy" width="240" height="240"><figcaption><b>FLAMME</b><br>dangers d'incendie</figcaption></figure>
@@ -653,6 +675,7 @@
       </div>
       <p style="margin:8px 0 0">Superviseur qui consulte : il <b>signe</b>, et tout commentaire est précédé de <b>« C.S. »</b>. L'agent note au journalier quels documents ont été consultés et par qui.</p>
       <p style="margin:6px 0 0">Témoins : <b>questions ouvertes</b>. « De quelle couleur était la voiture ? », jamais « Était-elle noire ? ».</p>
+      <figure class="fig"><img src="fig/fiche-description-personne.webp" alt="Fiche de description d une personne" loading="lazy"><figcaption>Fiche de description d'une personne, telle qu'elle figure au manuel.</figcaption></figure>
     </div>
   </div>
 
