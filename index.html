@@ -55,7 +55,7 @@
   body{
     margin:0; background:var(--bg); color:var(--ink);
     font-family:"IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-    font-size:16px; line-height:1.55; -webkit-text-size-adjust:100%;
+    font-size:17px; line-height:1.58; -webkit-text-size-adjust:100%;
   }
   .wrap{max-width:760px; margin:0 auto; padding-inline:16px; padding-block:0 56px}
   h1,h2,h3,.disp{font-family:"Barlow Condensed", "IBM Plex Sans", sans-serif; font-weight:600; letter-spacing:.01em; text-wrap:balance}
@@ -77,7 +77,7 @@
 
   .mainnav{display:flex; align-items:center; gap:4px; margin-left:auto}
   .mainnav button{
-    display:flex; align-items:center; gap:7px; font:inherit; font-size:13.5px; color:var(--ink-2);
+    display:flex; align-items:center; gap:7px; font:inherit; font-size:14.5px; color:var(--ink-2);
     background:none; border:0; border-bottom:2px solid transparent; padding:8px 11px; cursor:pointer; white-space:nowrap;
   }
   .mainnav button:hover{color:var(--ink)}
@@ -103,6 +103,15 @@
   }
   .usermenu button:hover{background:var(--surface-2)}
   .usermenu button.danger{color:var(--bad)}
+  .tailles{display:flex; gap:6px; padding:2px 10px 8px}
+  .tailles button{
+    flex:1; border:1px solid var(--line); background:var(--surface); color:var(--ink);
+    border-radius:8px; padding:7px 0; cursor:pointer; font-family:inherit; line-height:1;
+  }
+  .tailles button:nth-child(1){font-size:13px}
+  .tailles button:nth-child(2){font-size:16px}
+  .tailles button:nth-child(3){font-size:19px}
+  .tailles button[aria-pressed="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
   .usermenu hr{border:0; border-top:1px solid var(--line); margin:5px 2px}
   .usermenu .who{padding:8px 10px 4px; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3)}
 
@@ -126,6 +135,8 @@
   .segs span.now{background:var(--accent)}
 
   /* ---------- page d'accueil ---------- */
+  /* Réglage de taille du texte, conservé par appareil. */
+  .topnav-in, .segs, .page{zoom:var(--zoom, 1)}
   .page{max-width:1320px; margin:0 auto; padding:0 24px 60px}
   @media (max-width:760px){ .page{padding:0 16px 48px} }
 
@@ -152,7 +163,7 @@
   .kicker{font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:12px}
   h1{font-family:"Archivo",sans-serif; font-weight:700; font-size:clamp(34px,5.4vw,52px); line-height:1.02;
      margin:0 0 14px; letter-spacing:-.02em; text-wrap:balance}
-  .lede{color:var(--ink-2); font-size:15.5px; max-width:60ch; margin:0 0 22px}
+  .lede{color:var(--ink-2); font-size:17px; max-width:60ch; margin:0 0 22px}
   .lede b{color:var(--ink); font-weight:600}
 
   .cta{
@@ -168,8 +179,8 @@
   .stat{display:flex; align-items:center; gap:11px; background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:10px 15px}
   .stat .ic{width:30px; height:30px; border-radius:8px; background:var(--surface-2); display:grid; place-items:center; color:var(--ink-2); flex:none}
   .stat .ic svg{width:15px; height:15px}
-  .stat .n{display:block; font-family:"Archivo",sans-serif; font-size:19px; font-weight:700; line-height:1.1}
-  .stat .l{display:block; font-size:12px; color:var(--ink-3); line-height:1.2}
+  .stat .n{display:block; font-family:"Archivo",sans-serif; font-size:21px; font-weight:700; line-height:1.1}
+  .stat .l{display:block; font-size:13px; color:var(--ink-3); line-height:1.2}
 
   .promise{background:color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter:blur(7px);
     border:1px solid color-mix(in srgb, var(--line) 70%, transparent); border-radius:12px;
@@ -178,7 +189,7 @@
   .promise q{display:block; font-family:"Archivo",sans-serif; font-style:italic; font-size:17px; line-height:1.34; font-weight:500}
   .promise .rule{width:52px; height:3px; background:var(--accent); border-radius:2px; margin:12px 0 14px}
   .promise ul{list-style:none; margin:0; padding:0; display:grid; gap:11px}
-  .promise li{display:flex; align-items:center; gap:11px; font-size:14px}
+  .promise li{display:flex; align-items:center; gap:11px; font-size:15px}
   .promise li svg{width:19px; height:19px; color:var(--ink-2); flex:none}
 
   /* ---------- comment commencer ---------- */
@@ -192,14 +203,14 @@
   .howto-lead .ic{width:32px; height:32px; border-radius:9px; background:var(--accent-soft); color:var(--accent); display:grid; place-items:center; flex:none}
   .howto-lead h2{font-family:"Archivo",sans-serif; font-size:20px; font-weight:700; margin:0 0 3px; text-transform:none;
     letter-spacing:-.01em; border:0; padding:0}
-  .howto-lead p{margin:0; font-size:13px; color:var(--ink-3); line-height:1.4}
+  .howto-lead p{margin:0; font-size:14px; color:var(--ink-3); line-height:1.4}
   .step{position:relative; background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:13px 15px; display:grid; gap:4px; align-content:start}
   .step .top{display:flex; align-items:center; gap:9px; margin-bottom:2px}
   .step .num{width:23px; height:23px; border-radius:50%; background:var(--accent); color:var(--accent-ink);
     display:grid; place-items:center; font-size:11.5px; font-weight:700; flex:none; font-family:"IBM Plex Mono",monospace}
   .step .top svg{width:17px; height:17px; color:var(--ink-2)}
-  .step b{font-size:14px; font-weight:600}
-  .step small{font-size:12.5px; color:var(--ink-3); line-height:1.42}
+  .step b{font-size:15px; font-weight:600}
+  .step small{font-size:13.5px; color:var(--ink-3); line-height:1.42}
   .step::after{content:"\2192"; position:absolute; right:-13px; top:50%; transform:translateY(-50%); color:var(--ink-3); font-size:15px}
   .step:last-child::after{content:none}
   @media (max-width:1040px){ .step::after{content:none} }
@@ -212,10 +223,10 @@
     background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:17px}
   .mode .ic{width:38px; height:38px; border-radius:10px; background:var(--surface-2); color:var(--ink-2); display:grid; place-items:center}
   .mode .ic svg{width:19px; height:19px}
-  .mode h3{font-family:"Archivo",sans-serif; font-size:19px; font-weight:700; margin:0; letter-spacing:-.01em}
-  .mode p{margin:0; font-size:13px; color:var(--ink-3); line-height:1.45; min-height:3.9em}
+  .mode h3{font-family:"Archivo",sans-serif; font-size:20px; font-weight:700; margin:0; letter-spacing:-.01em}
+  .mode p{margin:0; font-size:14.5px; color:var(--ink-3); line-height:1.45; min-height:3.9em}
   .mode .act{margin-top:6px; display:flex; align-items:center; justify-content:center; gap:8px;
-    font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+    font-size:12.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
     border:1px solid var(--line-strong); border-radius:9px; padding:10px; cursor:pointer;
     background:var(--surface); color:var(--ink); font-family:inherit}
   .mode .act svg{width:12px; height:12px}
@@ -236,8 +247,8 @@
   .memo:hover{border-color:var(--accent); border-style:solid}
   .memo .ic{width:34px; height:34px; border-radius:9px; background:var(--accent-soft); color:var(--accent); display:grid; place-items:center; flex:none}
   .memo .ic svg{width:17px; height:17px}
-  .memo b{display:block; font-family:"Archivo",sans-serif; font-size:15.5px; font-weight:600}
-  .memo span{font-size:13px; color:var(--ink-3)}
+  .memo b{display:block; font-family:"Archivo",sans-serif; font-size:17px; font-weight:600}
+  .memo span{font-size:14px; color:var(--ink-3)}
   .memo .arw{margin-left:auto; color:var(--accent); flex:none}
 
   /* ---------- réviser par chapitre ---------- */
@@ -245,7 +256,7 @@
   .sec-h .ic{width:32px; height:32px; border-radius:9px; background:var(--surface-2); color:var(--ink-2); display:grid; place-items:center; flex:none}
   .sec-h h2{font-family:"Archivo",sans-serif; font-size:23px; font-weight:700; margin:0 0 2px; letter-spacing:-.015em;
     text-transform:none; border:0; padding:0}
-  .sec-h p{margin:0; font-size:13px; color:var(--ink-3)}
+  .sec-h p{margin:0; font-size:14px; color:var(--ink-3)}
   .sec-h .right{margin-left:auto}
   .ghostbtn{display:inline-flex; align-items:center; gap:8px; font:inherit; font-size:13.5px;
     background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:9px 15px; cursor:pointer; color:var(--ink)}
@@ -254,7 +265,7 @@
 
   .chapcols{columns:2; column-gap:22px}
   @media (max-width:900px){ .chapcols{columns:1} }
-  .partlbl{break-inside:avoid; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3);
+  .partlbl{break-inside:avoid; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3);
     font-weight:600; margin:16px 0 8px}
   .chapcols > .partlbl:first-child{margin-top:0}
   .chap{break-inside:avoid; display:grid; grid-template-columns:auto minmax(0,1fr) auto auto auto auto auto;
@@ -263,12 +274,12 @@
   .chap:hover{border-color:var(--accent)}
   .chap .num{font-size:11.5px; font-weight:600; color:var(--ink-2); background:var(--surface-2);
     border-radius:7px; min-width:42px; height:30px; display:grid; place-items:center; padding:0 7px; flex:none}
-  .chap .ttl{font-size:14px; font-weight:600; line-height:1.25}
-  .chap .ttl i{display:block; font-style:normal; font-size:12px; color:var(--ink-3); font-weight:400; margin-top:1px}
+  .chap .ttl{font-size:15.5px; font-weight:600; line-height:1.25}
+  .chap .ttl i{display:block; font-style:normal; font-size:13px; color:var(--ink-3); font-weight:400; margin-top:1px}
   .chap .track{width:84px; height:5px; border-radius:3px; background:var(--surface-3); overflow:hidden}
   .chap .track i{display:block; height:100%; background:var(--accent); border-radius:3px}
   .chap .pct{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3); min-width:30px; text-align:right}
-  .chap .open{display:flex; align-items:center; gap:5px; font-size:13px; color:var(--accent); font-weight:500; white-space:nowrap}
+  .chap .open{display:flex; align-items:center; gap:5px; font-size:14px; color:var(--accent); font-weight:500; white-space:nowrap}
   .chap .badge{font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:600; color:var(--bad);
     background:var(--bad-bg); border-radius:99px; padding:2px 7px; white-space:nowrap}
   .ring{width:26px; height:26px; flex:none}
@@ -283,24 +294,24 @@
   .kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-bottom:18px}
   .kpi{background:var(--surface-2); border-radius:11px; padding:14px 16px}
   .kpi .n{font-family:"Archivo",sans-serif; font-size:26px; font-weight:700; line-height:1}
-  .kpi .l{font-size:12px; color:var(--ink-3); margin-top:4px}
+  .kpi .l{font-size:13px; color:var(--ink-3); margin-top:4px}
   .barlist{display:grid; gap:2px}
-  .barrow{display:grid; grid-template-columns:minmax(0,1fr) 110px auto; gap:12px; align-items:center; font-size:13.5px;
+  .barrow{display:grid; grid-template-columns:minmax(0,1fr) 110px auto; gap:12px; align-items:center; font-size:14.5px;
     padding:7px 0; border-bottom:1px solid var(--line)}
   .barrow:last-child{border-bottom:0}
   .barrow .t{height:6px; border-radius:3px; background:var(--surface-3); overflow:hidden}
   .barrow .t i{display:block; height:100%}
   .barrow .v{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-3); min-width:54px; text-align:right}
   @media (max-width:560px){ .barrow{grid-template-columns:minmax(0,1fr) auto} .barrow .t{display:none} }
-  .empty{color:var(--ink-3); font-size:14px; margin:0}
+  .empty{color:var(--ink-3); font-size:15px; margin:0}
   .helpgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(248px,1fr)); gap:18px}
   .helpgrid h4{font-family:"Archivo",sans-serif; font-size:14px; margin:0 0 6px}
-  .helpgrid p, .helpgrid li{font-size:13.5px; color:var(--ink-2); line-height:1.5; margin:0 0 5px}
+  .helpgrid p, .helpgrid li{font-size:14.5px; color:var(--ink-2); line-height:1.5; margin:0 0 5px}
   .helpgrid ul{margin:0; padding-left:18px}
   kbd{font-family:"IBM Plex Mono",monospace; font-size:11.5px; background:var(--surface-2); border:1px solid var(--line);
     border-radius:5px; padding:1px 6px}
   .favrow{display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:11px; align-items:start;
-    padding:10px 0; border-bottom:1px solid var(--line); font-size:13.5px}
+    padding:10px 0; border-bottom:1px solid var(--line); font-size:14.5px}
   .favrow:last-child{border-bottom:0}
   .favrow .tag{font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3);
     background:var(--surface-2); border-radius:99px; padding:3px 8px; white-space:nowrap}
@@ -314,9 +325,9 @@
   .sitefoot{border-top:1px solid var(--line); margin-top:44px; padding:22px 0 8px;
     display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:26px; align-items:center}
   @media (max-width:900px){ .sitefoot{grid-template-columns:1fr; gap:14px} }
-  .sitefoot .attr{font-size:12px; color:var(--ink-3); line-height:1.5; text-align:center; max-width:62ch; margin:0 auto}
+  .sitefoot .attr{font-size:13px; color:var(--ink-3); line-height:1.5; text-align:center; max-width:62ch; margin:0 auto}
   @media (max-width:900px){ .sitefoot .attr{text-align:left; margin:0} }
-  .sitefoot .slogan{display:flex; align-items:center; gap:10px; font-size:12.5px; line-height:1.35}
+  .sitefoot .slogan{display:flex; align-items:center; gap:10px; font-size:13.5px; line-height:1.35}
   .sitefoot .slogan b{display:block; font-weight:600}
   .sitefoot .slogan span{color:var(--ink-3)}
   .sitefoot .slogan .ic{width:30px; height:30px; border-radius:8px; background:var(--accent-soft); color:var(--accent);
@@ -325,7 +336,7 @@
   /* ---------- quiz ---------- */
   .qhead{display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding-block:20px 0}
   .tag{
-    font-size:11px; letter-spacing:.09em; text-transform:uppercase; font-weight:600;
+    font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; font-weight:600;
     color:var(--accent); background:var(--accent-soft); border-radius:99px; padding:4px 10px;
   }
   .tag.plain{color:var(--ink-3); background:var(--surface-3)}
@@ -348,9 +359,9 @@
   .qfig{margin:0 0 16px; max-width:520px}
   .qfig img{display:block; width:100%; height:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
   .qfig.small{max-width:190px}
-  .qfig figcaption{font-size:11.5px; color:var(--ink-3); margin-top:6px}
-  .qtext{font-size:clamp(20px,4.4vw,25px); line-height:1.3; margin:14px 0 4px; font-weight:500; text-wrap:pretty}
-  .qhint{color:var(--ink-3); font-size:13px; margin:0 0 18px}
+  .qfig figcaption{font-size:12.5px; color:var(--ink-3); margin-top:6px}
+  .qtext{font-size:clamp(22px,4.6vw,28px); line-height:1.32; margin:14px 0 4px; font-weight:500; text-wrap:pretty}
+  .qhint{color:var(--ink-3); font-size:14.5px; margin:0 0 18px}
 
   .opts{display:grid; gap:8px; margin-bottom:18px}
   .opt{
@@ -396,7 +407,7 @@
   .btn.go:hover{filter:brightness(1.06)}
   .btn.ghost{border-color:transparent; background:transparent; color:var(--ink-3); padding-inline:10px}
   .btn.ghost:hover{color:var(--ink)}
-  .kbd{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); margin-left:auto}
+  .kbd{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-3); margin-left:auto}
 
   .fb{border-radius:var(--radius); padding:14px 16px; margin-bottom:18px; border:1px solid}
   .fb.ok{background:var(--ok-bg); border-color:var(--ok-line)}
@@ -406,10 +417,10 @@
   .fb .ans{margin-top:9px; padding-top:9px; border-top:1px solid color-mix(in srgb, var(--ink) 12%, transparent)}
   .fb .ans .lbl{font-size:11px; text-transform:uppercase; letter-spacing:.09em; color:var(--ink-2); display:block; margin-bottom:3px}
   .fb .ans .val{font-weight:600}
-  .fb .why{margin:9px 0 0; color:var(--ink-2); font-size:14.5px}
-  .fb .src{margin-top:8px; font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3)}
+  .fb .why{margin:9px 0 0; color:var(--ink-2); font-size:15.5px}
+  .fb .src{margin-top:8px; font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-3)}
   .chk{display:grid; gap:4px; margin-top:8px}
-  .chk div{display:grid; grid-template-columns:auto 1fr; gap:8px; font-size:14.5px; align-items:start}
+  .chk div{display:grid; grid-template-columns:auto 1fr; gap:8px; font-size:15.5px; align-items:start}
   .chk .m{font-weight:700}
   .chk .yes .m{color:var(--ok)} .chk .no .m{color:var(--bad)}
 
@@ -458,7 +469,7 @@
   .rev.ko{border-left:3px solid var(--bad)} .rev.ok{border-left:3px solid var(--ok)}
   .rev > summary{
     cursor:pointer; padding:10px 13px; display:grid; grid-template-columns:auto 1fr auto; gap:10px;
-    align-items:start; font-size:14.5px; list-style:none;
+    align-items:start; font-size:15.5px; list-style:none;
   }
   .rev > summary::-webkit-details-marker{display:none}
   .rev > summary:hover{background:var(--surface-2)}
@@ -468,8 +479,8 @@
   .rev[open] .chev{transform:rotate(90deg)}
   .rev .body{padding:0 13px 12px 13px; border-top:1px solid var(--line)}
   .rev .body .lbl{font-size:10.5px; text-transform:uppercase; letter-spacing:.09em; color:var(--ink-3); display:block; margin:9px 0 2px}
-  .rev .body .val{font-weight:600; font-size:14.5px; white-space:pre-line}
-  .rev .body p{margin:7px 0 0; color:var(--ink-2); font-size:14px}
+  .rev .body .val{font-weight:600; font-size:15.5px; white-space:pre-line}
+  .rev .body p{margin:7px 0 0; color:var(--ink-2); font-size:15px}
   .rev .body .src{margin-top:7px; font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3)}
 
   @media (prefers-reduced-motion: reduce){*{transition:none !important; animation:none !important}}
@@ -503,6 +514,13 @@
       </button>
       <div class="usermenu" id="userMenu" role="menu" hidden>
         <div class="who">Révision locale · cet appareil</div>
+        <div class="who">Taille du texte</div>
+        <div class="tailles" id="tailles">
+          <button type="button" data-zoom="1" aria-pressed="true">A</button>
+          <button type="button" data-zoom="1.12" aria-pressed="false">A</button>
+          <button type="button" data-zoom="1.25" aria-pressed="false">A</button>
+        </div>
+        <hr>
         <button role="menuitem" data-user="theme"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4v16" fill="currentColor"/></svg>Changer le thème</button>
         <button role="menuitem" data-user="memo"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5"/></svg>Aide-mémoire</button>
         <hr>
@@ -1430,6 +1448,21 @@ userMenu.addEventListener("click", e=>{
       goHome();
     }
   }
+});
+
+/* Taille du texte : trois crans, appliqués par zoom sur les conteneurs. */
+function appliquerZoom(z){
+  document.documentElement.style.setProperty("--zoom", z);
+  document.querySelectorAll("#tailles button").forEach(b =>
+    b.setAttribute("aria-pressed", String(String(b.dataset.zoom) === String(z))));
+}
+appliquerZoom(store.zoom || 1);
+document.querySelectorAll("#tailles button").forEach(b=>{
+  b.addEventListener("click", e=>{
+    e.stopPropagation();
+    store.zoom = b.dataset.zoom; save();
+    appliquerZoom(store.zoom);
+  });
 });
 
 function basculerTheme(){
