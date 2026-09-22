@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="Quiz de revision couvrant le manuel de formation en gardiennage de l'Academie XGuard : 277 questions, choix multiples, saisie libre et mises en situation.">
+<meta name="description" content="Quiz de revision couvrant le manuel de formation en gardiennage de l'Academie XGuard : 277 questions, mises en situation et aide-memoire.">
 <style>
   html{-webkit-text-size-adjust:100%}
   :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -21,6 +21,7 @@
     --ink:#14171C; --ink-2:#555C69; --ink-3:#7D8592;
     --line:#D2D7DE; --line-strong:#B6BDC8;
     --accent:#B85F04; --accent-soft:#FBEEDD; --accent-ink:#FFFFFF;
+    --hero-img:image-set(url("hero-securite-privee.webp") 1x);
     --ok:#0D7361; --ok-bg:#E1F2EE; --ok-line:#8ECFC1;
     --bad:#AE221E; --bad-bg:#FAE8E6; --bad-line:#E6A6A2;
     --shadow:0 1px 2px rgba(20,23,28,.06), 0 8px 24px -16px rgba(20,23,28,.28);
@@ -60,90 +61,257 @@
   h1,h2,h3,.disp{font-family:"Barlow Condensed", "IBM Plex Sans", sans-serif; font-weight:600; letter-spacing:.01em; text-wrap:balance}
   .mono{font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums}
 
-  /* ---------- top bar ---------- */
-  .bar{
-    position:sticky; top:env(safe-area-inset-top, 0px); z-index:20;
-    background:color-mix(in srgb, var(--bg) 88%, transparent);
-    backdrop-filter:blur(10px); border-bottom:1px solid var(--line);
+  /* ---------- barre de navigation ---------- */
+  .topnav{
+    position:sticky; top:env(safe-area-inset-top, 0px); z-index:30;
+    background:var(--surface); border-bottom:1px solid var(--line);
   }
-  .bar-in{max-width:760px; margin:0 auto; padding:10px 16px; display:flex; align-items:center; gap:12px}
-  .brand{display:flex; align-items:baseline; gap:8px; margin-right:auto; min-width:0}
-  .brand b{font-family:"Barlow Condensed",sans-serif; font-size:22px; font-weight:700; letter-spacing:.02em; text-transform:uppercase; white-space:nowrap}
-  .brand span{font-size:11px; color:var(--ink-3); text-transform:uppercase; letter-spacing:.09em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .topnav-in{max-width:1320px; margin:0 auto; padding:0 24px; height:58px; display:flex; align-items:center; gap:22px}
+  @media (max-width:760px){ .topnav-in{padding:0 16px; height:54px; gap:12px} }
+  .wordmark{display:flex; align-items:baseline; gap:10px; text-decoration:none; color:inherit; min-width:0;
+    background:none; border:0; padding:0; cursor:pointer; font:inherit}
+  .wordmark b{font-family:"Barlow Condensed",sans-serif; font-size:23px; font-weight:700; letter-spacing:.02em;
+    text-transform:uppercase; white-space:nowrap}
+  .wordmark span{font-size:10.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3); white-space:nowrap}
+  @media (max-width:900px){ .wordmark span{display:none} }
+
+  .mainnav{display:flex; align-items:center; gap:4px; margin-left:auto}
+  .mainnav button{
+    display:flex; align-items:center; gap:7px; font:inherit; font-size:13.5px; color:var(--ink-2);
+    background:none; border:0; border-bottom:2px solid transparent; padding:8px 11px; cursor:pointer; white-space:nowrap;
+  }
+  .mainnav button:hover{color:var(--ink)}
+  .mainnav button.on{color:var(--accent); border-bottom-color:var(--accent); font-weight:600}
+  .mainnav svg{width:15px; height:15px; flex:none}
+  @media (max-width:880px){ .mainnav button span{display:none} .mainnav button{padding:8px 9px} }
+
+  .userwrap{position:relative; display:flex; align-items:center; gap:8px; padding-left:16px; border-left:1px solid var(--line)}
+  @media (max-width:760px){ .userwrap{padding-left:8px; border-left:0} }
+  #userBtn{display:flex; align-items:center; gap:6px; background:none; border:0; cursor:pointer; padding:3px; color:var(--ink-2)}
+  .avatar{
+    width:30px; height:30px; border-radius:50%; background:var(--ink); color:var(--surface);
+    display:grid; place-items:center; font-size:11.5px; font-weight:600; letter-spacing:.03em; flex:none;
+  }
+  .usermenu{
+    position:absolute; right:0; top:calc(100% + 8px); min-width:236px; z-index:40;
+    background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:6px;
+    box-shadow:0 10px 34px -12px rgba(20,24,31,.3);
+  }
+  .usermenu button{
+    display:flex; width:100%; align-items:center; gap:9px; font:inherit; font-size:13.5px; text-align:left;
+    background:none; border:0; border-radius:7px; padding:9px 10px; cursor:pointer; color:var(--ink);
+  }
+  .usermenu button:hover{background:var(--surface-2)}
+  .usermenu button.danger{color:var(--bad)}
+  .usermenu hr{border:0; border-top:1px solid var(--line); margin:5px 2px}
+  .usermenu .who{padding:8px 10px 4px; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3)}
+
+  .sessionbar{display:flex; align-items:center; gap:12px; margin-left:auto; min-width:0}
+  .sessionbar .slabel{font-size:13.5px; color:var(--ink-2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .livescore{font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--ink-3); white-space:nowrap; flex:none}
+  .livescore b{color:var(--ok)} .livescore i{font-style:normal; color:var(--bad)}
   .iconbtn{
     border:1px solid var(--line); background:var(--surface); color:var(--ink-2);
-    width:34px; height:34px; border-radius:8px; display:grid; place-items:center;
-    cursor:pointer; font-size:15px; flex:none;
+    width:32px; height:32px; border-radius:8px; display:grid; place-items:center; cursor:pointer; font-size:14px; flex:none;
   }
   .iconbtn:hover{border-color:var(--line-strong); color:var(--ink)}
+
   .progress{height:3px; background:var(--surface-3)}
   .progress i{display:block; height:100%; background:var(--accent); width:0; transition:width .25s ease}
-  /* Bande de résultats : un cran par question, vert ou rouge — visible d'un coup d'œil. */
-  .segs{display:flex; gap:2px; padding:0 16px 7px; max-width:760px; margin:0 auto}
+  .segs{display:flex; gap:2px; padding:6px 24px 7px; max-width:1320px; margin:0 auto}
+  @media (max-width:760px){ .segs{padding:6px 16px 7px} }
   .segs span{flex:1; height:4px; border-radius:2px; background:var(--surface-3); transition:background .2s}
   .segs span.ok{background:var(--ok)}
   .segs span.ko{background:var(--bad)}
   .segs span.now{background:var(--accent)}
-  .livescore{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-3); white-space:nowrap; flex:none}
-  .livescore b{color:var(--ok)} .livescore i{font-style:normal; color:var(--bad)}
 
-  /* ---------- home ---------- */
-  .hero{padding-block:34px 22px; border-bottom:1px solid var(--line)}
-  .kicker{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:10px}
-  h1{font-size:clamp(34px,8vw,52px); line-height:.98; margin:0 0 12px; text-transform:uppercase}
-  .lede{color:var(--ink-2); max-width:56ch; margin:0}
+  /* ---------- page d'accueil ---------- */
+  .page{max-width:1320px; margin:0 auto; padding:0 24px 60px}
+  @media (max-width:760px){ .page{padding:0 16px 48px} }
+
+  .hero{
+    position:relative; overflow:hidden; margin:0 -24px; padding:40px 24px 30px; min-height:336px;
+    background:linear-gradient(90deg, var(--surface) 0%, var(--surface) 28%, color-mix(in srgb, var(--surface) 72%, transparent) 46%, transparent 64%),
+               var(--hero-img) right center / cover no-repeat, var(--surface);
+  }
+  @media (max-width:760px){
+    .hero{margin:0 -16px; padding:26px 16px 22px; min-height:0;
+      background:linear-gradient(180deg, color-mix(in srgb, var(--surface) 94%, transparent) 0%, color-mix(in srgb, var(--surface) 90%, transparent) 60%, color-mix(in srgb, var(--surface) 55%, transparent) 100%),
+                 var(--hero-img) center / cover no-repeat, var(--surface);}
+  }
+  .hero-grid{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:30px; align-items:start; position:relative}
+  @media (max-width:1040px){ .hero-grid{grid-template-columns:1fr} }
+  .hero-main{max-width:640px}
+  .kicker{font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:12px}
+  h1{font-family:"Archivo",sans-serif; font-weight:700; font-size:clamp(34px,5.4vw,52px); line-height:1.02;
+     margin:0 0 14px; letter-spacing:-.02em; text-wrap:balance}
+  .lede{color:var(--ink-2); font-size:15.5px; max-width:60ch; margin:0 0 22px}
   .lede b{color:var(--ink); font-weight:600}
 
-  .statrow{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px}
-  .stat{
-    background:var(--surface); border:1px solid var(--line); border-radius:8px;
-    padding:8px 12px; display:flex; align-items:baseline; gap:7px;
+  .cta{
+    display:inline-flex; align-items:center; gap:11px; font:inherit; font-size:16px; font-weight:600;
+    background:var(--accent); color:var(--accent-ink); border:0; border-radius:11px;
+    padding:14px 22px; cursor:pointer; box-shadow:0 8px 20px -10px rgba(220,104,3,.7);
   }
-  .stat .n{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:17px; font-variant-numeric:tabular-nums}
-  .stat .l{font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-3)}
+  .cta:hover{background:var(--accent-deep)}
+  .cta .play{width:26px; height:26px; border-radius:50%; background:rgba(255,255,255,.25); display:grid; place-items:center; flex:none}
+  .cta .play svg{width:11px; height:11px}
 
-  section.blk{padding-block:26px; border-bottom:1px solid var(--line)}
-  section.blk:last-of-type{border-bottom:0}
-  .blk-h{display:flex; align-items:baseline; gap:10px; margin-bottom:14px}
-  .blk-h h2{font-size:15px; margin:0; text-transform:uppercase; letter-spacing:.11em}
-  .blk-h em{font-style:normal; font-size:12px; color:var(--ink-3)}
+  .statrow{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px}
+  .stat{display:flex; align-items:center; gap:11px; background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:10px 15px}
+  .stat .ic{width:30px; height:30px; border-radius:8px; background:var(--surface-2); display:grid; place-items:center; color:var(--ink-2); flex:none}
+  .stat .ic svg{width:15px; height:15px}
+  .stat .n{font-family:"Archivo",sans-serif; font-size:19px; font-weight:700; line-height:1.1}
+  .stat .l{font-size:12px; color:var(--ink-3); line-height:1.2}
 
-  .modes{display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
-  .mode{
-    text-align:left; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
-    padding:14px 15px; cursor:pointer; color:inherit; font:inherit; display:grid; gap:3px;
-    transition:border-color .12s, transform .12s;
+  .promise{background:color-mix(in srgb, var(--surface) 74%, transparent); backdrop-filter:blur(3px); border-radius:12px; padding:16px 18px; max-width:292px}
+  @media (max-width:1040px){ .promise{max-width:none; backdrop-filter:none} }
+  .promise q{display:block; font-family:"Archivo",sans-serif; font-style:italic; font-size:17px; line-height:1.34; font-weight:500}
+  .promise .rule{width:52px; height:3px; background:var(--accent); border-radius:2px; margin:12px 0 14px}
+  .promise ul{list-style:none; margin:0; padding:0; display:grid; gap:11px}
+  .promise li{display:flex; align-items:center; gap:11px; font-size:14px}
+  .promise li svg{width:19px; height:19px; color:var(--ink-2); flex:none}
+
+  /* ---------- comment commencer ---------- */
+  .howto{
+    display:grid; grid-template-columns:minmax(190px,240px) repeat(3, minmax(0,1fr)); gap:16px; align-items:stretch;
+    background:var(--surface-2); border:1px solid var(--line); border-radius:14px; padding:18px; margin-top:26px;
   }
-  .mode:hover{border-color:var(--accent); transform:translateY(-1px)}
-  .mode strong{font-family:"Barlow Condensed",sans-serif; font-size:21px; font-weight:600; letter-spacing:.01em}
-  .mode small{color:var(--ink-2); font-size:13px; line-height:1.4}
-  .mode.primary{background:var(--accent); border-color:var(--accent); color:var(--accent-ink)}
-  .mode.primary small{color:color-mix(in srgb, var(--accent-ink) 78%, transparent)}
-  .mode:disabled{opacity:.45; cursor:not-allowed; transform:none}
+  @media (max-width:1040px){ .howto{grid-template-columns:1fr 1fr} }
+  @media (max-width:660px){ .howto{grid-template-columns:1fr} }
+  .howto-lead{display:flex; gap:12px; align-items:flex-start}
+  .howto-lead .ic{width:32px; height:32px; border-radius:9px; background:var(--accent-soft); color:var(--accent); display:grid; place-items:center; flex:none}
+  .howto-lead h2{font-family:"Archivo",sans-serif; font-size:20px; font-weight:700; margin:0 0 3px; text-transform:none;
+    letter-spacing:-.01em; border:0; padding:0}
+  .howto-lead p{margin:0; font-size:13px; color:var(--ink-3); line-height:1.4}
+  .step{position:relative; background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:13px 15px; display:grid; gap:4px; align-content:start}
+  .step .top{display:flex; align-items:center; gap:9px; margin-bottom:2px}
+  .step .num{width:23px; height:23px; border-radius:50%; background:var(--accent); color:var(--accent-ink);
+    display:grid; place-items:center; font-size:11.5px; font-weight:700; flex:none; font-family:"IBM Plex Mono",monospace}
+  .step .top svg{width:17px; height:17px; color:var(--ink-2)}
+  .step b{font-size:14px; font-weight:600}
+  .step small{font-size:12.5px; color:var(--ink-3); line-height:1.42}
+  .step::after{content:"\2192"; position:absolute; right:-13px; top:50%; transform:translateY(-50%); color:var(--ink-3); font-size:15px}
+  .step:last-child::after{content:none}
+  @media (max-width:1040px){ .step::after{content:none} }
 
-  .segrow{display:flex; flex-wrap:wrap; gap:6px}
-  .seg{
-    border:1px solid var(--line); background:var(--surface); color:var(--ink-2);
-    padding:6px 12px; border-radius:99px; cursor:pointer; font:inherit; font-size:13px;
-  }
-  .seg[aria-pressed="true"]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+  /* ---------- cartes de mode ---------- */
+  .modes{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:14px; margin-top:16px}
+  @media (max-width:1040px){ .modes{grid-template-columns:repeat(2,minmax(0,1fr))} }
+  @media (max-width:560px){ .modes{grid-template-columns:1fr} }
+  .mode{position:relative; display:grid; gap:9px; align-content:start; text-align:left; font:inherit; color:inherit;
+    background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:17px}
+  .mode .ic{width:38px; height:38px; border-radius:10px; background:var(--surface-2); color:var(--ink-2); display:grid; place-items:center}
+  .mode .ic svg{width:19px; height:19px}
+  .mode h3{font-family:"Archivo",sans-serif; font-size:19px; font-weight:700; margin:0; letter-spacing:-.01em}
+  .mode p{margin:0; font-size:13px; color:var(--ink-3); line-height:1.45; min-height:3.9em}
+  .mode .act{margin-top:6px; display:flex; align-items:center; justify-content:center; gap:8px;
+    font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+    border:1px solid var(--line-strong); border-radius:9px; padding:10px; cursor:pointer;
+    background:var(--surface); color:var(--ink); font-family:inherit}
+  .mode .act svg{width:12px; height:12px}
+  .mode .act:hover{border-color:var(--accent); color:var(--accent)}
+  .mode.is-primary{background:var(--accent); border-color:var(--accent); color:var(--accent-ink)}
+  .mode.is-primary p{color:color-mix(in srgb, var(--accent-ink) 84%, transparent)}
+  .mode.is-primary .ic{background:rgba(255,255,255,.2); color:var(--accent-ink)}
+  .mode.is-primary .act{background:var(--surface); border-color:var(--surface); color:var(--accent-deep)}
+  .mode.is-alert{background:var(--bad-bg); border-color:var(--bad-line)}
+  .mode.is-alert .ic{background:color-mix(in srgb, var(--bad) 14%, transparent); color:var(--bad)}
+  .mode .badge{position:absolute; top:-9px; right:14px; background:var(--ink); color:var(--surface);
+    font-size:10.5px; font-weight:600; letter-spacing:.04em; border-radius:99px; padding:4px 10px}
+  .mode.is-off{opacity:.58}
+  .mode.is-off .act{cursor:not-allowed}
 
-  .chaps{display:grid; gap:8px}
-  .chap{
-    display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:12px;
-    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
-    padding:11px 14px; cursor:pointer; color:inherit; font:inherit; text-align:left;
-  }
+  .memo{display:flex; align-items:center; gap:14px; margin-top:14px; text-decoration:none; color:inherit;
+    border:1px dashed var(--line-strong); border-radius:12px; padding:14px 18px; background:var(--surface)}
+  .memo:hover{border-color:var(--accent); border-style:solid}
+  .memo .ic{width:34px; height:34px; border-radius:9px; background:var(--accent-soft); color:var(--accent); display:grid; place-items:center; flex:none}
+  .memo .ic svg{width:17px; height:17px}
+  .memo b{display:block; font-family:"Archivo",sans-serif; font-size:15.5px; font-weight:600}
+  .memo span{font-size:13px; color:var(--ink-3)}
+  .memo .arw{margin-left:auto; color:var(--accent); flex:none}
+
+  /* ---------- réviser par chapitre ---------- */
+  .sec-h{display:flex; align-items:flex-start; gap:12px; margin:34px 0 16px; flex-wrap:wrap}
+  .sec-h .ic{width:32px; height:32px; border-radius:9px; background:var(--surface-2); color:var(--ink-2); display:grid; place-items:center; flex:none}
+  .sec-h h2{font-family:"Archivo",sans-serif; font-size:23px; font-weight:700; margin:0 0 2px; letter-spacing:-.015em;
+    text-transform:none; border:0; padding:0}
+  .sec-h p{margin:0; font-size:13px; color:var(--ink-3)}
+  .sec-h .right{margin-left:auto}
+  .ghostbtn{display:inline-flex; align-items:center; gap:8px; font:inherit; font-size:13.5px;
+    background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:9px 15px; cursor:pointer; color:var(--ink)}
+  .ghostbtn:hover{border-color:var(--accent); color:var(--accent)}
+  .ghostbtn svg{width:15px; height:15px}
+
+  .chapcols{columns:2; column-gap:22px}
+  @media (max-width:900px){ .chapcols{columns:1} }
+  .partlbl{break-inside:avoid; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3);
+    font-weight:600; margin:16px 0 8px}
+  .chapcols > .partlbl:first-child{margin-top:0}
+  .chap{break-inside:avoid; display:grid; grid-template-columns:auto minmax(0,1fr) auto auto auto auto;
+    align-items:center; gap:13px; width:100%; text-align:left; font:inherit; color:inherit; cursor:pointer;
+    background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:11px 14px; margin-bottom:8px}
   .chap:hover{border-color:var(--accent)}
-  .chap .num{
-    font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:600; color:var(--ink-3);
-    border:1px solid var(--line); border-radius:6px; width:34px; height:28px; display:grid; place-items:center;
-  }
-  .chap .ttl{font-weight:500; line-height:1.3}
-  .chap .ttl i{display:block; font-style:normal; font-size:12px; color:var(--ink-3); margin-top:1px}
-  .chap .meta{display:flex; align-items:center; gap:10px}
-  .chap .cnt{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-3)}
+  .chap .num{font-size:11.5px; font-weight:600; color:var(--ink-2); background:var(--surface-2);
+    border-radius:7px; min-width:42px; height:30px; display:grid; place-items:center; padding:0 7px; flex:none}
+  .chap .ttl{font-size:14px; font-weight:600; line-height:1.25}
+  .chap .ttl i{display:block; font-style:normal; font-size:12px; color:var(--ink-3); font-weight:400; margin-top:1px}
+  .chap .track{width:84px; height:5px; border-radius:3px; background:var(--surface-3); overflow:hidden}
+  .chap .track i{display:block; height:100%; background:var(--accent); border-radius:3px}
+  .chap .pct{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3); min-width:30px; text-align:right}
+  .chap .open{display:flex; align-items:center; gap:5px; font-size:13px; color:var(--accent); font-weight:500; white-space:nowrap}
+  .chap .badge{font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:600; color:var(--bad);
+    background:var(--bad-bg); border-radius:99px; padding:2px 7px; white-space:nowrap}
   .ring{width:26px; height:26px; flex:none}
+  @media (max-width:640px){
+    .chap{grid-template-columns:auto minmax(0,1fr) auto auto; gap:10px}
+    .chap .track, .chap .pct{display:none}
+  }
+
+  /* ---------- panneaux ---------- */
+  .panel{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:20px; margin-top:16px}
+  .panel h3{font-family:"Archivo",sans-serif; font-size:16px; font-weight:700; margin:0 0 12px}
+  .kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-bottom:18px}
+  .kpi{background:var(--surface-2); border-radius:11px; padding:14px 16px}
+  .kpi .n{font-family:"Archivo",sans-serif; font-size:26px; font-weight:700; line-height:1}
+  .kpi .l{font-size:12px; color:var(--ink-3); margin-top:4px}
+  .barlist{display:grid; gap:2px}
+  .barrow{display:grid; grid-template-columns:minmax(0,1fr) 110px auto; gap:12px; align-items:center; font-size:13.5px;
+    padding:7px 0; border-bottom:1px solid var(--line)}
+  .barrow:last-child{border-bottom:0}
+  .barrow .t{height:6px; border-radius:3px; background:var(--surface-3); overflow:hidden}
+  .barrow .t i{display:block; height:100%}
+  .barrow .v{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-3); min-width:54px; text-align:right}
+  @media (max-width:560px){ .barrow{grid-template-columns:minmax(0,1fr) auto} .barrow .t{display:none} }
+  .empty{color:var(--ink-3); font-size:14px; margin:0}
+  .helpgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(248px,1fr)); gap:18px}
+  .helpgrid h4{font-family:"Archivo",sans-serif; font-size:14px; margin:0 0 6px}
+  .helpgrid p, .helpgrid li{font-size:13.5px; color:var(--ink-2); line-height:1.5; margin:0 0 5px}
+  .helpgrid ul{margin:0; padding-left:18px}
+  kbd{font-family:"IBM Plex Mono",monospace; font-size:11.5px; background:var(--surface-2); border:1px solid var(--line);
+    border-radius:5px; padding:1px 6px}
+  .favrow{display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:11px; align-items:start;
+    padding:10px 0; border-bottom:1px solid var(--line); font-size:13.5px}
+  .favrow:last-child{border-bottom:0}
+  .favrow .tag{font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3);
+    background:var(--surface-2); border-radius:99px; padding:3px 8px; white-space:nowrap}
+
+  .segrow{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
+  .seg{border:1px solid var(--line); background:var(--surface); color:var(--ink-2); padding:7px 13px;
+    border-radius:99px; cursor:pointer; font:inherit; font-size:13px}
+  .seg[aria-pressed="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+
+  /* ---------- pied de page ---------- */
+  .sitefoot{border-top:1px solid var(--line); margin-top:44px; padding:22px 0 8px;
+    display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:26px; align-items:center}
+  @media (max-width:900px){ .sitefoot{grid-template-columns:1fr; gap:14px} }
+  .sitefoot .attr{font-size:12px; color:var(--ink-3); line-height:1.5; text-align:center; max-width:62ch; margin:0 auto}
+  @media (max-width:900px){ .sitefoot .attr{text-align:left; margin:0} }
+  .sitefoot .slogan{display:flex; align-items:center; gap:10px; font-size:12.5px; line-height:1.35}
+  .sitefoot .slogan b{display:block; font-weight:600}
+  .sitefoot .slogan span{color:var(--ink-3)}
+  .sitefoot .slogan .ic{width:30px; height:30px; border-radius:8px; background:var(--accent-soft); color:var(--accent);
+    display:grid; place-items:center; flex:none}
 
   /* ---------- quiz ---------- */
   .qhead{display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding-block:20px 0}
@@ -162,6 +330,10 @@
   .memo b{font-family:"Barlow Condensed",sans-serif; font-size:19px; font-weight:600}
   .memo b::after{content:" →"; color:var(--accent)}
   .memo span{color:var(--ink-2); font-size:13px; line-height:1.4}
+  .favbtn{background:none; border:0; cursor:pointer; color:var(--ink-3); padding:2px; display:grid; place-items:center}
+  .favbtn:hover{color:var(--accent)}
+  .favbtn[aria-pressed="true"]{color:var(--accent)}
+  .favbtn[aria-pressed="true"] svg{fill:var(--accent)}
   .qcount{margin-left:auto; font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--ink-3)}
 
   .qtext{font-size:clamp(20px,4.4vw,25px); line-height:1.3; margin:14px 0 4px; font-weight:500; text-wrap:pretty}
@@ -292,55 +464,147 @@
 </head>
 <body>
 
-<div class="bar">
-  <div class="bar-in">
-    <div class="brand"><b>Gardiennage</b><span id="barsub">Bureau de la sécurité privée · Québec</span></div>
-    <span class="livescore mono" id="live" hidden></span>
-    <button class="iconbtn" id="homeBtn" hidden title="Quitter la série" aria-label="Quitter la série">✕</button>
-    <button class="iconbtn" id="themeBtn" title="Changer le thème" aria-label="Changer le thème">◐</button>
+<div class="topnav">
+  <div class="topnav-in">
+    <button class="wordmark" data-nav="home" aria-label="Accueil">
+      <b>Gardiennage</b><span>Bureau de la sécurité privée · Québec</span>
+    </button>
+
+    <nav class="mainnav" id="mainnav" aria-label="Navigation principale">
+      <button data-nav="home" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span>Accueil</span></button>
+      <button data-nav="stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg><span>Statistiques</span></button>
+      <button data-nav="fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3.6 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.5 9.8l5.9-.9z"/></svg><span>Favoris</span></button>
+      <button data-nav="help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.8c0 1.7-2.4 2.2-2.4 3.9"/><path d="M12 17.2h.01"/></svg><span>Aide</span></button>
+    </nav>
+
+    <div class="sessionbar" id="sessionbar" hidden>
+      <span class="slabel" id="barsub"></span>
+      <span class="livescore mono" id="live" hidden></span>
+      <button class="iconbtn" id="homeBtn" title="Quitter la série" aria-label="Quitter la série">✕</button>
+    </div>
+
+    <div class="userwrap">
+      <button id="userBtn" aria-haspopup="menu" aria-expanded="false" aria-label="Menu du compte">
+        <span class="avatar" id="avatar">DD</span>
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="usermenu" id="userMenu" role="menu" hidden>
+        <div class="who">Révision locale · cet appareil</div>
+        <button role="menuitem" data-user="theme"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4v16" fill="currentColor"/></svg>Changer le thème</button>
+        <button role="menuitem" data-user="memo"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5"/></svg>Aide-mémoire</button>
+        <hr>
+        <button role="menuitem" data-user="reset" class="danger"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16"/><path d="M9 7V5h6v2"/><path d="M6 7l1 13h10l1-13"/></svg>Réinitialiser ma progression</button>
+      </div>
+    </div>
   </div>
   <div class="progress"><i id="bar"></i></div>
   <div class="segs" id="segs" hidden aria-hidden="true"></div>
 </div>
 
-<main class="wrap">
+<main class="page">
 
   <!-- ============ ACCUEIL ============ -->
   <div id="home">
     <div class="hero">
-      <div class="kicker">Manuel du participant · Académie XGuard</div>
-      <h1>Révision<br>gardiennage</h1>
-      <p class="lede">Les <b id="qtot">0</b> questions couvrent l'intégralité du manuel : introduction au BSP, les 10 chapitres et les annexes. Choix multiples, vrai ou faux, <b>saisie libre</b> et énumérations — avec la bonne réponse et la référence au manuel après chaque essai.</p>
-      <div class="statrow">
-        <div class="stat"><span class="n mono" id="sDone">0</span><span class="l">questions vues</span></div>
-        <div class="stat"><span class="n mono" id="sRate">—</span><span class="l">taux de réussite</span></div>
-        <div class="stat"><span class="n mono" id="sWrong">0</span><span class="l">à revoir</span></div>
+      <div class="hero-grid">
+        <div class="hero-main">
+          <div class="kicker">Manuel du participant · Académie XGuard</div>
+          <h1>Révision Gardiennage</h1>
+          <p class="lede">Les <b id="qtot">0</b> questions couvrent l'intégralité du manuel : introduction au BSP, les 10 chapitres et les annexes. Choix multiples, <b>vrai ou faux</b>, <b>saisie libre</b> et énumérations — avec la bonne réponse et la référence au manuel après chaque essai.</p>
+          <button class="cta" data-go="exam">
+            <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+            Commencer l'examen blanc
+            <svg class="arw" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+          <div class="statrow">
+            <div class="stat">
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5M9 8h3"/></svg></span>
+              <span><span class="n" id="kQ">0</span><span class="l">questions</span></span>
+            </div>
+            <div class="stat">
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg></span>
+              <span><span class="n">10</span><span class="l">chapitres</span></span>
+            </div>
+            <div class="stat">
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></span>
+              <span><span class="n">100 %</span><span class="l">du manuel couvert</span></span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="promise">
+          <q>Une meilleure préparation pour un Québec plus sécuritaire</q>
+          <div class="rule"></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v6c0 4.2 2.9 7.6 7 9 4.1-1.4 7-4.8 7-9V6z"/><path d="m9 12 2 2 4-4"/></svg>Connaître</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2 9l10 5 10-5z"/><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5"/></svg>Se préparer</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg>Réussir</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 5.5a3 3 0 0 1 0 5.4"/><path d="M18 15.2c2 .7 3 2.2 3 4.8"/></svg>Exercer avec confiance</li>
+          </ul>
+        </aside>
       </div>
     </div>
 
-    <section class="blk">
-      <div class="blk-h"><h2>Commencer</h2><em>note de passage du BSP : 60 %</em></div>
-      <div class="modes">
-        <button class="mode primary" data-go="exam"><strong>Examen blanc</strong><small>50 questions tirées de tout le manuel, dans le désordre. Score final et correction.</small></button>
-        <button class="mode" data-go="all"><strong>Tout le cours</strong><small>Les questions dans l'ordre du manuel, de l'introduction aux annexes.</small></button>
-        <button class="mode" data-go="wrong" id="wrongBtn" disabled><strong>Mes erreurs</strong><small>Reprendre uniquement les questions ratées lors des sessions précédentes.</small></button>
-        <button class="mode" data-go="data" id="dataBtn"><strong>Chiffres et articles</strong><small>Les données à mémoriser : durées, seuils, distances, montants, numéros d'articles.</small></button>
+    <section class="howto">
+      <div class="howto-lead">
+        <span class="ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></span>
+        <div><h2>Comment commencer&nbsp;?</h2><p>Suivez ces 3 étapes simples pour bien réviser.</p></div>
       </div>
-      <a class="memo" href="aide-memoire.html"><b>Aide-mémoire d'une page</b><span>Tous les chiffres, articles et procédures dans l'ordre — à relire juste avant l'examen.</span></a>
-      <div style="margin-top:16px" class="blk-h"><h2 style="font-size:13px">Format des réponses</h2></div>
-      <div class="segrow" id="fmtRow">
-        <button class="seg" data-fmt="mix" aria-pressed="true">Mixte (recommandé)</button>
-        <button class="seg" data-fmt="pick" aria-pressed="false">Choix seulement</button>
-        <button class="seg" data-fmt="type" aria-pressed="false">Saisie seulement</button>
+      <div class="step">
+        <div class="top"><span class="num">1</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z"/></svg></div>
+        <b>Choisissez un mode de révision</b>
+        <small>Examen blanc, tout le cours, par chapitre ou chiffres.</small>
+      </div>
+      <div class="step">
+        <div class="top"><span class="num">2</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M10 8.5 16 12l-6 3.5z" fill="currentColor" stroke="none"/></svg></div>
+        <b>Répondez aux questions</b>
+        <small>Recevez la bonne réponse et la référence au manuel après chaque essai.</small>
+      </div>
+      <div class="step">
+        <div class="top"><span class="num">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg></div>
+        <b>Suivez votre progression</b>
+        <small>Identifiez vos points forts et vos points à améliorer.</small>
       </div>
     </section>
 
-    <section class="blk">
-      <div class="blk-h"><h2>Par chapitre</h2><em>le cercle indique votre dernier score</em></div>
-      <div class="chaps" id="chaps"></div>
-    </section>
+    <div class="modes" id="modes"></div>
 
-    <p class="foot">Contenu tiré du <i>Manuel du participant</i> de l'Académie XGuard (© Sécurité XGuard, 2021). Outil de révision personnel non officiel, sans affiliation avec XGuard ni le Bureau de la sécurité privée — il ne remplace ni le manuel ni la formation.</p>
+    <a class="memo" href="aide-memoire.html">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5M9 8h3"/></svg></span>
+      <span><b>Aide-mémoire d'une page</b><span>Tous les chiffres, articles et procédures dans l'ordre — à relire juste avant l'examen.</span></span>
+      <svg class="arw" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+
+    <div id="panelSlot"></div>
+
+    <div class="sec-h">
+      <span class="ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z"/></svg></span>
+      <div>
+        <h2>Réviser par chapitre</h2>
+        <p>Cliquez sur un chapitre pour accéder aux questions. La barre indique votre dernier score, le cercle la part déjà vue.</p>
+      </div>
+      <div class="right">
+        <button class="ghostbtn" data-nav="stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg>Voir mes statistiques</button>
+      </div>
+    </div>
+
+    <div class="segrow" id="fmtRow" style="margin-bottom:16px">
+      <span style="font-size:12.5px; color:var(--ink-3); margin-right:4px">Format des réponses :</span>
+      <button class="seg" data-fmt="mix" aria-pressed="true">Mixte</button>
+      <button class="seg" data-fmt="pick" aria-pressed="false">Choix seulement</button>
+      <button class="seg" data-fmt="type" aria-pressed="false">Saisie seulement</button>
+    </div>
+
+    <div class="chapcols" id="chaps"></div>
+
+    <footer class="sitefoot">
+      <div class="wordmark" style="cursor:default"><b>Gardiennage</b><span>Bureau de la sécurité privée · Québec</span></div>
+      <p class="attr">Contenu tiré du <i>Manuel du participant</i> de l'Académie XGuard (© Sécurité XGuard, 2021).<br>Outil de révision personnel non officiel, sans affiliation avec XGuard ni le Bureau de la sécurité privée.</p>
+      <div class="slogan">
+        <span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v6c0 4.2 2.9 7.6 7 9 4.1-1.4 7-4.8 7-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <span><b>Se former aujourd'hui</b><span>pour un milieu plus sécuritaire demain.</span></span>
+      </div>
+    </footer>
   </div>
 
   <!-- ============ QUIZ ============ -->
@@ -349,6 +613,7 @@
       <span class="tag" id="qchap"></span>
       <span class="tag plain" id="qtype"></span>
       <span class="tag weak" id="qweak" hidden></span>
+      <button class="favbtn" id="favBtn" type="button" aria-pressed="false" title="Mettre en favori"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3.6 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.5 9.8l5.9-.9z"/></svg></button>
       <span class="qcount mono" id="qnum"></span>
     </div>
     <p class="qtext" id="qtext"></p>
@@ -790,15 +1055,7 @@ let fmt = store.fmt || "mix";
 let S = null; // session
 
 /* ---------- thème ---------- */
-const themeBtn = $("#themeBtn");
 try { if(store.theme) document.documentElement.setAttribute("data-theme", store.theme); } catch(e){}
-themeBtn.addEventListener("click", ()=>{
-  const cur = document.documentElement.getAttribute("data-theme");
-  const next = cur === "dark" ? "light" : cur === "light" ? "dark"
-    : (matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark");
-  document.documentElement.setAttribute("data-theme", next);
-  store.theme = next; save();
-});
 
 /* ---------- accueil ---------- */
 function poolFor(list){
@@ -821,98 +1078,326 @@ function weightedPick(pool, n){
   }
   return out;
 }
+/* ---------- icônes ---------- */
+const ICON = {
+  doc:'<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5M9 8h3"/>',
+  book:'<path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z"/>',
+  x:'<path d="m7 7 10 10M17 7 7 17"/>',
+  chart:'<path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/>',
+  play:'<circle cx="12" cy="12" r="9"/><path d="M10 8.5 16 12l-6 3.5z"/>',
+  list:'<path d="M4 6h16M4 12h16M4 18h10"/>',
+  arrow:'<path d="M5 12h13"/><path d="m12 5 7 7-7 7"/>',
+  star:'<path d="m12 3.6 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.5 9.8l5.9-.9z"/>'
+};
+function svg(name, size){
+  const n = document.createElementNS("http://www.w3.org/2000/svg","svg");
+  n.setAttribute("viewBox","0 0 24 24");
+  if(size){ n.setAttribute("width",size); n.setAttribute("height",size); }
+  n.setAttribute("fill","none"); n.setAttribute("stroke","currentColor");
+  n.setAttribute("stroke-width","2"); n.setAttribute("stroke-linecap","round");
+  n.setAttribute("stroke-linejoin","round");
+  n.innerHTML = ICON[name] || "";
+  return n;
+}
+
+/* ---------- définition des modes ---------- */
+function modeDefs(){
+  const weak = poolFor(wrongIds()).length;
+  const data = poolFor(Q.filter(isData)).length;
+  return [
+    {go:"exam", icon:"doc", titre:"Examen blanc", badge:"Le plus complet", primaire:true,
+     desc:"50 questions tirées de tout le manuel, en priorité vos points faibles. Score final et correction.",
+     action:"Commencer", actIcon:"play", actif:true},
+    {go:"all", icon:"book", titre:"Tout le cours",
+     desc:"Les " + poolFor(Q.slice()).length + " questions dans l'ordre du manuel, de l'introduction aux annexes.",
+     action:"Ouvrir", actIcon:"arrow", actif:true},
+    {go:"wrong", icon:"x", titre:"Mes erreurs", alerte:true,
+     desc: weak ? weak + " question" + (weak>1?"s":"") + " fragile" + (weak>1?"s":"") + ", les plus ratées en tête."
+                : "Aucune erreur enregistrée pour l'instant.",
+     action:"Voir mes erreurs", actIcon:"list", actif: weak > 0},
+    {go:"data", icon:"chart", titre:"Chiffres et articles",
+     desc: data + " questions dont la réponse est une donnée à mémoriser : durées, seuils, distances, montants, numéros d'articles.",
+     action:"Commencer", actIcon:"play", actif: data > 0}
+  ];
+}
+
+function renderModes(){
+  const box = $("#modes"); box.innerHTML = "";
+  modeDefs().forEach(m => {
+    const c = el("div","mode" + (m.primaire?" is-primary":"") + (m.alerte?" is-alert":"") + (m.actif?"":" is-off"));
+    if(m.badge) c.appendChild(el("span","badge", m.badge));
+    const ic = el("span","ic"); ic.appendChild(svg(m.icon)); c.appendChild(ic);
+    c.appendChild(el("h3","", m.titre));
+    c.appendChild(el("p","", m.desc));
+    const b = el("button","act"); b.type = "button"; b.disabled = !m.actif;
+    b.appendChild(svg(m.actIcon, 12));
+    b.appendChild(el("span","", m.action));
+    b.addEventListener("click", ()=> m.actif && lancer(m.go));
+    c.appendChild(b);
+    if(m.actif) c.addEventListener("click", e=>{ if(e.target.closest(".act")) return; lancer(m.go); });
+    box.appendChild(c);
+  });
+}
+
+function lancer(g){
+  if(g==="exam") start(weightedPick(poolFor(Q.slice()), 50), "Examen blanc", {exam:true});
+  else if(g==="all") start(poolFor(Q.slice()), "Tout le manuel", {});
+  else if(g==="data"){ const d = poolFor(Q.filter(isData)); if(d.length) start(weightedPick(d, d.length), "Chiffres et articles", {}); }
+  else if(g==="fav"){ const f = poolFor(favIds()); if(f.length) start(shuffle(f), "Mes favoris", {}); }
+  else { const w = poolFor(wrongIds()); if(w.length) start(w, "Mes erreurs", {}); }
+}
+
+/* ---------- favoris ---------- */
+store.fav = store.fav || {};
+const estFavori = id => !!store.fav[id];
+function basculerFavori(id){
+  if(store.fav[id]) delete store.fav[id]; else store.fav[id] = 1;
+  save();
+}
+function favIds(){ return Q.filter(q => estFavori(q.id)); }
+
+/* ---------- accueil ---------- */
 function renderHome(){
   $("#qtot").textContent = Q.length;
-  const st = store.stats || {};
-  const ids = Object.keys(st);
-  let ok=0, tot=0;
-  ids.forEach(k=>{ ok += st[k].ok||0; tot += (st[k].ok||0)+(st[k].ko||0); });
-  $("#sDone").textContent = ids.length;
-  $("#sRate").textContent = tot ? Math.round(ok/tot*100)+" %" : "—";
-  const weak = wrongIds(), nw = weak.length;
-  $("#sWrong").textContent = nw;
-  $("#wrongBtn").disabled = nw === 0;
-  $("#wrongBtn").querySelector("small").textContent = nw
-    ? nw + " question" + (nw>1?"s":"") + " fragile" + (nw>1?"s":"") + ", les plus ratées en tête."
-    : "Aucune erreur enregistrée pour l'instant.";
-  const nd = poolFor(Q.filter(isData)).length;
-  $("#dataBtn").disabled = nd === 0;
-  $("#dataBtn").querySelector("small").textContent =
-    nd + " questions dont la réponse est une donnée à mémoriser : durées, seuils, distances, montants, numéros d'articles.";
-
-  document.querySelectorAll("#fmtRow .seg").forEach(b=>
+  $("#kQ").textContent = Q.length;
+  document.querySelectorAll("#fmtRow .seg").forEach(b =>
     b.setAttribute("aria-pressed", String(b.dataset.fmt === fmt)));
+  renderModes();
 
+  const st = store.stats || {};
   const box = $("#chaps"); box.innerHTML = "";
   PARTS.forEach(part => {
     const rows = part.ch.map(i => ({i, ch:CHAPS[i], list:poolFor(Q.filter(q=>q.c===i))}))
                         .filter(r => r.list.length);
     if(!rows.length) return;
-    const wrap = el("div","part");
-    const h = el("div","part-h");
-    h.appendChild(el("b","", part.t));
-    h.appendChild(el("span","mono", rows.reduce((n,r)=>n+r.list.length,0) + " questions"));
-    wrap.appendChild(h);
-    const grid = el("div","chaps");
+    box.appendChild(el("div","partlbl", part.t));
     rows.forEach(({i, ch, list}) => {
       const b = el("button","chap"); b.type = "button";
-      b.appendChild(el("span","num mono", ch.n));
+      b.appendChild(el("span","num", ch.n));
+
       const t = el("span","ttl", ch.t);
       t.appendChild(el("i","", list.length + " question" + (list.length>1?"s":"")));
       b.appendChild(t);
-      const meta = el("span","meta");
+
       const weak = list.filter(q => wOf(q.id) > 0).length;
-      if(weak) meta.appendChild(el("span","badge mono", weak + " à revoir"));
-      meta.appendChild(ring((store.chap||{})[i]));
-      b.appendChild(meta);
+      if(weak) b.appendChild(el("span","badge mono", weak + " à revoir"));
+      else b.appendChild(el("span","", ""));
+
+      const score = (store.chap||{})[i];
+      const tr = el("span","track"); const fill = el("i");
+      fill.style.width = (typeof score === "number" ? score : 0) + "%";
+      tr.appendChild(fill); b.appendChild(tr);
+      b.appendChild(el("span","pct mono", typeof score === "number" ? score + "%" : "—"));
+
+      const vues = list.filter(q => st[q.id]).length;
+      b.appendChild(ring(Math.round(vues / list.length * 100), true));
+
+      const op = el("span","open"); op.appendChild(el("span","", "Ouvrir")); op.appendChild(svg("arrow", 14));
+      b.appendChild(op);
+
       b.setAttribute("aria-label", ch.t + ", " + list.length + " questions"
+        + (typeof score === "number" ? ", dernier score " + score + "%" : "")
         + (weak ? ", " + weak + " à revoir" : ""));
       b.addEventListener("click", ()=> start(list, ch.s, {chap:i}));
-      grid.appendChild(b);
+      box.appendChild(b);
     });
-    wrap.appendChild(grid);
-    box.appendChild(wrap);
   });
 }
-function ring(pct){
+
+function ring(pct, couverture){
   const s = document.createElementNS("http://www.w3.org/2000/svg","svg");
   s.setAttribute("class","ring"); s.setAttribute("viewBox","0 0 24 24");
-  const bg = document.createElementNS("http://www.w3.org/2000/svg","circle");
-  bg.setAttribute("cx","12"); bg.setAttribute("cy","12"); bg.setAttribute("r","9.5");
-  bg.setAttribute("fill","none"); bg.setAttribute("stroke","var(--surface-3)"); bg.setAttribute("stroke-width","3");
-  s.appendChild(bg);
-  if(typeof pct === "number"){
-    const c = 2*Math.PI*9.5;
-    const fg = document.createElementNS("http://www.w3.org/2000/svg","circle");
-    fg.setAttribute("cx","12"); fg.setAttribute("cy","12"); fg.setAttribute("r","9.5");
-    fg.setAttribute("fill","none");
-    fg.setAttribute("stroke", pct>=60 ? "var(--ok)" : "var(--bad)");
-    fg.setAttribute("stroke-width","3"); fg.setAttribute("stroke-linecap","round");
-    fg.setAttribute("stroke-dasharray", (c*pct/100)+" "+c);
-    fg.setAttribute("transform","rotate(-90 12 12)");
-    s.appendChild(fg);
+  const mk = (r, stroke, dash) => {
+    const c = document.createElementNS("http://www.w3.org/2000/svg","circle");
+    c.setAttribute("cx","12"); c.setAttribute("cy","12"); c.setAttribute("r", r);
+    c.setAttribute("fill","none"); c.setAttribute("stroke", stroke); c.setAttribute("stroke-width","3");
+    if(dash){ c.setAttribute("stroke-dasharray", dash); c.setAttribute("stroke-linecap","round");
+              c.setAttribute("transform","rotate(-90 12 12)"); }
+    return c;
+  };
+  s.appendChild(mk("9.5","var(--surface-3)"));
+  if(typeof pct === "number" && pct > 0){
+    const c = 2 * Math.PI * 9.5;
+    const couleur = couverture ? "var(--accent)" : (pct >= 60 ? "var(--ok)" : "var(--bad)");
+    s.appendChild(mk("9.5", couleur, (c * pct / 100) + " " + c));
   }
+  if(typeof pct === "number") s.setAttribute("aria-label", pct + "% vu");
   return s;
 }
+
 document.querySelectorAll("#fmtRow .seg").forEach(b=>{
   b.addEventListener("click", ()=>{ fmt = b.dataset.fmt; store.fmt = fmt; save(); renderHome(); });
 });
 document.querySelectorAll("[data-go]").forEach(b=>{
+  b.addEventListener("click", ()=> lancer(b.dataset.go));
+});
+
+/* ---------- navigation et panneaux ---------- */
+let vueActive = "home";
+function setNav(v){
+  vueActive = v;
+  document.querySelectorAll("#mainnav button").forEach(b=>
+    b.classList.toggle("on", b.dataset.nav === v));
+  const slot = $("#panelSlot"); slot.innerHTML = "";
+  if(v !== "home"){
+    slot.appendChild(v === "stats" ? panneauStats() : v === "fav" ? panneauFavoris() : panneauAide());
+    slot.scrollIntoView({block:"nearest", behavior:"smooth"});
+  }
+}
+document.querySelectorAll("[data-nav]").forEach(b=>{
   b.addEventListener("click", ()=>{
-    const g = b.dataset.go;
-    if(g==="exam"){
-      start(weightedPick(poolFor(Q.slice()), 50), "Examen blanc", {exam:true});
-    } else if(g==="all"){
-      start(poolFor(Q.slice()), "Tout le manuel", {});
-    } else if(g==="data"){
-      const d = poolFor(Q.filter(isData));
-      if(d.length) start(weightedPick(d, d.length), "Chiffres et articles", {});
-    } else {
-      const w = poolFor(wrongIds());
-      if(w.length) start(w, "Mes erreurs", {});
-    }
+    if(S) goHome();
+    setNav(b.dataset.nav);
   });
 });
+
+function panneau(titre){
+  const d = el("div","panel");
+  d.appendChild(el("h3","", titre));
+  return d;
+}
+
+function panneauStats(){
+  const d = panneau("Statistiques");
+  const st = store.stats || {};
+  const ids = Object.keys(st);
+  let ok = 0, tot = 0;
+  ids.forEach(k => { ok += st[k].ok||0; tot += (st[k].ok||0) + (st[k].ko||0); });
+  const fragiles = wrongIds().length;
+
+  const kpis = el("div","kpis");
+  [[ids.length + " / " + Q.length, "questions vues"],
+   [tot ? Math.round(ok/tot*100) + " %" : "—", "taux de réussite"],
+   [String(fragiles), "à revoir"],
+   [String(favIds().length), "en favoris"]].forEach(([n,l])=>{
+    const k = el("div","kpi"); k.appendChild(el("div","n", n)); k.appendChild(el("div","l", l)); kpis.appendChild(k);
+  });
+  d.appendChild(kpis);
+
+  if(!tot){ d.appendChild(el("p","empty","Aucune réponse enregistrée pour l'instant. Lancez un examen blanc pour commencer.")); return d; }
+
+  d.appendChild(el("h3","","Réussite par chapitre"));
+  const list = el("div","barlist");
+  CHAPS.forEach((ch,i)=>{
+    const qs = Q.filter(q => q.c === i);
+    let o = 0, n = 0;
+    qs.forEach(q => { const e = st[q.id]; if(e){ o += e.ok||0; n += (e.ok||0)+(e.ko||0); } });
+    if(!n) return;
+    const pct = Math.round(o/n*100);
+    const row = el("div","barrow");
+    row.appendChild(el("span","", ch.s + " — " + ch.t));
+    const t = el("span","t"); const fill = el("i");
+    fill.style.width = pct + "%";
+    fill.style.background = pct >= 60 ? "var(--ok)" : "var(--bad)";
+    t.appendChild(fill); row.appendChild(t);
+    row.appendChild(el("span","v", pct + "% · " + n));
+    list.appendChild(row);
+  });
+  d.appendChild(list);
+
+  const dures = Q.filter(q => wOf(q.id) >= 2).sort((a,b)=> wOf(b.id) - wOf(a.id)).slice(0,8);
+  if(dures.length){
+    d.appendChild(el("h3","","Vos questions les plus tenaces"));
+    const l2 = el("div","barlist");
+    dures.forEach(q=>{
+      const row = el("div","barrow");
+      row.appendChild(el("span","", q.q));
+      row.appendChild(el("span","", ""));
+      row.appendChild(el("span","v", "ratée " + wOf(q.id) + "×"));
+      l2.appendChild(row);
+    });
+    d.appendChild(l2);
+  }
+  return d;
+}
+
+function panneauFavoris(){
+  const d = panneau("Favoris");
+  const favs = favIds();
+  if(!favs.length){
+    d.appendChild(el("p","empty","Aucun favori. Pendant une série, touchez l'étoile en haut d'une question pour la mettre de côté et la retrouver ici."));
+    return d;
+  }
+  const b = el("button","ghostbtn"); b.type = "button";
+  b.appendChild(svg("play", 15)); b.appendChild(el("span","", "Réviser mes " + favs.length + " favoris"));
+  b.addEventListener("click", ()=> lancer("fav"));
+  b.style.marginBottom = "14px";
+  d.appendChild(b);
+
+  favs.forEach(q=>{
+    const row = el("div","favrow");
+    row.appendChild(el("span","tag", CHAPS[q.c].n));
+    row.appendChild(el("span","", q.q));
+    const x = el("button","iconbtn"); x.type = "button"; x.textContent = "✕";
+    x.title = "Retirer des favoris";
+    x.addEventListener("click", ()=>{ basculerFavori(q.id); setNav("fav"); renderHome(); });
+    row.appendChild(x);
+    d.appendChild(row);
+  });
+  return d;
+}
+
+function panneauAide(){
+  const d = panneau("Aide");
+  const g = el("div","helpgrid");
+  const bloc = (titre, html) => { const b = el("div"); b.appendChild(el("h4","",titre)); const c = el("div"); c.innerHTML = html; b.appendChild(c); return b; };
+  g.appendChild(bloc("Les modes",
+    "<ul><li><b>Examen blanc</b> — 50 questions, tirées en priorité parmi vos points faibles.</li>" +
+    "<li><b>Tout le cours</b> — dans l'ordre du manuel.</li>" +
+    "<li><b>Mes erreurs</b> — vos questions fragiles, les plus ratées en tête.</li>" +
+    "<li><b>Chiffres et articles</b> — les données à mémoriser.</li></ul>"));
+  g.appendChild(bloc("Comment les questions reviennent",
+    "<p>Chaque question porte un poids de 0 à 5. Une mauvaise réponse le fait monter, une bonne réponse le fait baisser <b>d'un seul cran</b> : une question ratée trois fois ne sort pas de la liste au premier succès.</p>" +
+    "<p>L'ordre des choix est mélangé à chaque passage, pour que vous reteniez le contenu et non la position.</p>"));
+  g.appendChild(bloc("Au clavier",
+    "<ul><li><kbd>1</kbd>…<kbd>9</kbd> — choisir une réponse</li>" +
+    "<li><kbd>Entrée</kbd> — valider, puis passer à la suivante</li>" +
+    "<li><kbd>Ctrl</kbd> + <kbd>Entrée</kbd> — valider une énumération</li></ul>"));
+  g.appendChild(bloc("Corrections",
+    "<p>Les questions à saisir tolèrent les fautes d'accents et d'orthographe. Les énumérations cochent chaque élément attendu séparément.</p>" +
+    "<p>Chaque correction cite la section du manuel, pour aller relire la source.</p>"));
+  g.appendChild(bloc("Vos données",
+    "<p>Scores, poids et favoris sont stockés dans ce navigateur uniquement. Aucun compte, aucun serveur, aucun suivi. Le menu du compte permet de tout réinitialiser.</p>"));
+  g.appendChild(bloc("Portée",
+    "<p>Le quiz couvre les modules 1 et 2 de la formation de 70 heures. Le module 3, <b>secourisme CNESST</b> (16 h), n'est pas couvert : il ne fait pas partie de ce manuel.</p>"));
+  d.appendChild(g);
+  return d;
+}
+
+/* ---------- menu du compte ---------- */
+const userBtn = $("#userBtn"), userMenu = $("#userMenu");
+function fermerMenu(){ userMenu.hidden = true; userBtn.setAttribute("aria-expanded","false"); }
+userBtn.addEventListener("click", e=>{
+  e.stopPropagation();
+  const ouvert = !userMenu.hidden;
+  userMenu.hidden = ouvert;
+  userBtn.setAttribute("aria-expanded", String(!ouvert));
+});
+document.addEventListener("click", e=>{ if(!e.target.closest(".userwrap")) fermerMenu(); });
+document.addEventListener("keydown", e=>{ if(e.key === "Escape") fermerMenu(); });
+userMenu.addEventListener("click", e=>{
+  const b = e.target.closest("[data-user]"); if(!b) return;
+  fermerMenu();
+  if(b.dataset.user === "theme") basculerTheme();
+  else if(b.dataset.user === "memo") location.href = "aide-memoire.html";
+  else if(b.dataset.user === "reset"){
+    if(confirm("Effacer scores, poids de révision et favoris de cet appareil ?")){
+      store = {theme: store.theme, fmt: store.fmt};
+      save();
+      store.w = {}; store.fav = {}; store.stats = {}; store.chap = {};
+      goHome();
+    }
+  }
+});
+
+function basculerTheme(){
+  const cur = document.documentElement.getAttribute("data-theme");
+  const next = cur === "dark" ? "light" : cur === "light" ? "dark"
+    : (matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark");
+  document.documentElement.setAttribute("data-theme", next);
+  store.theme = next; save();
+}
+
 function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
 
 /* ---------- session ---------- */
@@ -920,12 +1405,13 @@ function show(view){
   $("#home").hidden = view!=="home";
   $("#quiz").hidden = view!=="quiz";
   $("#done").hidden = view!=="done";
-  $("#homeBtn").hidden = view==="home";
   window.scrollTo(0,0);
 }
 function start(list, label, opt){
   S = {list, label, opt:opt||{}, i:0, results:[], answered:false};
   $("#barsub").textContent = label;
+  $("#mainnav").hidden = true;
+  $("#sessionbar").hidden = false;
   $("#segs").innerHTML = "";
   renderLive();
   show("quiz"); renderQ();
@@ -934,7 +1420,8 @@ $("#homeBtn").addEventListener("click", goHome);
 $("#backHome").addEventListener("click", goHome);
 function goHome(){
   S = null;
-  $("#barsub").textContent = "Bureau de la sécurité privée · Québec";
+  $("#mainnav").hidden = false;
+  $("#sessionbar").hidden = true;
   $("#bar").style.width = "0";
   $("#live").hidden = true;
   $("#segs").hidden = true; $("#segs").innerHTML = "";
@@ -948,6 +1435,14 @@ function renderQ(){
   $("#bar").style.width = (S.i / S.list.length * 100) + "%";
   $("#qchap").textContent = CHAPS[q.c].s;
   $("#qtype").textContent = TYPE_LABEL[q.t];
+  const fb = $("#favBtn");
+  fb.setAttribute("aria-pressed", String(estFavori(q.id)));
+  fb.title = estFavori(q.id) ? "Retirer des favoris" : "Mettre en favori";
+  fb.onclick = ()=>{
+    basculerFavori(q.id);
+    fb.setAttribute("aria-pressed", String(estFavori(q.id)));
+    fb.title = estFavori(q.id) ? "Retirer des favoris" : "Mettre en favori";
+  };
   const wk = $("#qweak"), nw = wOf(q.id);
   wk.hidden = nw === 0;
   wk.textContent = nw ? "●".repeat(Math.min(3,nw)) + " ratée " + nw + "×" : "";
@@ -1278,6 +1773,7 @@ function results(){
 
 renderHome();
 </script>
+
 
 </body>
 </html>
