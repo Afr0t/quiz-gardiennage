@@ -8,7 +8,7 @@ Une page HTML autonome, sans dépendance ni installation. Elle fonctionne sur t�
 
 ## Contenu
 
-247 questions couvrant l'introduction (BSP, Loi sur la sécurité privée, historique), les 10 chapitres du manuel et les annexes (Charte canadienne, Charte québécoise, articles du Code criminel, droit civil et criminel, embauche).
+277 questions couvrant l'introduction (BSP, Loi sur la sécurité privée, historique), les 10 chapitres du manuel, les annexes (Charte canadienne, Charte québécoise, articles du Code criminel, droit civil et criminel, embauche) et 30 mises en situation.
 
 | | Chapitre | Questions |
 |---|---|---|
@@ -24,15 +24,22 @@ Une page HTML autonome, sans dépendance ni installation. Elle fonctionne sur t�
 | 9 | Incendies et matières dangereuses | 31 |
 | 10 | Rédaction de rapports | 19 |
 | — | Annexes | 22 |
+| — | Mises en situation : jugement sur le terrain | 30 |
 
-Cinq formats de réponse : choix unique (127), choix multiples (50), énumération (28), saisie libre (21) et vrai ou faux (21).
+Cinq formats de réponse : choix unique, choix multiples, énumération, saisie libre et vrai ou faux.
+
+Les mises en situation testent le jugement plutôt que la mémoire : contrôle d'accès sur un chantier, refus de fouille, colis suspect, feu de friteuse, tireur actif, demande de faveur d'un client, règlement discriminatoire, tâche d'un employé en grève.
 
 ## Fonctionnement
 
-- **Examen blanc** — 50 questions tirées au hasard, score final comparé à la note de passage de 60 %.
-- **Tout le cours** — les 247 questions dans l'ordre du manuel.
-- **Mes erreurs** — reprend uniquement les questions ratées, conservées d'une session à l'autre.
+- **Examen blanc** — 50 questions, tirées en priorité parmi vos points faibles. Score final comparé à la note de passage de 60 %.
+- **Tout le cours** — les 277 questions dans l'ordre du manuel.
+- **Mes erreurs** — les questions fragiles, les plus ratées en tête.
+- **Chiffres et articles** — 42 questions dont la réponse est une donnée à mémoriser : durées, seuils, distances, montants, numéros d'articles.
 - **Par chapitre** — avec le dernier score obtenu pour chacun.
+- **[Aide-mémoire](aide-memoire.html)** — une page dense et imprimable : les chiffres, les articles, les procédures dans l'ordre et les distinctions qui piègent.
+
+Chaque question porte un poids de révision : une mauvaise réponse le fait monter, une bonne réponse le fait baisser d'un seul cran. Une question ratée trois fois ne quitte donc pas la liste au premier succès, et elle revient jusqu'à quatre fois plus souvent dans les examens blancs. L'ordre des choix de réponse est retiré à chaque passage, pour qu'on mémorise le contenu et non la position.
 
 Après chaque réponse : la bonne réponse (ou la réponse attendue pour les questions à saisir), une explication et la référence précise au manuel. Les questions à saisie tolèrent les fautes d'accents et d'orthographe ; les énumérations cochent chaque élément attendu séparément.
 

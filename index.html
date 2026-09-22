@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="Quiz de revision couvrant le manuel de formation en gardiennage de l'Academie XGuard : 247 questions, choix multiples et reponses a saisir.">
+<meta name="description" content="Quiz de revision couvrant le manuel de formation en gardiennage de l'Academie XGuard : 277 questions, choix multiples, saisie libre et mises en situation.">
 <style>
   html{-webkit-text-size-adjust:100%}
   :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -144,6 +144,16 @@
     color:var(--accent); background:var(--accent-soft); border-radius:99px; padding:4px 10px;
   }
   .tag.plain{color:var(--ink-3); background:var(--surface-3)}
+  .tag.weak{color:var(--bad); background:var(--bad-bg); letter-spacing:.04em}
+
+  .memo{
+    display:grid; gap:2px; margin-top:12px; text-decoration:none; color:inherit;
+    border:1px dashed var(--line-strong); border-radius:var(--radius); padding:12px 15px;
+  }
+  .memo:hover{border-color:var(--accent); border-style:solid}
+  .memo b{font-family:"Barlow Condensed",sans-serif; font-size:19px; font-weight:600}
+  .memo b::after{content:" →"; color:var(--accent)}
+  .memo span{color:var(--ink-2); font-size:13px; line-height:1.4}
   .qcount{margin-left:auto; font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--ink-3)}
 
   .qtext{font-size:clamp(20px,4.4vw,25px); line-height:1.3; margin:14px 0 4px; font-weight:500; text-wrap:pretty}
@@ -261,7 +271,9 @@
         <button class="mode primary" data-go="exam"><strong>Examen blanc</strong><small>50 questions tirées de tout le manuel, dans le désordre. Score final et correction.</small></button>
         <button class="mode" data-go="all"><strong>Tout le cours</strong><small>Les questions dans l'ordre du manuel, de l'introduction aux annexes.</small></button>
         <button class="mode" data-go="wrong" id="wrongBtn" disabled><strong>Mes erreurs</strong><small>Reprendre uniquement les questions ratées lors des sessions précédentes.</small></button>
+        <button class="mode" data-go="data" id="dataBtn"><strong>Chiffres et articles</strong><small>Les données à mémoriser : durées, seuils, distances, montants, numéros d'articles.</small></button>
       </div>
+      <a class="memo" href="aide-memoire.html"><b>Aide-mémoire d'une page</b><span>Tous les chiffres, articles et procédures dans l'ordre — à relire juste avant l'examen.</span></a>
       <div style="margin-top:16px" class="blk-h"><h2 style="font-size:13px">Format des réponses</h2></div>
       <div class="segrow" id="fmtRow">
         <button class="seg" data-fmt="mix" aria-pressed="true">Mixte (recommandé)</button>
@@ -283,6 +295,7 @@
     <div class="qhead">
       <span class="tag" id="qchap"></span>
       <span class="tag plain" id="qtype"></span>
+      <span class="tag weak" id="qweak" hidden></span>
       <span class="qcount mono" id="qnum"></span>
     </div>
     <p class="qtext" id="qtext"></p>
@@ -337,7 +350,8 @@ const CHAPS = [
   {n:"8", t:"Mesures d'urgence et risques", s:"Chapitre 8"},
   {n:"9", t:"Incendies et matières dangereuses", s:"Chapitre 9"},
   {n:"10", t:"Rédaction de rapports", s:"Chapitre 10"},
-  {n:"Ann.", t:"Annexes : chartes, Code criminel, embauche", s:"Annexes"}
+  {n:"Ann.", t:"Annexes : chartes, Code criminel, embauche", s:"Annexes"},
+  {n:"Cas", t:"Mises en situation : jugement sur le terrain", s:"Mises en situation"}
 ];
 
 const Q = [
@@ -635,7 +649,39 @@ e:"Le public peut aider en appelant le 9-1-1 ou en participant aux premiers soin
 {c:11,t:"qcm",q:"Selon l'article 380, à partir de quelle valeur une fraude devient-elle passible d'un emprisonnement maximal de quatorze ans ?",o:["1 000 $","5 000 $","10 000 $","25 000 $"],a:1,e:"Au-delà de 5 000 $ (ou s'il s'agit d'un titre testamentaire) : jusqu'à quatorze ans. En deçà : acte criminel de deux ans au maximum, ou infraction sommaire.",s:"Annexe III"},
 {c:11,t:"vf",q:"Selon l'article 430, détruire ou modifier volontairement des données informatiques constitue un méfait.",a:true,e:"Le méfait à l'égard de données informatiques couvre aussi le fait de les dépouiller de leur sens, de les rendre inutiles ou inopérantes, d'en gêner l'emploi légitime ou d'en refuser l'accès à une personne qui y a droit.",s:"Annexe III"},
 {c:11,t:"qcm",q:"Selon l'article 437, faire sonner volontairement et sans cause raisonnable une alarme d'incendie est :",o:["Toujours un acte criminel passible de cinq ans","Une infraction mixte : acte criminel passible de deux ans au maximum, ou infraction sommaire","Une simple contravention","Légal si la personne croyait à un danger"],a:1,e:"L'infraction vise le fait de sonner ou de répandre une alarme d'incendie en criant, en sonnant des cloches, au moyen d'un avertisseur d'incendie, d'un téléphone, d'un télégraphe ou de toute autre manière.",s:"Annexe III"},
-{c:11,t:"qcm",q:"Selon l'article 354, que doit savoir une personne pour commettre l'infraction de possession de biens criminellement obtenus ?",o:["Rien : la simple possession suffit","Elle doit savoir que tout ou partie des biens proviennent de la perpétration d'une infraction punissable sur acte d'accusation","Elle doit avoir participé au vol","Elle doit avoir revendu le bien"],a:1,e:"L'infraction couvre aussi les biens provenant d'un acte commis à l'étranger qui aurait constitué, au Canada, une infraction punissable sur acte d'accusation.",s:"Annexe III"}
+{c:11,t:"qcm",q:"Selon l'article 354, que doit savoir une personne pour commettre l'infraction de possession de biens criminellement obtenus ?",o:["Rien : la simple possession suffit","Elle doit savoir que tout ou partie des biens proviennent de la perpétration d'une infraction punissable sur acte d'accusation","Elle doit avoir participé au vol","Elle doit avoir revendu le bien"],a:1,e:"L'infraction couvre aussi les biens provenant d'un acte commis à l'étranger qui aurait constitué, au Canada, une infraction punissable sur acte d'accusation.",s:"Annexe III"},
+
+/* ===== MISES EN SITUATION : jugement sur le terrain ===== */
+{c:12,t:"qcm",q:"Vous surveillez un chantier dont le seul accès n'est pas verrouillé. Un conducteur se gare et demande à récupérer un coffre à outils oublié, dont il dit avoir un besoin urgent. Votre superviseur n'est joignable qu'en cas d'urgence. Les directives du client : seules les personnes autorisées entrent, et l'agent doit faire preuve de jugement. Que faites-vous ?",o:["Vous le laissez entrer seul : il connaît les lieux mieux que vous","Vous vérifiez son identité et son autorisation d'accès ; si vous êtes convaincu, vous l'accompagnez jusqu'au coffre","Vous refusez d'emblée sans aucune vérification","Vous appelez le 9-1-1 pour signaler une tentative d'intrusion"],a:1,e:"Le contrôle d'accès exige que tout le monde soit bien identifié. Si vous n'êtes pas convaincu de son identité ou de son autorisation, vous lui demandez de revenir quand le chantier sera ouvert. Si vous l'êtes, vous l'accompagnez plutôt que de le laisser circuler seul.",s:"Chapitre 3, §3.1 et §10.2"},
+{c:12,t:"multi",q:"Poste stationnaire près d'une tente de vente dans un festival. Vous voyez un homme en sortir en courant et s'éloigner rapidement. Vous n'avez pas vu d'infraction. Que faites-vous ?",o:["Vous notez immédiatement un signalement détaillé de la personne et sa direction de fuite","Vous prévenez vos collègues et votre superviseur par talkie-walkie","Vous allez vérifier auprès de la tente ce qui s'est passé","Vous le mettez en état d'arrestation pour vol","Vous rédigez un rapport d'événement"],a:[0,1,2,4],e:"Vous n'avez qu'un soupçon, pas un motif : vous n'êtes pas témoin de l'infraction. Un soupçon n'est pas suffisant pour intervenir ou arrêter — il faut continuer à récolter des renseignements et transmettre l'information.",s:"Chapitre 3, §1.2.1 · Chapitre 1, §7"},
+{c:12,t:"multi",q:"Agent dans un parc. Pendant votre ronde, une personne vous dit avoir vu quelqu'un de blessé. Que faites-vous ?",o:["Vous vous rendez sur place pour constater la situation","Vous composez le 9-1-1 en donnant votre nom, votre numéro et votre emplacement dès le début de l'appel","Vous effectuez les premiers soins exactement comme le répartiteur vous le demande","Vous demandez au répartiteur « est-ce que je peux raccrocher ? » avant de rompre la communication","Vous attendez l'arrivée des secours avant d'approcher du blessé"],a:[0,1,2,3],e:"Les coordonnées sont données dès le début de l'appel pour que le répartiteur puisse vous rappeler ou envoyer les secours si la conversation s'interrompt.",s:"Chapitre 5, §4 et §5.2"},
+{c:12,t:"multi",q:"À 12 h 14, une personne vous signale un accident entre deux voitures dans le stationnement de la résidence que vous surveillez. Que devez-vous produire ?",o:["Un rapport d'incident distinct pour cet événement","Une mention de l'événement dans votre rapport journalier","Des photos, mentionnées dans le rapport et conservées de façon sécuritaire","Rien : un accident entre deux particuliers ne concerne pas l'agence"],a:[0,1,2],e:"Chaque incident est mentionné dans le rapport journalier ET fait l'objet de son propre rapport d'événement. Le rapport doit répondre au QQCOQP et ne contenir que des faits.",s:"Chapitre 10, §2 et §5.2"},
+{c:12,t:"qcm",q:"Vous surveillez un édifice et un accident survient juste devant. Quel est VOTRE rôle, par rapport à celui des autres intervenants ?",o:["Mener l'enquête et recueillir les déclarations des témoins","Sécuriser les lieux, appeler les secours et garder les témoins sur place ; l'enquête revient à la police et les soins aux ambulanciers","Diriger la circulation dans la rue pour dégager le passage","Attendre les directives du client avant toute action"],a:1,e:"La coopération des intervenants est la clé d'une intervention réussie : chacun a un rôle distinct. Vous établissez un périmètre, préservez les preuves et facilitez le travail des services d'urgence, qui ont la priorité dès leur arrivée.",s:"Chapitre 7, §1 et §5.2 · Chapitre 1, §6"},
+{c:12,t:"qcm",q:"Vous contrôlez un accès par cartes. Un homme affirme être un employé, dit avoir oublié sa carte et vous presse d'ouvrir. Que faites-vous ?",o:["Vous ouvrez : il est visiblement pressé et connaît le nom du directeur","Vous vérifiez son identité avec une pièce d'identité officielle avec photo et appliquez les directives du client","Vous lui demandez de patienter dehors jusqu'à la fin de votre quart","Vous le laissez entrer s'il est accompagné de n'importe quel employé"],a:1,e:"L'agent doit s'assurer en tout temps que tout le monde est bien identifié, et respecter les directives de l'agence et du client. Un laissez-passer temporaire se remet après vérification d'une pièce officielle avec photo.",s:"Chapitre 4, §3.1 et §3.2"},
+{c:12,t:"qcm",q:"À l'entrée d'un bar, une personne refuse de se laisser fouiller. Que faites-vous ?",o:["Vous la fouillez quand même : la règle de l'établissement le prévoit","Vous demandez à un superviseur d'intervenir ; l'accès à l'établissement peut lui être refusé","Vous appelez la police pour qu'elle procède à la fouille","Vous la laissez entrer sans fouille pour éviter le conflit"],a:1,e:"La fouille au contrôle d'accès exige le consentement. La personne peut refuser, et l'agent doit respecter ce droit — mais refuser l'accès est alors tout à fait légitime.",s:"Chapitre 1, §2.5.1 · Chapitre 4, §4.1"},
+{c:12,t:"multi",q:"En pleine fouille, la personne vous demande d'arrêter et retire son consentement. Que faites-vous ?",o:["Vous arrêtez immédiatement la fouille","Vous pouvez légitimement lui refuser l'accès, puisque la fouille n'a pas été complétée","Vous signalez la situation à votre superviseur pour obtenir des directives claires","Vous terminez la fouille : le consentement du début suffit"],a:[0,1,2],e:"Le consentement doit être donné au début de la fouille ET validé tout au long de celle-ci. La personne peut le retirer en tout temps.",s:"Chapitre 4, §4.1 · Chapitre 3, §4.2"},
+{c:12,t:"qcm",q:"Un objet de valeur a disparu d'un bureau. Vous n'avez rien vu, mais une personne aperçue dans le secteur vous semble louche. Que faites-vous ?",o:["Vous la fouillez : vous avez un motif raisonnable","Vous la mettez en état d'arrestation pour vol","Vous continuez de récolter des renseignements et transmettez tout à votre superviseur ou au client, sans intervenir","Vous l'accusez directement pour la pousser à avouer"],a:2,e:"Vous n'avez qu'un soupçon : vous n'avez pas été témoin de l'infraction. En cas de doute, l'agent n'intervient pas, mais il est responsable de transmettre toute l'information. Il ne doit jamais accuser quelqu'un sans preuve.",s:"Chapitre 3, §1.2.1 et §1.2.2"},
+{c:12,t:"qcm",q:"Vous êtes témoin d'un acte criminel, mais le suspect semble armé. Que faites-vous ?",o:["Vous procédez à l'arrestation citoyenne : vous êtes témoin de l'acte","Vous ne risquez ni blessure ni mort : vous notez le plus de détails possible pour faciliter le travail des policiers","Vous le suivez discrètement jusqu'à l'arrivée de la police","Vous employez la force pour le désarmer"],a:1,e:"Note importante du manuel : ne risquez jamais de blessure ou la mort si un suspect semble armé. Si l'arrestation citoyenne est trop risquée ou impossible, notez le maximum de détails.",s:"Chapitre 1, §2.3"},
+{c:12,t:"multi",q:"Vous recevez un appel : l'interlocuteur dit avoir placé une bombe dans le bâtiment. Que faites-vous pendant l'appel ?",o:["Vous restez le plus calme possible","Vous notez ses propos avec exactitude","Vous remplissez la fiche de renseignements et lui posez les questions essentielles","Vous raccrochez immédiatement pour appeler le 9-1-1"],a:[0,1,2],e:"Une alerte à la bombe doit toujours être considérée comme réelle. Il faut noter le plus de détails possible de la conversation avant d'agir.",s:"Chapitre 8, §4.1 et §4.2"},
+{c:12,t:"multi",q:"Pendant une ronde, vous découvrez un colis suspect. Que faites-vous ?",o:["Vous ne le touchez ni ne le déplacez en aucun cas","Vous inspectez les environs sans rien déplacer et signalez tout autre objet suspect","Vous vous éloignez avant d'utiliser un cellulaire ou un talkie-walkie","Vous contactez le 9-1-1 et établissez un périmètre de 100 pieds","Vous le déplacez vers une zone isolée pour protéger le public"],a:[0,1,2,3],e:"Utiliser un cellulaire ou un talkie-walkie à proximité du colis pourrait déclencher une explosion accidentelle. Si l'évacuation est nécessaire, on suit le plan d'évacuation établi.",s:"Chapitre 8, §4.1 et §4.4"},
+{c:12,t:"qcm",q:"Un employé vient vous dire qu'il sent une odeur de gaz au sous-sol. Quelle est la première étape ?",o:["Appeler le 9-1-1 immédiatement","Contacter le superviseur présent immédiatement, qui se déplacera pour constater la fuite","Évacuer tout le bâtiment","Établir un périmètre de 50 pieds avant toute chose"],a:1,e:"Procédure : aviser le superviseur, qui constate ; si la fuite semble réelle, appel au 9-1-1 ; le directeur des lieux est informé ; en attendant les pompiers, un périmètre d'au moins 50 pieds est établi ; puis les agents appuient les pompiers.",s:"Chapitre 8, §5"},
+{c:12,t:"qcm",q:"Un feu se déclare dans une friteuse de la cuisine de l'établissement. Qu'est-ce qu'il ne faut surtout pas faire ?",o:["Utiliser de l'eau ou tout autre liquide","Déclencher l'alarme incendie","Fermer les portes coupe-feu","Appeler le 9-1-1"],a:0,e:"Les huiles et graisses de cuisson sont des feux de classe K : ni eau, ni autre liquide. L'eau participerait à la dispersion du liquide et à la propagation de l'incendie.",s:"Chapitre 9, §1.2 et §3.1.1"},
+{c:12,t:"qcm",q:"Un feu se déclare dans un coffret de branchement électrique. Pourquoi ne faut-il jamais utiliser un extincteur à eau ?",o:["Parce que l'eau est inefficace sur le métal","Parce que l'eau est un bon conducteur et augmenterait les risques d'électrocution","Parce que l'eau ferait exploser le coffret","Parce que l'eau endommagerait les équipements"],a:1,e:"Un feu d'équipement électrique est de classe C : on utilise un extincteur à anhydride carbonique (CO₂), qui couvre les classes B et C, ou une poudre chimique appropriée.",s:"Chapitre 9, §3.1.1"},
+{c:12,t:"qcm",q:"Un début d'incendie semble contrôlable, mais vous n'avez jamais utilisé d'extincteur et ne vous sentez pas compétent pour le faire. Que faites-vous ?",o:["Vous essayez quand même : le feu est petit","Vous attendez les services de sécurité incendie","Vous demandez à un passant de le faire à votre place","Vous utilisez de l'eau, plus simple à manier"],a:1,e:"Rappel explicite du manuel : si l'agent ne croit pas être en mesure d'éteindre l'incendie en toute sécurité, notamment s'il ne l'a jamais fait, il doit attendre les pompiers.",s:"Chapitre 9, §3.1.3"},
+{c:12,t:"multi",q:"Des personnes sont bloquées dans un ascenseur en panne. Que faites-vous ?",o:["Vous entrez en contact avec elles et vous les rassurez","Vous vérifiez combien elles sont et si quelqu'un a besoin d'assistance médicale","Vous contactez la compagnie responsable de la réparation et demandez une assistance immédiate","Vous leur communiquez chaque étape de l'intervention","Vous tentez de forcer les portes pour les sortir plus vite"],a:[0,1,2,3],e:"Il faut attendre l'arrivée du mécanicien d'ascenseur sans rien tenter soi-même, sauf si la vie d'une personne est en danger. Si possible, un collègue se rend à l'étage concerné pour leur parler.",s:"Chapitre 8, §7.1"},
+{c:12,t:"multi",q:"Tireur actif dans le bâtiment. Vous connaissez une sortie sûre à proximité. Que faites-vous ?",o:["Vous quittez par cette sortie en abandonnant vos effets personnels","Vous dites aux gens croisés d'évacuer les lieux","Vous évitez les ascenseurs et prenez les escaliers","Vous composez le 9-1-1 dès que vous êtes en sécurité et ne laissez personne retourner à l'intérieur","Vous retournez chercher vos collègues une fois dehors"],a:[0,1,2,3],e:"La priorité en situation de tireur actif est de s'enfuir. Il faut s'éloigner suffisamment du lieu quitté et n'y laisser personne entrer ou retourner.",s:"Chapitre 8, §3.1.1"},
+{c:12,t:"multi",q:"Tireur actif, mais toute fuite est impossible sans risque. Que faites-vous ?",o:["Vous vous réfugiez dans un endroit sûr à proximité et verrouillez ou bloquez les portes avec des objets lourds","Vous fermez les rideaux et éteignez les lumières","Vous éteignez les appareils pouvant attirer l'attention et restez silencieux","Vous attendez les consignes des policiers avant de sortir de votre cachette","Vous sortez dès que les coups de feu cessent pour aller aider les blessés"],a:[0,1,2,3],e:"Une fois les accès bloqués, il faut se coucher au sol ou s'accroupir derrière un meuble, et faire le mort au besoin. La force n'est employée qu'en dernier recours, quand c'est une question de vie ou de mort.",s:"Chapitre 8, §3.1.2 et §3.1.3"},
+{c:12,t:"qcm",q:"Vous êtes en poste pendant une grève. L'employeur vous demande de passer le balai, une tâche normalement faite par un employé en grève. Que faites-vous ?",o:["Vous le faites : c'est le client qui paie","Vous refusez : un employeur ne peut jamais demander à un agent d'effectuer une tâche normalement faite par un employé en grève","Vous le faites, mais en dehors des heures de piquetage","Vous demandez l'autorisation du syndicat"],a:1,e:"L'agent doit aussi rester impartial : il ne prend pas position dans le conflit, il est là pour protéger les lieux et assurer le respect de la loi.",s:"Chapitre 3, §8.2"},
+{c:12,t:"qcm",q:"Des médias couvrent le conflit de travail sur votre lieu de travail et un journaliste vous interpelle. Que faites-vous ?",o:["Vous répondez factuellement, sans donner votre opinion","Vous ne fournissez aucun renseignement et prévenez la personne responsable de leur présence","Vous demandez l'autorisation du client sur place avant de répondre","Vous expliquez seulement votre rôle d'agent"],a:1,e:"Peu importe la situation, un agent ne s'adresse jamais à un journaliste. En situation d'alerte, la réponse type est : « Je n'ai aucun renseignement à vous communiquer. » L'agence et le client répondent aux questions.",s:"Chapitre 2, §2 · Chapitre 3, §8.2 · Chapitre 8, §4.1"},
+{c:12,t:"qcm",q:"Le client vous demande de diriger la circulation dans la rue devant son commerce, où la sortie est difficile. Que faites-vous ?",o:["Vous le faites : c'est une demande légitime du client","Vous refusez : sans autorisation de l'autorité compétente, vous ne pouvez agir que sur la propriété privée du client","Vous le faites si vous portez un dossard réfléchissant","Vous le faites uniquement aux heures de pointe"],a:1,e:"Seuls les agents de la paix peuvent gérer la circulation dans un lieu public. Un agent de sécurité ne peut le faire que lors d'un événement spécial ou d'un mandat en collaboration avec la sécurité publique, avec autorisation.",s:"Chapitre 3, §7.1 et §7.2"},
+{c:12,t:"qcm",q:"Un règlement interne que le client vous demande d'appliquer vous semble discriminatoire. Que faites-vous ?",o:["Vous l'appliquez : ce sont les règles du propriétaire","Vous respectez la loi plutôt que le règlement et vous avertissez un superviseur","Vous l'appliquez en l'adoucissant à votre façon","Vous déposez une plainte au BSP contre le client"],a:1,e:"Le propriétaire doit veiller à ce que ses règles ne soient ni discriminatoires ni illégales. L'agent veille à l'application des règlements internes, mais la loi prime — et ne pas la respecter peut coûter son permis à l'agent.",s:"Chapitre 1, §3 et §3.1"},
+{c:12,t:"qcm",q:"Un commerçant du site que vous surveillez vous glisse 50 $ en vous demandant de « fermer les yeux » sur ses livraisons hors horaire. Que faites-vous ?",o:["Vous acceptez : ce n'est pas illégal","Vous refusez et signalez la situation : accepter une somme ou une faveur en plus de ce qui vous est alloué est interdit","Vous acceptez et le mentionnez dans votre rapport journalier","Vous refusez l'argent mais accordez la faveur"],a:1,e:"L'article 7 du Règlement sur les normes de comportement interdit d'accepter une somme d'argent ou une autre considération pour l'exercice de ses fonctions, et de solliciter ou accepter une faveur ou un avantage indu. L'impartialité doit être sans faille.",s:"Chapitre 2, §3 · Annexe I, art. 7"},
+{c:12,t:"multi",q:"Une personne en état d'ivresse avancée refuse de quitter le bar. Dans quel ordre agissez-vous ?",o:["Vous lui expliquez clairement la situation et les règlements du propriétaire qui s'appliquent","Vous lui demandez de quitter les lieux","Si elle ne collabore pas, vous lui ordonnez de sortir en expliquant que la police sera appelée","Vous appelez la police si elle refuse toujours de partir","Vous employez la force dès qu'elle refuse une première fois"],a:[0,1,2,3],e:"La force n'est utilisée que si elle est essentielle à la sécurité des gens présents. Et l'agent ne doit pas mettre un suspect en état d'arrestation s'il souhaite uniquement l'expulser.",s:"Chapitre 3, §1.2.2 et §1.2.3"},
+{c:12,t:"qcm",q:"Une employée autorisée se présente accompagnée d'un ami non autorisé. Les directives du client ne prévoient rien. Que faites-vous ?",o:["Vous refusez l'accès aux deux","Vous notez les renseignements personnels de l'ami et indiquez à l'employée qu'il est sous sa responsabilité pendant la visite","Vous les laissez entrer sans formalité","Vous laissez entrer l'employée seule et faites patienter l'ami dehors"],a:1,e:"Si les directives du client diffèrent, l'agent s'en tient à celles-ci. En tout temps, l'agent doit s'assurer que tout le monde est bien identifié.",s:"Chapitre 3, §3.1"},
+{c:12,t:"qcm",q:"Un collègue publie sur les médias sociaux une photo de l'intervention policière survenue à votre lieu de travail. Que faites-vous ?",o:["Rien : c'est sa vie privée","Vous signalez la situation à votre superviseur : tout renseignement obtenu au travail est confidentiel","Vous lui demandez simplement de flouter les visages","Vous commentez sa publication pour rectifier les faits"],a:1,e:"L'agent doit s'abstenir de commenter publiquement tout événement en lien avec son travail. L'article 8 du Règlement l'oblige à la discrétion et au respect du caractère confidentiel de l'information obtenue dans l'exercice de ses fonctions.",s:"Chapitre 1, §5.2 · Annexe I, art. 8"},
+{c:12,t:"multi",q:"Vous arrivez le premier sur les lieux d'un vol par effraction. Que faites-vous en attendant la police ?",o:["Vous établissez un périmètre de sécurité avec ce qui est à votre disposition (ruban, barrière)","Vous vous assurez que les preuves demeurent intactes","Vous vous assurez que les témoins restent sur place","Vous recueillez les éléments de preuve pour les remettre aux policiers","Vous interrogez les témoins et rédigez leur déclaration officielle"],a:[0,1,2],e:"Recueillir les preuves et interroger les témoins relèvent de l'enquête policière. Dans certains cas précis seulement, il peut être nécessaire de toucher à un élément de preuve — par exemple fermer une porte pour empêcher le vent d'entrer dans une salle-clé de la scène.",s:"Chapitre 1, §6"},
+{c:12,t:"multi",q:"Malgré votre dialogue, une personne hostile est manifestement sur le point de vous agresser. Que faites-vous ?",o:["Vous appelez du renfort : collègues, service de police","Vous n'employez que la force strictement nécessaire","Vous vous assurez que l'intervention ne s'éternise pas, car elle pourrait être perçue comme de la brutalité","Vous restez conscient que vous êtes observé et peut-être filmé","Vous demandez à un passant de vous aider à l'immobiliser"],a:[0,1,2,3],e:"Le public peut aider en appelant le 9-1-1 ou en participant aux premiers soins, mais l'agent ne doit pas le laisser immobiliser ou frapper une personne. Si la force a été nécessaire, la police doit être contactée.",s:"Chapitre 6, §2 et §3.5"},
+{c:12,t:"multi",q:"Un patrouilleur de l'agence se présente à votre poste et demande à consulter votre cahier de notes. Que se passe-t-il ?",o:["Vous lui présentez les documents demandés","Il signe le document consulté après en avoir pris connaissance","S'il ajoute un commentaire, il le fait précéder de « C.S. »","Vous indiquez dans votre rapport journalier quels documents ont été consultés et par qui","Vous refusez : le cahier de notes est confidentiel"],a:[0,1,2,3],e:"Le cahier est confidentiel, mais l'agent, son superviseur, son directeur et le responsable du lieu de travail peuvent le consulter. Il peut aussi être demandé dans un contexte légal.",s:"Chapitre 10, §1.1 et §4"}
 ];
 
 /* ============================================================
@@ -653,6 +699,32 @@ try { store = JSON.parse(localStorage.getItem("xg_quiz_v1") || "{}") || {}; } ca
 function save(){ try { localStorage.setItem("xg_quiz_v1", JSON.stringify(store)); } catch(e){} }
 
 Q.forEach((q,i)=> q.id = i);
+
+/* Poids de révision : 0 = maîtrisée, 1 à 5 = fragile. Plus le poids est élevé,
+   plus la question revient souvent. Une bonne réponse le fait baisser d'un cran
+   seulement — une question ratée trois fois ne sort pas de la liste du premier coup. */
+store.w = store.w || {};
+if(store.wrong){ Object.keys(store.wrong).forEach(k=>{ if(!store.w[k]) store.w[k] = 1; }); delete store.wrong; save(); }
+const wOf = id => store.w[id] || 0;
+function bump(id, good){
+  const cur = wOf(id);
+  if(good){ const n = cur - 1; if(n > 0) store.w[id] = n; else delete store.w[id]; }
+  else store.w[id] = Math.min(5, cur + 1);
+}
+
+/* Étiquette transversale « chiffres et articles » : la réponse tient à une donnée
+   à mémoriser (durée, seuil, distance, montant, numéro d'article). */
+function answerText(q){
+  if(q.t === "qcm") return q.o[q.a];
+  if(q.t === "multi") return q.a.map(i => q.o[i]).join(" ");
+  if(q.t === "vf") return q.q;
+  return q.d || "";
+}
+const isData = q => q.c !== 12 && (                            /* pas les mises en situation */
+     /\d/.test(answerText(q).replace(/9\s*-?\s*1\s*-?\s*1/g,"")) /* la réponse contient un nombre, « 9-1-1 » excepté */
+  || /quels? articles?/i.test(q.q)                             /* « quel article… » */
+  || /^classes? [a-dk]\b/i.test(answerText(q).trim())          /* classes de feux A à K */
+  || /\bcombien\b|quelle année|quel âge|quelle distance|quel périmètre|quelle proportion|quelle durée|quelle quantité|à partir de quelle|quelle est la peine|note de passage/i.test(q.q));
 
 let fmt = store.fmt || "mix";
 let S = null; // session
@@ -675,8 +747,19 @@ function poolFor(list){
   return list;
 }
 function wrongIds(){
-  const w = store.wrong || {};
-  return Q.filter(q => w[q.id]);
+  return Q.filter(q => wOf(q.id) > 0).sort((a,b) => wOf(b.id) - wOf(a.id));
+}
+/* Tirage pondéré : une question ratée pèse jusqu'à quatre fois plus lourd qu'une question maîtrisée. */
+function weightedPick(pool, n){
+  const src = pool.slice(), out = [];
+  while(src.length && out.length < n){
+    let tot = 0;
+    const wts = src.map(q => { const w = 1 + 3 * wOf(q.id); tot += w; return w; });
+    let r = Math.random() * tot, k = 0;
+    while(k < src.length - 1 && (r -= wts[k]) > 0) k++;
+    out.push(src.splice(k, 1)[0]);
+  }
+  return out;
 }
 function renderHome(){
   $("#qtot").textContent = Q.length;
@@ -686,12 +769,16 @@ function renderHome(){
   ids.forEach(k=>{ ok += st[k].ok||0; tot += (st[k].ok||0)+(st[k].ko||0); });
   $("#sDone").textContent = ids.length;
   $("#sRate").textContent = tot ? Math.round(ok/tot*100)+" %" : "—";
-  const nw = wrongIds().length;
+  const weak = wrongIds(), nw = weak.length;
   $("#sWrong").textContent = nw;
   $("#wrongBtn").disabled = nw === 0;
   $("#wrongBtn").querySelector("small").textContent = nw
-    ? nw + " question" + (nw>1?"s":"") + " ratée" + (nw>1?"s":"") + " en attente de reprise."
+    ? nw + " question" + (nw>1?"s":"") + " fragile" + (nw>1?"s":"") + ", les plus ratées en tête."
     : "Aucune erreur enregistrée pour l'instant.";
+  const nd = poolFor(Q.filter(isData)).length;
+  $("#dataBtn").disabled = nd === 0;
+  $("#dataBtn").querySelector("small").textContent =
+    nd + " questions dont la réponse est une donnée à mémoriser : durées, seuils, distances, montants, numéros d'articles.";
 
   document.querySelectorAll("#fmtRow .seg").forEach(b=>
     b.setAttribute("aria-pressed", String(b.dataset.fmt === fmt)));
@@ -741,13 +828,15 @@ document.querySelectorAll("[data-go]").forEach(b=>{
   b.addEventListener("click", ()=>{
     const g = b.dataset.go;
     if(g==="exam"){
-      const p = shuffle(poolFor(Q.slice())).slice(0,50);
-      start(p, "Examen blanc", {exam:true});
+      start(weightedPick(poolFor(Q.slice()), 50), "Examen blanc", {exam:true});
     } else if(g==="all"){
       start(poolFor(Q.slice()), "Tout le manuel", {});
+    } else if(g==="data"){
+      const d = poolFor(Q.filter(isData));
+      if(d.length) start(weightedPick(d, d.length), "Chiffres et articles", {});
     } else {
       const w = poolFor(wrongIds());
-      if(w.length) start(shuffle(w), "Mes erreurs", {});
+      if(w.length) start(w, "Mes erreurs", {});
     }
   });
 });
@@ -777,6 +866,9 @@ function renderQ(){
   $("#bar").style.width = (S.i / S.list.length * 100) + "%";
   $("#qchap").textContent = CHAPS[q.c].s;
   $("#qtype").textContent = TYPE_LABEL[q.t];
+  const wk = $("#qweak"), nw = wOf(q.id);
+  wk.hidden = nw === 0;
+  wk.textContent = nw ? "●".repeat(Math.min(3,nw)) + " ratée " + nw + "×" : "";
   $("#qnum").textContent = (S.i+1) + " / " + S.list.length;
   $("#qtext").textContent = q.q;
   const hint = $("#qhint");
@@ -790,7 +882,10 @@ function renderQ(){
   $("#fbslot").innerHTML = "";
 
   if(q.t==="qcm"||q.t==="multi"||q.t==="vf"){
-    const opts = q.t==="vf" ? ["Vrai","Faux"] : q.o;
+    /* L'ordre des choix est retiré à chaque passage : on mémorise le contenu, pas la position. */
+    let opts;
+    if(q.t==="vf"){ S.ord = null; opts = ["Vrai","Faux"]; }
+    else { S.ord = shuffle(q.o.map((_,i)=>i)); opts = S.ord.map(i => q.o[i]); }
     const box = el("div","opts"); box.id = "opts";
     opts.forEach((txt,idx)=>{
       const b = el("button","opt"); b.type="button"; b.setAttribute("aria-pressed","false");
@@ -849,7 +944,7 @@ function check(reveal){
   let good=false, given="", detail=null;
 
   if(q.t==="qcm"||q.t==="vf"){
-    const right = q.t==="vf" ? (q.a?0:1) : q.a;
+    const right = q.t==="vf" ? (q.a?0:1) : S.ord.indexOf(q.a);
     if(reveal) sel = null;
     good = sel===right;
     const opts = document.querySelectorAll("#opts .opt");
@@ -858,7 +953,7 @@ function check(reveal){
       else if(j===sel) o.classList.add("is-bad"); });
     given = sel==null ? "—" : opts[sel].lastChild.textContent;
   } else if(q.t==="multi"){
-    const right = new Set(q.a);
+    const right = new Set(q.a.map(i => S.ord.indexOf(i)));
     if(reveal) sel = new Set();
     good = sel.size===right.size && [...right].every(i=>sel.has(i));
     const opts = document.querySelectorAll("#opts .opt");
@@ -884,8 +979,7 @@ function check(reveal){
   const st = store.stats[q.id] || {ok:0,ko:0};
   if(good) st.ok++; else st.ko++;
   store.stats[q.id] = st;
-  store.wrong = store.wrong || {};
-  if(good) delete store.wrong[q.id]; else store.wrong[q.id] = 1;
+  bump(q.id, good);
   save();
 
   feedback(q, good, given, detail);

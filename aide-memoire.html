@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Aide-memoire d'une page pour la formation d'agent de securite au Quebec : chiffres, articles de loi, procedures et distinctions a retenir.">
+<style>
+  html{-webkit-text-size-adjust:100%}
+  :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+</style>
+<title>Aide-mémoire Gardiennage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+  :root{
+    --bg:#EDEEF0; --surface:#FFFFFF; --surface-2:#F4F5F8; --surface-3:#E7E9ED;
+    --ink:#14171C; --ink-2:#555C69; --ink-3:#7D8592;
+    --line:#D2D7DE; --line-strong:#B6BDC8;
+    --accent:#B85F04; --accent-soft:#FBEEDD;
+    --bad:#AE221E; --bad-bg:#FAE8E6;
+    --ok:#0D7361;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#13161B; --surface:#1B1F26; --surface-2:#22272F; --surface-3:#2B313A;
+      --ink:#ECEFF3; --ink-2:#9FA8B5; --ink-3:#7A8492;
+      --line:#2D333D; --line-strong:#3C444F;
+      --accent:#F2A93B; --accent-soft:#33260F;
+      --bad:#F0837B; --bad-bg:#331B1A;
+      --ok:#57C6B0;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#13161B; --surface:#1B1F26; --surface-2:#22272F; --surface-3:#2B313A;
+    --ink:#ECEFF3; --ink-2:#9FA8B5; --ink-3:#7A8492;
+    --line:#2D333D; --line-strong:#3C444F;
+    --accent:#F2A93B; --accent-soft:#33260F;
+    --bad:#F0837B; --bad-bg:#331B1A;
+    --ok:#57C6B0;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size:14.5px; line-height:1.45;
+  }
+  .wrap{max-width:1000px; margin:0 auto; padding-inline:16px; padding-block:0 60px}
+  .mono{font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums}
+
+  .bar{position:sticky; top:env(safe-area-inset-top,0px); z-index:10;
+    background:color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line)}
+  .bar-in{max-width:1000px; margin:0 auto; padding:9px 16px; display:flex; align-items:center; gap:12px}
+  .back{font-size:13px; color:var(--ink-2); text-decoration:none; margin-right:auto; white-space:nowrap}
+  .back:hover{color:var(--accent)}
+  .iconbtn{border:1px solid var(--line); background:var(--surface); color:var(--ink-2);
+    width:32px; height:32px; border-radius:7px; display:grid; place-items:center; cursor:pointer; font-size:14px; flex:none}
+  .iconbtn:hover{color:var(--ink); border-color:var(--line-strong)}
+
+  header.hero{padding-block:28px 18px; border-bottom:2px solid var(--ink)}
+  .kicker{font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:8px}
+  h1{font-family:"Barlow Condensed",sans-serif; font-weight:700; text-transform:uppercase;
+    font-size:clamp(30px,7vw,46px); line-height:.98; margin:0 0 10px; text-wrap:balance}
+  .hero p{margin:0; color:var(--ink-2); max-width:62ch}
+
+  h2{font-family:"Barlow Condensed",sans-serif; font-size:14px; font-weight:600; text-transform:uppercase;
+    letter-spacing:.13em; margin:30px 0 12px; padding-bottom:6px; border-bottom:1px solid var(--line-strong);
+    break-after:avoid}
+  h2 .n{color:var(--accent); margin-right:8px}
+  h3{font-family:"Barlow Condensed",sans-serif; font-size:17px; font-weight:600; margin:0 0 6px; break-after:avoid}
+
+  .cols{columns:2; column-gap:26px}
+  @media (max-width:720px){ .cols{columns:1} }
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:9px;
+    padding:12px 14px; margin-bottom:12px; break-inside:avoid}
+  .card.warn{border-left:3px solid var(--bad)}
+  .card.key{border-left:3px solid var(--accent)}
+
+  dl{margin:0; display:grid; grid-template-columns:auto 1fr; gap:3px 12px; align-items:baseline}
+  dt{font-family:"IBM Plex Mono",monospace; font-size:12.5px; font-weight:600; color:var(--accent); white-space:nowrap; font-variant-numeric:tabular-nums}
+  dd{margin:0}
+  dl.wide{grid-template-columns:1fr auto}
+  dl.wide dt{color:var(--ink); font-family:inherit; font-size:14.5px; font-weight:400; white-space:normal}
+  dl.wide dd{font-family:"IBM Plex Mono",monospace; font-size:12.5px; font-weight:600; color:var(--accent); white-space:nowrap; text-align:right}
+
+  ol.steps{margin:0; padding-left:0; list-style:none; counter-reset:s}
+  ol.steps li{counter-increment:s; display:grid; grid-template-columns:auto 1fr; gap:9px; margin-bottom:3px}
+  ol.steps li::before{content:counter(s); font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:600;
+    color:var(--accent); background:var(--accent-soft); border-radius:4px; min-width:18px; height:18px;
+    display:grid; place-items:center; margin-top:3px}
+  ul.tight{margin:0; padding-left:17px}
+  ul.tight li{margin-bottom:2px}
+  .vs{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+  @media (max-width:560px){ .vs{grid-template-columns:1fr} }
+  .vs > div{background:var(--surface-2); border-radius:7px; padding:9px 11px}
+  .vs h4{margin:0 0 4px; font-family:"Barlow Condensed",sans-serif; font-size:15px; font-weight:600; text-transform:uppercase; letter-spacing:.04em}
+  .never{color:var(--bad); font-weight:600}
+  em.src{font-style:normal; font-size:11.5px; color:var(--ink-3); font-family:"IBM Plex Mono",monospace}
+  .foot{margin-top:34px; padding-top:14px; border-top:1px solid var(--line); color:var(--ink-3); font-size:12px}
+  a{color:var(--accent)}
+
+  @media print{
+    :root{--bg:#fff; --surface:#fff; --surface-2:#fff; --surface-3:#eee; --ink:#000; --ink-2:#333; --ink-3:#555; --line:#bbb; --line-strong:#888; --accent:#000; --accent-soft:#eee; --bad:#000}
+    .bar{display:none} body{font-size:9.5pt; line-height:1.3} .wrap{max-width:none; padding:0}
+    header.hero{padding-block:0 8pt} h1{font-size:20pt} .hero p{display:none}
+    .cols{columns:2; column-gap:14pt} .card{padding:5pt 7pt; margin-bottom:6pt; border-radius:0}
+    h2{margin:12pt 0 5pt} .foot{font-size:7pt}
+    @page{margin:10mm}
+  }
+  @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="back" href="index.html">← Retour au quiz</a>
+    <button class="iconbtn" id="printBtn" title="Imprimer" aria-label="Imprimer">⎙</button>
+    <button class="iconbtn" id="themeBtn" title="Changer le thème" aria-label="Changer le thème">◐</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <header class="hero">
+    <div class="kicker">Formation d'agent de sécurité · Québec</div>
+    <h1>Aide-mémoire</h1>
+    <p>Les chiffres, les articles et les procédures du manuel, réunis sur une page. À relire dans les trente minutes avant l'examen — pas à la place du manuel.</p>
+  </header>
+
+  <h2><span class="n">01</span>Les chiffres à savoir par cœur</h2>
+  <div class="cols">
+    <div class="card key">
+      <h3>Formation et permis</h3>
+      <dl>
+        <dt>70 h</dt><dd>durée totale de la formation obligatoire</dd>
+        <dt>30 h</dt><dd>module 1 — milieu, fonction, législation, normes</dd>
+        <dt>24 h</dt><dd>module 2 — procédures en situation d'urgence</dd>
+        <dt>16 h</dt><dd>module 3 — secourisme reconnu par la CNESST</dd>
+        <dt>60 %</dt><dd>note de passage de l'évaluation finale</dd>
+        <dt>6</dt><dd>secteurs d'activité encadrés par la LSP</dd>
+      </dl>
+    </div>
+    <div class="card">
+      <h3>Dates</h3>
+      <dl>
+        <dt>1962</dt><dd>Loi sur les agences d'investigation ou de sécurité <em class="src">remplacée</em></dd>
+        <dt>1976</dt><dd>Charte des droits et libertés de la personne (Québec)</dd>
+        <dt>1979</dt><dd>Loi sur la santé et la sécurité du travail</dd>
+        <dt>1982</dt><dd>Charte canadienne <em class="src">Loi constitutionnelle</em></dd>
+        <dt>1994</dt><dd>entrée en vigueur du Code civil du Québec</dd>
+        <dt>2006</dt><dd>adoption de la LSP <em class="src">projet de loi 88</em></dd>
+        <dt>2008</dt><dd>création du BSP</dd>
+        <dt>2010</dt><dd>LSP pleinement en vigueur <em class="src">22 juillet</em></dd>
+        <dt>2019</dt><dd>Décret sur les agents de sécurité <em class="src">4 décembre</em></dd>
+      </dl>
+    </div>
+    <div class="card warn">
+      <h3>Distances et périmètres</h3>
+      <dl>
+        <dt>100 pi</dt><dd>périmètre autour d'un <b>objet suspect</b> (bombe)</dd>
+        <dt>50 pi</dt><dd>périmètre autour d'une <b>fuite de gaz</b> (au moins)</dd>
+        <dt>9 m</dt><dd>interdiction de fumer devant un établissement de santé, d'enseignement postsecondaire ou un lieu d'activités pour mineurs</dd>
+      </dl>
+    </div>
+    <div class="card">
+      <h3>Seuils et montants</h3>
+      <dl>
+        <dt>12 ans</dt><dd>âge d'application du Code criminel</dd>
+        <dt>21 ans</dt><dd>âge légal du cannabis au Québec <em class="src">depuis le 1ᵉʳ nov. 2019</em></dd>
+        <dt>30 g</dt><dd>cannabis séché permis dans un lieu public</dd>
+        <dt>2 000 $</dt><dd>amende maximale — infraction sommaire</dd>
+        <dt>6 mois</dt><dd>emprisonnement maximal et délai de prescription — sommaire</dd>
+        <dt>5 000 $</dt><dd>seuil du vol (art. 334) et de la fraude (art. 380)</dd>
+        <dt>3</dt><dd>personnes minimum — attroupement illégal</dd>
+      </dl>
+    </div>
+    <div class="card">
+      <h3>Police et incendie</h3>
+      <dl>
+        <dt>3</dt><dd>corps de police : CPM, Sûreté du Québec, GRC</dd>
+        <dt>niv. 1</dt><dd>moins de 100 000 habitants</dd>
+        <dt>niv. 5</dt><dd>1 million d'habitants ou plus</dd>
+        <dt>niv. 6</dt><dd>Sûreté du Québec — hors taille de municipalité</dd>
+        <dt>50 000</dt><dd>habitants pour former son propre CPM</dd>
+        <dt>656</dt><dd>services de sécurité incendie <em class="src">déc. 2020</em></dd>
+        <dt>4311</dt><dd>code CNP — policiers</dd>
+        <dt>6541</dt><dd>code CNP — agents de sécurité</dd>
+        <dt>15 sem.</dt><dd>formation policière à l'ENPQ</dd>
+      </dl>
+    </div>
+    <div class="card">
+      <h3>Extincteurs et SIMDUT</h3>
+      <dl>
+        <dt>⅔ – ⅓</dt><dd>extincteur à eau : eau / air comprimé</dd>
+        <dt>10-30 s</dt><dd>durée du jet — CO₂</dd>
+        <dt>10-25 s</dt><dd>durée du jet — poudre chimique</dd>
+        <dt>6</dt><dd>renseignements sur l'étiquette du <b>fournisseur</b></dd>
+        <dt>3</dt><dd>renseignements sur l'étiquette du <b>lieu de travail</b></dd>
+        <dt>16</dt><dd>rubriques d'une fiche de données de sécurité</dd>
+        <dt>44 %</dt><dd>avertisseurs de fumée ayant fonctionné <em class="src">2015</em></dd>
+      </dl>
+    </div>
+  </div>
+
+  <h2><span class="n">02</span>Les articles de loi</h2>
+  <div class="cols">
+    <div class="card key">
+      <h3>Emploi de la force — Code criminel</h3>
+      <dl>
+        <dt>25</dt><dd>employer la <b>force nécessaire</b> sur des motifs raisonnables</dd>
+        <dt>26</dt><dd>responsabilité criminelle pour tout <b>excès de force</b></dd>
+        <dt>27</dt><dd>force pour <b>empêcher la perpétration</b> d'une infraction</dd>
+        <dt>28</dt><dd>arrestation par erreur — même protection</dd>
+        <dt>30</dt><dd>empêcher une violation de la paix</dd>
+        <dt>34</dt><dd>défense de la <b>personne</b></dd>
+        <dt>35</dt><dd>défense des <b>biens</b></dd>
+      </dl>
+    </div>
+    <div class="card key">
+      <h3>Arrestation — Code criminel 494</h3>
+      <dl>
+        <dt>494(1)</dt><dd>arrestation sans mandat par quiconque</dd>
+        <dt>494(2)</dt><dd>par le propriétaire d'un bien ou la personne qu'il autorise</dd>
+        <dt>494(3)</dt><dd>obligation de <b>livrer aussitôt</b> à un agent de la paix</dd>
+      </dl>
+    </div>
+    <div class="card">
+      <h3>Infractions — Code criminel</h3>
+      <dl>
+        <dt>21</dt><dd>participants à une infraction</dd>
+        <dt>23</dt><dd>complice après le fait</dd>
+        <dt>24</dt><dd>tentatives</dd>
+        <dt>63</dt><dd>attroupement illégal <em class="src">3 personnes +</em></dd>
+        <dt>64</dt><dd>émeute</dd>
+        <dt>175</dt><dd>troubler la paix, tapage <em class="src">sommaire</em></dd>
+        <dt>264</dt><dd>proférer des menaces</dd>
+        <dt>265</dt><dd>voies de fait <em class="src">définition, consentement</em></dd>
+        <dt>266</dt><dd>voies de fait <em class="src">5 ans</em></dd>
+        <dt>267</dt><dd>agression armée, lésions corporelles <em class="src">10 ans</em></dd>
+        <dt>268</dt><dd>voies de fait graves</dd>
+        <dt>322</dt><dd>vol</dd>
+        <dt>334</dt><dd>punition du vol <em class="src">seuil 5 000 $</em></dd>
+        <dt>343</dt><dd>vol qualifié</dd>
+        <dt>348</dt><dd>introduction par effraction</dd>
+        <dt>351</dt><dd>outils de cambriolage, déguisement</dd>
+        <dt>354</dt><dd>possession de biens criminellement obtenus</dd>
+        <dt>380</dt><dd>fraude</dd>
+        <dt>423</dt><dd>intimidation</dd>
+        <dt>430</dt><dd>méfait <em class="src">et données informatiques</em></dd>
+        <dt>437</dt><dd>fausse alerte</dd>
+      </dl>
+    </div>
+    <div class="card">
+      <h3>Chartes et Code civil</h3>
+      <dl>
+        <dt>C.c. 7</dt><dd>vie, liberté et sécurité</dd>
+        <dt>C.c. 8</dt><dd>fouilles, perquisitions ou saisies abusives</dd>
+        <dt>C.c. 9</dt><dd>détention ou emprisonnement arbitraires</dd>
+        <dt>C.c. 10</dt><dd>droits en cas d'arrestation ou de détention</dd>
+        <dt>C.c. 24</dt><dd>réparation par un tribunal compétent</dd>
+        <dt>C.Q. 6</dt><dd>jouissance paisible et libre disposition de ses biens</dd>
+        <dt>C.Q. 49</dt><dd>dommages-intérêts punitifs</dd>
+        <dt>947</dt><dd>définition de la propriété</dd>
+        <dt>1457</dt><dd>devoir de ne pas causer de préjudice à autrui</dd>
+        <dt>1463</dt><dd>responsabilité du <b>commettant</b> (employeur)</dd>
+      </dl>
+      <p style="margin:8px 0 0"><em class="src">C.c. = Charte canadienne · C.Q. = Charte québécoise · les autres = Code civil du Québec</em></p>
+    </div>
+    <div class="card">
+      <h3>Sécurité privée</h3>
+      <dl>
+        <dt>LSP 1</dt><dd>les six secteurs d'activité</dd>
+        <dt>LSP 3</dt><dd><b>aucun statut d'agent de la paix</b></dd>
+        <dt>LSP 70</dt><dd>pouvoirs d'inspection</dd>
+      </dl>
+      <h3 style="margin-top:10px">Normes de comportement</h3>
+      <dl>
+        <dt>1</dt><dd>langage, discrimination, respect, substances</dd>
+        <dt>2</dt><dd>présenter son permis sur demande</dd>
+        <dt>3</dt><dd>abus d'autorité</dd>
+        <dt>4</dt><dd>aide au BSP et aux agents de la paix</dd>
+        <dt>5</dt><dd>ne pas travailler pour une agence sans permis</dd>
+        <dt>6</dt><dd>compétence et professionnalisme</dd>
+        <dt>7</dt><dd>dignité, loyauté, conflit d'intérêts</dd>
+        <dt>8</dt><dd>discrétion et confidentialité</dd>
+        <dt>9</dt><dd>arme à feu : prudence et discernement</dd>
+      </dl>
+    </div>
+  </div>
+
+  <h2><span class="n">03</span>Les procédures, dans l'ordre</h2>
+  <div class="cols">
+    <div class="card key">
+      <h3>Arrestation citoyenne</h3>
+      <ol class="steps">
+        <li>Noter l'<b>heure exacte</b></li>
+        <li>Appeler la police (9-1-1)</li>
+        <li>S'identifier : nom et fonction</li>
+        <li>Informer de l'arrestation <b>et du motif</b></li>
+        <li>S'assurer que la personne comprend</li>
+        <li>Vérifier l'absence d'arme ou d'objet d'évasion</li>
+        <li>Force <b>seulement</b> si refus de coopérer et danger réel</li>
+        <li>Réciter ses droits <em class="src">facultatif — rôle du policier</em></li>
+        <li>Limiter les échanges ; l'aviser de son droit au silence</li>
+        <li>Livrer la personne et les objets aux policiers</li>
+        <li>Conserver ses notes</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Expulsion</h3>
+      <ol class="steps">
+        <li>Expliquer clairement la situation</li>
+        <li>Préciser les règlements et droits du propriétaire</li>
+        <li>Demander de quitter les lieux</li>
+        <li>Si refus : <b>ordonner</b> de sortir, annoncer l'appel à la police</li>
+        <li>Appeler la police</li>
+        <li>Force uniquement si essentielle à la sécurité</li>
+      </ol>
+      <p style="margin:8px 0 0"><em class="src">Ne jamais mettre en état d'arrestation pour seulement expulser.</em></p>
+    </div>
+    <div class="card warn">
+      <h3>EVAB — extincteur</h3>
+      <ol class="steps">
+        <li><b>E</b>nlever la goupille</li>
+        <li><b>V</b>iser la <b>base</b> des flammes</li>
+        <li><b>A</b>ppuyer sur le levier</li>
+        <li><b>B</b>alayer la zone en feu</li>
+      </ol>
+      <p style="margin:8px 0 0">Toujours se placer <b>entre la sortie et l'incendie</b>. Ne jamais s'éloigner même si le feu semble éteint. Pas à l'aise ? <span class="never">Attendre les pompiers.</span></p>
+    </div>
+    <div class="card">
+      <h3>Intervention</h3>
+      <ol class="steps"><li>Analyser</li><li>Planifier</li><li>Agir</li></ol>
+      <p style="margin:8px 0 0"><em class="src">Piège de l'analyse : le tunnel vision. Revenir aux étapes 1 et 2 aussi souvent que nécessaire.</em></p>
+      <h3 style="margin-top:12px">QQCOQP — rapport</h3>
+      <p style="margin:0">Qui · Quand · Comment · Où · Quoi · Pourquoi</p>
+    </div>
+    <div class="card">
+      <h3>Fuite de gaz</h3>
+      <ol class="steps">
+        <li>Aviser <b>immédiatement</b> le superviseur présent</li>
+        <li>Le superviseur se déplace pour constater</li>
+        <li>Si la fuite semble réelle : 9-1-1</li>
+        <li>Informer le directeur des lieux</li>
+        <li>Périmètre d'<b>au moins 50 pieds</b></li>
+        <li>Appuyer les pompiers au besoin</li>
+      </ol>
+    </div>
+    <div class="card warn">
+      <h3>Alerte à la bombe</h3>
+      <ul class="tight">
+        <li>Toujours considérer l'alerte comme <b>réelle</b></li>
+        <li>9-1-1, puis prévenir le superviseur</li>
+        <li>Évacuer en attendant les policiers</li>
+        <li>Périmètre de <b>100 pieds</b></li>
+        <li><span class="never">Ne pas toucher ni déplacer</span> le colis</li>
+        <li><span class="never">Aucun cellulaire ni talkie-walkie</span> à proximité — risque d'explosion</li>
+        <li>Médias : « Je n'ai aucun renseignement à vous communiquer. »</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Incendie</h3>
+      <ul class="tight">
+        <li>Rester calme, déclencher l'alarme</li>
+        <li>Désigner une <b>personne calme</b> pour le 9-1-1</li>
+        <li>Évacuer, dégager les sorties</li>
+        <li>Diriger vers les points de rassemblement</li>
+        <li>Faire confirmer la présence de chacun</li>
+        <li>Désigner quelqu'un pour guider les secours</li>
+        <li>Établir un périmètre</li>
+      </ul>
+      <p style="margin:8px 0 0"><em class="src">Feu incontrôlable : quitter immédiatement et déclencher l'alarme.</em></p>
+    </div>
+    <div class="card">
+      <h3>Cahier de notes</h3>
+      <p style="margin:0 0 5px"><b>Début</b> — nom et numéro, date, adresse, horaire, heure de début et collègue remplacé, équipements et leur état, directives.</p>
+      <p style="margin:0 0 5px"><b>Événements</b> — tout noter, régulièrement, chronologiquement, avec les déplacements.</p>
+      <p style="margin:0"><b>Fin</b> — collègue remplaçant, état des équipements (signé par lui), heure exacte, signature, trait de séparation.</p>
+    </div>
+  </div>
+
+  <h2><span class="n">04</span>Les listes qu'on oublie</h2>
+  <div class="cols">
+    <div class="card">
+      <h3>Gardiennage — 4 activités</h3>
+      <p style="margin:0">Surveillance · Prévention · Contrôle · Protection</p>
+      <h3 style="margin-top:10px">4 fonctions des services de sécurité</h3>
+      <p style="margin:0">Renseignement · Prévention · Répression · Gestion de crise</p>
+      <h3 style="margin-top:10px">3 types de postes</h3>
+      <p style="margin:0">Stationnaire · Mobile · Patrouille</p>
+    </div>
+    <div class="card">
+      <h3>5 types de patrouille</h3>
+      <p style="margin:0">Vérification (contrôle) · Surveillance · Observation · Recherche · Visibilité (présence)</p>
+      <h3 style="margin-top:10px">4 types de foules</h3>
+      <p style="margin:0">Passive (classique) · Sympathisants ou manifestants · Curieux (improvisée) · Hostile (agressive)</p>
+      <p style="margin:6px 0 0"><em class="src">Gustave Le Bon : la foule est une entité distincte, influençable et impulsive.</em></p>
+    </div>
+    <div class="card">
+      <h3>Droits de la personne arrêtée</h3>
+      <ul class="tight">
+        <li>Connaître les raisons de son arrestation</li>
+        <li>Parler à un avocat</li>
+        <li>Garder le silence</li>
+        <li>Prévenir quelqu'un</li>
+        <li>Pour un mineur : être accompagné d'un parent</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Schéma de la communication</h3>
+      <p style="margin:0">Destinateur · Destinataire · Contexte · Message · Code</p>
+      <h3 style="margin-top:10px">Principes</h3>
+      <p style="margin:0">S'exprimer · Écouter · Vérifier · Répondre · Penser au non verbal</p>
+      <h3 style="margin-top:10px">Résolution de conflit</h3>
+      <p style="margin:0">Reconnaître · Décrire · Énumérer les solutions · Analyser · Choisir · Mettre en œuvre · Évaluer</p>
+    </div>
+    <div class="card key">
+      <h3>Progression de l'emploi de la force</h3>
+      <ol class="steps">
+        <li>Présence de l'agent</li>
+        <li>Communication claire et simple</li>
+        <li>Contrôle physique léger <em class="src">escorte, immobilisation</em></li>
+        <li>Contrôle physique puissant <em class="src">points de pression, amener au sol</em></li>
+        <li>Armes intermédiaires <em class="src">bâton, aérosols, pistolet à impulsion</em></li>
+        <li>Force mortelle <em class="src">dernier recours, pour sauver une vie</em></li>
+      </ol>
+      <p style="margin:8px 0 0"><em class="src">Le retrait reste possible à tout moment.</em></p>
+    </div>
+    <div class="card">
+      <h3>Comportements — Modèle national</h3>
+      <p style="margin:0">Coopération · Résistance passive · Résistance active · Agression · Lésions corporelles graves ou mort</p>
+      <h3 style="margin-top:10px">Tireur actif — 3 réponses</h3>
+      <p style="margin:0">Fuir · Se barricader · Combattre</p>
+    </div>
+    <div class="card warn">
+      <h3>Classes de feux</h3>
+      <dl>
+        <dt>A</dt><dd>combustibles ordinaires — bois, papier, chiffons</dd>
+        <dt>B</dt><dd>liquides inflammables — essence, peintures, huiles <span class="never">pas d'eau</span></dd>
+        <dt>C</dt><dd>équipement électrique <span class="never">pas d'eau</span></dd>
+        <dt>D</dt><dd>métaux combustibles — magnésium, potassium, titane <span class="never">pas d'eau</span></dd>
+        <dt>K</dt><dd>huiles et graisses de cuisson <span class="never">aucun liquide</span></dd>
+      </dl>
+      <h3 style="margin-top:10px">3 méthodes d'extinction</h3>
+      <p style="margin:0">Refroidissement · Étouffement · Retrait du combustible</p>
+      <h3 style="margin-top:10px">Triangle du feu</h3>
+      <p style="margin:0">Chaleur · Combustible · Comburant</p>
+    </div>
+    <div class="card">
+      <h3>Extincteur selon le feu</h3>
+      <dl class="wide">
+        <dt>Eau — refroidissement</dt><dd>A</dd>
+        <dt>CO₂ — étouffement</dt><dd>B, C</dd>
+        <dt>Poudre chimique ABC</dt><dd>A, B, C</dd>
+      </dl>
+      <p style="margin:8px 0 0"><em class="src">CO₂ : jamais en espace clos sans équipement, jamais sur un feu de classe A (il se rallumera).</em></p>
+      <h3 style="margin-top:10px">Déclencheurs manuels</h3>
+      <dl><dt>Rouge</dt><dd>alarme incendie</dd><dt>Bleu</dt><dd>verrouillage des portes coupe-feu</dd><dt>Jaune</dt><dd>alarme de fuite de gaz</dd></dl>
+    </div>
+  </div>
+
+  <h2><span class="n">05</span>Les distinctions qui piègent</h2>
+  <div class="cols">
+    <div class="card">
+      <h3>Motif ou soupçon</h3>
+      <div class="vs">
+        <div><h4>Motif</h4><p style="margin:0">Objectif : un collègue verrait la même chose. Motif <i>raisonnable</i> = aucun doute. <b>On peut intervenir.</b></p></div>
+        <div><h4>Soupçon</h4><p style="margin:0">On présume d'après le résultat, sans être témoin. <span class="never">Jamais suffisant pour intervenir</span> — récolter plus d'information.</p></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Détention ou arrestation</h3>
+      <div class="vs">
+        <div><h4>Détention</h4><p style="margin:0">Dès que la liberté d'une personne est limitée.</p></div>
+        <div><h4>Arrestation</h4><p style="margin:0">Il faut le dire clairement : « Vous êtes en état d'arrestation », et donner le motif.</p></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Catégories d'infractions</h3>
+      <div class="vs">
+        <div><h4>Acte criminel</h4><p style="margin:0">Les plus graves. <b>Aucune prescription.</b> Procès devant juge, ou juge et jury après enquête préliminaire.</p></div>
+        <div><h4>Sommaire</h4><p style="margin:0">Délits mineurs. 2 000 $ et/ou 6 mois. <b>Prescription de 6 mois.</b> Cour provinciale.</p></div>
+      </div>
+      <p style="margin:8px 0 0"><b>Mixtes (hybrides)</b> — la majorité des infractions : le procureur choisit. Vol, agressions, menaces, fausse alerte.</p>
+    </div>
+    <div class="card">
+      <h3>Civil ou criminel</h3>
+      <div class="vs">
+        <div><h4>Civil</h4><p style="margin:0">Demandeur contre défendeur. Preuve selon la <b>prépondérance des probabilités</b>. Dommages-intérêts, injonction.</p></div>
+        <div><h4>Criminel / pénal</h4><p style="margin:0">L'État contre l'accusé. Preuve <b>hors de tout doute raisonnable</b>. Amende, probation, travaux, prison.</p></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Grève ou lock-out</h3>
+      <div class="vs">
+        <div><h4>Grève</h4><p style="margin:0">Les <b>employés</b> cessent le travail pour faire pression.</p></div>
+        <div><h4>Lock-out</h4><p style="margin:0">L'<b>employeur</b> refuse de donner du travail.</p></div>
+      </div>
+      <p style="margin:8px 0 0"><span class="never">Jamais</span> faire une tâche d'un employé en grève. Rester impartial, patrouiller plus souvent et de façon imprévisible.</p>
+    </div>
+    <div class="card">
+      <h3>Sécurité interne ou externe</h3>
+      <div class="vs">
+        <div><h4>Interne — Corporate</h4><p style="margin:0">Agents fidèles, connaissance fine des lieux. Coûts élevés, risque de grève, risque de fraternité excessive.</p></div>
+        <div><h4>Externe — Contract</h4><p style="margin:0">Pas de coûts d'embauche, flexibilité, professionnalisme. Rotation, appartenance faible, supervision moins constante.</p></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Étiquettes SIMDUT</h3>
+      <div class="vs">
+        <div><h4>Fournisseur — 6</h4><p style="margin:0">Produit · Fournisseur initial · Pictogrammes · Mention d'avertissement · Mentions de danger · Conseils de prudence</p></div>
+        <div><h4>Lieu de travail — 3</h4><p style="margin:0">Nom du produit · Conseils de prudence · Mention que la FDS est consultable</p></div>
+      </div>
+      <p style="margin:8px 0 0"><b>« Danger »</b> = dangers les plus graves · <b>« Attention »</b> = moins graves. Fournisseur → FDS à l'employeur à la vente ; employeur → étiquetage et accès aux FDS ; travailleur → lire et comprendre.</p>
+    </div>
+    <div class="card">
+      <h3>Systèmes d'alarme</h3>
+      <div class="vs">
+        <div><h4>Une étape</h4><p style="margin:0">Sans personnel de surveillance. 3 fonctions. <b>Beaucoup</b> d'alarmes intempestives.</p></div>
+        <div><h4>Deux étapes</h4><p style="margin:0">Personnel requis. 4 fonctions (alerte validée). <b>Peu</b> d'alarmes intempestives.</p></div>
+      </div>
+    </div>
+    <div class="card warn">
+      <h3>Les interdits absolus</h3>
+      <ul class="tight">
+        <li>Se présenter comme ayant l'autorité ou les pouvoirs d'un <b>agent de la paix</b></li>
+        <li>Diriger la circulation dans un <b>lieu public</b> sans autorisation</li>
+        <li>Accepter argent, don ou faveur</li>
+        <li>Répondre à un <b>journaliste</b></li>
+        <li>Commenter son travail sur les <b>médias sociaux</b></li>
+        <li>Mettre la main dans le <b>sac</b> d'une personne fouillée</li>
+        <li>Fouiller pour chercher des <b>preuves</b> (rôle du policier)</li>
+        <li>Toucher ou déplacer un <b>colis suspect</b></li>
+        <li>Traiter son véhicule de patrouille comme un <b>véhicule d'urgence</b></li>
+        <li>Laisser le <b>public</b> immobiliser ou frapper quelqu'un</li>
+        <li>Inventer une raison dans un <b>rapport</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2><span class="n">06</span>Rédiger un rapport</h2>
+  <div class="cols">
+    <div class="card key">
+      <h3>Les 4 qualités</h3>
+      <p style="margin:0"><b>Clair</b> · <b>Précis</b> · <b>Concis</b> · <b>Complet</b></p>
+      <h3 style="margin-top:10px">Les règles de forme</h3>
+      <ul class="tight">
+        <li><b>Première personne</b> (je), au <b>présent</b></li>
+        <li>Heures exactes, système de <b>24 heures</b></li>
+        <li>Stylo bleu ou noir <b>non effaçable</b> ; à la main, en majuscules</li>
+        <li>Aucune ligne vide ; un trait sur une ligne partielle</li>
+        <li>Erreur : barrer proprement et <b>initialer</b></li>
+        <li>Signer et <b>rayer le reste</b> de la page</li>
+        <li>Langage simple, sans codes ni abréviations</li>
+        <li>Que des <b>faits</b> — ni supposition, ni opinion</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Journalier ou incident</h3>
+      <div class="vs">
+        <div><h4>Journalier</h4><p style="margin:0">Version soignée du cahier de notes : tout le quart.</p></div>
+        <div><h4>Incident</h4><p style="margin:0">Un rapport <b>distinct par événement</b>, en plus de la mention au journalier.</p></div>
+      </div>
+      <p style="margin:8px 0 0">Superviseur qui consulte : il <b>signe</b>, et tout commentaire est précédé de <b>« C.S. »</b>. L'agent note au journalier quels documents ont été consultés et par qui.</p>
+      <p style="margin:6px 0 0">Témoins : <b>questions ouvertes</b>. « De quelle couleur était la voiture ? », jamais « Était-elle noire ? ».</p>
+    </div>
+  </div>
+
+  <p class="foot">Contenu tiré du <i>Manuel du participant</i> de l'Académie XGuard (© Sécurité XGuard, 2021). Aide-mémoire personnel non officiel, sans affiliation avec XGuard ni le Bureau de la sécurité privée — il ne remplace ni le manuel ni la formation. <a href="index.html">Retour au quiz</a></p>
+</main>
+
+<script>
+  var store = {};
+  try { store = JSON.parse(localStorage.getItem("xg_quiz_v1") || "{}") || {}; } catch(e){ store = {}; }
+  try { if(store.theme) document.documentElement.setAttribute("data-theme", store.theme); } catch(e){}
+  document.getElementById("themeBtn").addEventListener("click", function(){
+    var cur = document.documentElement.getAttribute("data-theme");
+    var next = cur === "dark" ? "light" : cur === "light" ? "dark"
+      : (matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark");
+    document.documentElement.setAttribute("data-theme", next);
+    store.theme = next;
+    try { localStorage.setItem("xg_quiz_v1", JSON.stringify(store)); } catch(e){}
+  });
+  document.getElementById("printBtn").addEventListener("click", function(){ window.print(); });
+</script>
+
+</body>
+</html>
