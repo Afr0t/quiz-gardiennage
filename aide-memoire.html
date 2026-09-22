@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="Aide-memoire d'une page pour la formation d'agent de securite au Quebec : chiffres, articles de loi, procedures et distinctions.">
+<meta name="description" content="Aide-memoire d'une page : chiffres, articles de loi, procedures, pictogrammes SIMDUT et classes de feux.">
 <style>
   html{-webkit-text-size-adjust:100%}
   :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -120,6 +120,29 @@
   .toc a b{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--accent); margin-right:5px}
   h2{scroll-margin-top:60px}
   a:focus-visible, .iconbtn:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+
+  /* --- illustrations du manuel --- */
+  .fig{margin:10px 0 0}
+  .fig img{display:block; width:100%; height:auto; border-radius:6px}
+  .fig figcaption{font-size:11px; color:var(--ink-3); margin-top:5px; line-height:1.35}
+  .pictos{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px}
+  .pictos figure{margin:0; text-align:center}
+  .pictos img{width:100%; max-width:74px; height:auto; margin:0 auto; display:block}
+  .pictos figcaption{font-size:10px; line-height:1.25; color:var(--ink-2); margin-top:3px}
+  .feux{display:grid; gap:6px; margin-top:10px}
+  .feux .l{display:grid; grid-template-columns:auto auto minmax(0,1fr); gap:9px; align-items:center}
+  .feux img{height:34px; width:auto; display:block}
+  .feux b{font-size:13px}
+  .feux span{font-size:12px; color:var(--ink-2); line-height:1.3}
+  @media print{
+    .fig img{max-height:none}
+    .pictos{grid-template-columns:repeat(3,1fr); gap:4pt}
+    .pictos img{max-width:46pt}
+    .pictos figcaption{font-size:6.5pt}
+    .feux img{height:22pt}
+    .fig figcaption{font-size:6.5pt}
+  }
 
   @media print{
     :root{--bg:#fff; --surface:#fff; --surface-2:#fff; --surface-3:#eee; --ink:#000; --ink-2:#333; --ink-3:#555; --line:#bbb; --line-strong:#888; --accent:#000; --accent-soft:#eee; --bad:#000}
@@ -426,6 +449,11 @@
       <p style="margin:0">Stationnaire · Mobile · Patrouille</p>
     </div>
     <div class="card">
+      <h3>Gestes réglementaires de circulation</h3>
+      <figure class="fig"><img src="fig/gestes-circulation.webp" alt="Les cinq gestes réglementaires : arrêt obligatoire, s'arrêter, autorisation de passer, ralentir, circuler" loading="lazy" width="900" height="434">
+      <figcaption>Vu de face ou de dos : arrêt obligatoire · De face, un bras levé : s'arrêter · Vu de profil : autorisation de passer · Geste de haut en bas de l'avant-bras : ralentir · Geste circulaire : circuler, accélérer.</figcaption></figure>
+    </div>
+    <div class="card">
       <h3>5 types de patrouille</h3>
       <p style="margin:0">Vérification (contrôle) · Surveillance · Observation · Recherche · Visibilité (présence)</p>
       <h3 style="margin-top:10px">4 types de foules</h3>
@@ -461,6 +489,8 @@
         <li>Force mortelle <em class="src">dernier recours, pour sauver une vie</em></li>
       </ol>
       <p style="margin:8px 0 0"><em class="src">Le retrait reste possible à tout moment.</em></p>
+      <figure class="fig"><img src="fig/modele-emploi-force.webp" alt="Le Modèle national de l'emploi de la force — synthèse" loading="lazy" width="1100" height="879">
+      <figcaption>Modèle national de l'emploi de la force, École nationale de police du Québec.</figcaption></figure>
     </div>
     <div class="card">
       <h3>Comportements — Modèle national</h3>
@@ -477,10 +507,19 @@
         <dt>D</dt><dd>métaux combustibles — magnésium, potassium, titane <span class="never">pas d'eau</span></dd>
         <dt>K</dt><dd>huiles et graisses de cuisson <span class="never">aucun liquide</span></dd>
       </dl>
+
+      <div class="feux">
+        <div class="l"><img src="fig/feu-classe-a.webp" alt="Classe A" loading="lazy" height="34"><img src="fig/feu-symbole-a.webp" alt="Symbole de la classe A" loading="lazy" height="34"><span>Combustibles ordinaires — bois, papier, chiffons</span></div>
+        <div class="l"><img src="fig/feu-classe-b.webp" alt="Classe B" loading="lazy" height="34"><img src="fig/feu-symbole-b.webp" alt="Symbole de la classe B" loading="lazy" height="34"><span>Liquides inflammables — essence, peintures, huiles</span></div>
+        <div class="l"><img src="fig/feu-classe-c.webp" alt="Classe C" loading="lazy" height="34"><img src="fig/feu-symbole-c.webp" alt="Symbole de la classe C" loading="lazy" height="34"><span>Équipement électrique — moteurs, câbles</span></div>
+        <div class="l"><img src="fig/feu-classe-d.webp" alt="Classe D" loading="lazy" height="34"><img src="fig/feu-symbole-d.webp" alt="Symbole de la classe D" loading="lazy" height="34"><span>Métaux combustibles — magnésium, potassium, titane</span></div>
+        <div class="l"><img src="fig/feu-classe-k.webp" alt="Classe K" loading="lazy" height="34"><img src="fig/feu-symbole-k.webp" alt="Symbole de la classe K" loading="lazy" height="34"><span>Huiles et graisses de cuisson</span></div>
+      </div>
       <h3 style="margin-top:10px">3 méthodes d'extinction</h3>
       <p style="margin:0">Refroidissement · Étouffement · Retrait du combustible</p>
       <h3 style="margin-top:10px">Triangle du feu</h3>
       <p style="margin:0">Chaleur · Combustible · Comburant</p>
+      <figure class="fig"><img src="fig/triangle-du-feu.webp" alt="Triangle du feu : chaleur, combustible, comburant" loading="lazy" width="360" height="410"></figure>
     </div>
     <div class="card">
       <h3>Extincteur selon le feu</h3>
@@ -548,6 +587,19 @@
         <div><h4>Lieu de travail — 3</h4><p style="margin:0">Nom du produit · Conseils de prudence · Mention que la FDS est consultable</p></div>
       </div>
       <p style="margin:8px 0 0"><b>« Danger »</b> = dangers les plus graves · <b>« Attention »</b> = moins graves. Fournisseur → FDS à l'employeur à la vente ; employeur → étiquetage et accès aux FDS ; travailleur → lire et comprendre.</p>
+      <h3 style="margin-top:12px">Les neuf pictogrammes</h3>
+      <div class="pictos">
+        <figure><img src="fig/simdut-flamme.webp" alt="Pictogramme SIMDUT : flamme" loading="lazy" width="240" height="240"><figcaption><b>FLAMME</b><br>dangers d'incendie</figcaption></figure>
+        <figure><img src="fig/simdut-flamme-cercle.webp" alt="Pictogramme SIMDUT : flamme sur un cercle" loading="lazy" width="240" height="240"><figcaption><b>FLAMME SUR UN CERCLE</b><br>matières comburantes</figcaption></figure>
+        <figure><img src="fig/simdut-bombe-explosant.webp" alt="Pictogramme SIMDUT : bombe explosant" loading="lazy" width="240" height="240"><figcaption><b>BOMBE EXPLOSANT</b><br>explosion ou réactivité</figcaption></figure>
+        <figure><img src="fig/simdut-corrosion.webp" alt="Pictogramme SIMDUT : corrosion" loading="lazy" width="240" height="240"><figcaption><b>CORROSION</b><br>corrosif pour les métaux, la peau, les yeux</figcaption></figure>
+        <figure><img src="fig/simdut-bouteille-gaz.webp" alt="Pictogramme SIMDUT : bouteille de gaz" loading="lazy" width="240" height="240"><figcaption><b>BOUTEILLE DE GAZ</b><br>gaz sous pression</figcaption></figure>
+        <figure><img src="fig/simdut-tete-de-mort.webp" alt="Pictogramme SIMDUT : tête de mort" loading="lazy" width="240" height="240"><figcaption><b>TÊTE DE MORT</b><br>toxique ou mortel à petite dose</figcaption></figure>
+        <figure><img src="fig/simdut-point-exclamation.webp" alt="Pictogramme SIMDUT : point d'exclamation" loading="lazy" width="240" height="240"><figcaption><b>POINT D'EXCLAMATION</b><br>effets moins sévères, couche d'ozone</figcaption></figure>
+        <figure><img src="fig/simdut-danger-sante.webp" alt="Pictogramme SIMDUT : danger pour la santé" loading="lazy" width="240" height="240"><figcaption><b>DANGER POUR LA SANTÉ</b><br>effets graves, danger d'aspiration</figcaption></figure>
+        <figure><img src="fig/simdut-danger-biologique.webp" alt="Pictogramme SIMDUT : danger biologique" loading="lazy" width="240" height="240"><figcaption><b>DANGER BIOLOGIQUE</b><br>organismes ou toxines pathogènes</figcaption></figure>
+      </div>
+
     </div>
     <div class="card">
       <h3>Systèmes d'alarme</h3>
