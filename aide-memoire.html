@@ -106,13 +106,29 @@
   .foot{margin-top:34px; padding-top:14px; border-top:1px solid var(--line); color:var(--ink-3); font-size:12px}
   a{color:var(--accent)}
 
+  /* --- Sommaire cliquable (écran seulement) --- */
+  .toc{display:flex; flex-wrap:wrap; gap:6px; margin-top:16px}
+  .toc a{
+    font-size:12.5px; text-decoration:none; color:var(--ink-2);
+    border:1px solid var(--line); border-radius:99px; padding:5px 12px; background:var(--surface);
+  }
+  .toc a:hover{border-color:var(--accent); color:var(--accent)}
+  .toc a b{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--accent); margin-right:5px}
+  h2{scroll-margin-top:60px}
+  a:focus-visible, .iconbtn:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
   @media print{
     :root{--bg:#fff; --surface:#fff; --surface-2:#fff; --surface-3:#eee; --ink:#000; --ink-2:#333; --ink-3:#555; --line:#bbb; --line-strong:#888; --accent:#000; --accent-soft:#eee; --bad:#000}
-    .bar{display:none} body{font-size:9.5pt; line-height:1.3} .wrap{max-width:none; padding:0}
-    header.hero{padding-block:0 8pt} h1{font-size:20pt} .hero p{display:none}
-    .cols{columns:2; column-gap:14pt} .card{padding:5pt 7pt; margin-bottom:6pt; border-radius:0}
-    h2{margin:12pt 0 5pt} .foot{font-size:7pt}
-    @page{margin:10mm}
+    .bar, .toc{display:none} body{font-size:9pt; line-height:1.28} .wrap{max-width:none; padding:0}
+    header.hero{padding-block:0 7pt; border-bottom-width:1.5pt} h1{font-size:19pt} .hero p{display:none}
+    /* Les blocs se répartissent sur les pages au lieu d'en laisser la moitié vide. */
+    .cols{columns:2; column-gap:13pt; break-inside:auto}
+    .card{padding:4.5pt 6pt; margin-bottom:5pt; border-radius:0; border-color:#999}
+    h2{margin:9pt 0 4pt; break-before:auto; break-after:avoid; font-size:11pt}
+    h3{font-size:10.5pt} dl{gap:1.5pt 8pt} ol.steps li{margin-bottom:1pt}
+    .vs{gap:6pt} .vs > div{padding:4pt 5pt; border:0.5pt solid #ccc}
+    .foot{font-size:7pt; margin-top:10pt}
+    @page{margin:9mm}
   }
   @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
@@ -132,9 +148,17 @@
     <div class="kicker">Formation d'agent de sécurité · Québec</div>
     <h1>Aide-mémoire</h1>
     <p>Les chiffres, les articles et les procédures du manuel, réunis sur une page. À relire dans les trente minutes avant l'examen — pas à la place du manuel.</p>
+    <nav class="toc" aria-label="Sommaire">
+      <a href="#s01"><b>01</b>Les chiffres à savoir par cœur</a>
+      <a href="#s02"><b>02</b>Les articles de loi</a>
+      <a href="#s03"><b>03</b>Les procédures, dans l'ordre</a>
+      <a href="#s04"><b>04</b>Les listes qu'on oublie</a>
+      <a href="#s05"><b>05</b>Les distinctions qui piègent</a>
+      <a href="#s06"><b>06</b>Rédiger un rapport</a>
+    </nav>
   </header>
 
-  <h2><span class="n">01</span>Les chiffres à savoir par cœur</h2>
+  <h2 id="s01"><span class="n">01</span>Les chiffres à savoir par cœur</h2>
   <div class="cols">
     <div class="card key">
       <h3>Formation et permis</h3>
@@ -198,7 +222,7 @@
     <div class="card">
       <h3>Extincteurs et SIMDUT</h3>
       <dl>
-        <dt>⅔ – ⅓</dt><dd>extincteur à eau : eau / air comprimé</dd>
+        <dt>2/3 – 1/3</dt><dd>extincteur à eau : eau / air comprimé</dd>
         <dt>10-30 s</dt><dd>durée du jet — CO₂</dd>
         <dt>10-25 s</dt><dd>durée du jet — poudre chimique</dd>
         <dt>6</dt><dd>renseignements sur l'étiquette du <b>fournisseur</b></dd>
@@ -209,7 +233,7 @@
     </div>
   </div>
 
-  <h2><span class="n">02</span>Les articles de loi</h2>
+  <h2 id="s02"><span class="n">02</span>Les articles de loi</h2>
   <div class="cols">
     <div class="card key">
       <h3>Emploi de la force — Code criminel</h3>
@@ -295,7 +319,7 @@
     </div>
   </div>
 
-  <h2><span class="n">03</span>Les procédures, dans l'ordre</h2>
+  <h2 id="s03"><span class="n">03</span>Les procédures, dans l'ordre</h2>
   <div class="cols">
     <div class="card key">
       <h3>Arrestation citoyenne</h3>
@@ -386,7 +410,7 @@
     </div>
   </div>
 
-  <h2><span class="n">04</span>Les listes qu'on oublie</h2>
+  <h2 id="s04"><span class="n">04</span>Les listes qu'on oublie</h2>
   <div class="cols">
     <div class="card">
       <h3>Gardiennage — 4 activités</h3>
@@ -466,7 +490,7 @@
     </div>
   </div>
 
-  <h2><span class="n">05</span>Les distinctions qui piègent</h2>
+  <h2 id="s05"><span class="n">05</span>Les distinctions qui piègent</h2>
   <div class="cols">
     <div class="card">
       <h3>Motif ou soupçon</h3>
@@ -545,7 +569,7 @@
     </div>
   </div>
 
-  <h2><span class="n">06</span>Rédiger un rapport</h2>
+  <h2 id="s06"><span class="n">06</span>Rédiger un rapport</h2>
   <div class="cols">
     <div class="card key">
       <h3>Les 4 qualités</h3>

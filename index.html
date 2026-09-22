@@ -78,6 +78,14 @@
   .iconbtn:hover{border-color:var(--line-strong); color:var(--ink)}
   .progress{height:3px; background:var(--surface-3)}
   .progress i{display:block; height:100%; background:var(--accent); width:0; transition:width .25s ease}
+  /* Bande de résultats : un cran par question, vert ou rouge — visible d'un coup d'œil. */
+  .segs{display:flex; gap:2px; padding:0 16px 7px; max-width:760px; margin:0 auto}
+  .segs span{flex:1; height:4px; border-radius:2px; background:var(--surface-3); transition:background .2s}
+  .segs span.ok{background:var(--ok)}
+  .segs span.ko{background:var(--bad)}
+  .segs span.now{background:var(--accent)}
+  .livescore{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-3); white-space:nowrap; flex:none}
+  .livescore b{color:var(--ok)} .livescore i{font-style:normal; color:var(--bad)}
 
   /* ---------- home ---------- */
   .hero{padding-block:34px 22px; border-bottom:1px solid var(--line)}
@@ -187,7 +195,13 @@
   .typed input:focus, .typed textarea:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
   .typed input:disabled, .typed textarea:disabled{background:var(--surface-2); color:var(--ink-2)}
 
-  .actions{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+  /* Barre d'action collée en bas : sur téléphone, le bouton reste sous le pouce. */
+  .actions{
+    display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+    position:sticky; bottom:0; z-index:15;
+    padding:10px 0 calc(10px + env(safe-area-inset-bottom, 0px));
+    background:linear-gradient(to top, var(--bg) 62%, color-mix(in srgb, var(--bg) 0%, transparent));
+  }
   .btn{
     font:inherit; font-weight:500; border-radius:8px; padding:10px 18px; cursor:pointer;
     border:1px solid var(--line-strong); background:var(--surface); color:var(--ink);
@@ -229,13 +243,50 @@
   .brow .b i{display:block; height:100%; background:var(--ok)}
   .brow .s{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-3); min-width:42px; text-align:right}
 
-  .missed{display:grid; gap:8px; margin-top:12px}
-  .miss{background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--bad); border-radius:8px; padding:11px 13px}
-  .miss .q{font-weight:500; font-size:14.5px}
-  .miss .a{font-size:13.5px; color:var(--ink-2); margin-top:4px}
-  .miss .a b{color:var(--ok)}
 
   .foot{margin-top:30px; padding-top:16px; border-top:1px solid var(--line); color:var(--ink-3); font-size:12.5px}
+
+  /* --- Chapitres regroupés selon les parties du manuel --- */
+  .part{margin-bottom:18px}
+  .part-h{
+    display:flex; align-items:baseline; gap:8px; margin:0 0 7px; padding-bottom:5px;
+    border-bottom:1px solid var(--line);
+  }
+  .part-h b{font-family:"Barlow Condensed",sans-serif; font-size:13px; font-weight:600;
+    text-transform:uppercase; letter-spacing:.11em; color:var(--ink-2)}
+  .part-h span{font-size:11.5px; color:var(--ink-3); margin-left:auto; font-family:"IBM Plex Mono",monospace}
+  .chap .badge{
+    font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:600;
+    color:var(--bad); background:var(--bad-bg); border-radius:99px; padding:2px 7px; white-space:nowrap;
+  }
+
+  /* --- Accessibilité : anneau de focus visible partout --- */
+  .opt:focus-visible, .btn:focus-visible, .mode:focus-visible, .chap:focus-visible,
+  .seg:focus-visible, .iconbtn:focus-visible, .memo:focus-visible{
+    outline:2px solid var(--accent); outline-offset:2px;
+  }
+  .sr{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0}
+
+  /* --- Relecture des questions sur l'écran de résultat --- */
+  .review{display:grid; gap:7px; margin-top:12px}
+  .rev{background:var(--surface); border:1px solid var(--line); border-radius:8px; overflow:hidden}
+  .rev.ko{border-left:3px solid var(--bad)} .rev.ok{border-left:3px solid var(--ok)}
+  .rev > summary{
+    cursor:pointer; padding:10px 13px; display:grid; grid-template-columns:auto 1fr auto; gap:10px;
+    align-items:start; font-size:14.5px; list-style:none;
+  }
+  .rev > summary::-webkit-details-marker{display:none}
+  .rev > summary:hover{background:var(--surface-2)}
+  .rev .m{font-weight:700; line-height:1.4}
+  .rev.ok .m{color:var(--ok)} .rev.ko .m{color:var(--bad)}
+  .rev .chev{color:var(--ink-3); font-size:11px; margin-top:3px}
+  .rev[open] .chev{transform:rotate(90deg)}
+  .rev .body{padding:0 13px 12px 13px; border-top:1px solid var(--line)}
+  .rev .body .lbl{font-size:10.5px; text-transform:uppercase; letter-spacing:.09em; color:var(--ink-3); display:block; margin:9px 0 2px}
+  .rev .body .val{font-weight:600; font-size:14.5px; white-space:pre-line}
+  .rev .body p{margin:7px 0 0; color:var(--ink-2); font-size:14px}
+  .rev .body .src{margin-top:7px; font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3)}
+
   @media (prefers-reduced-motion: reduce){*{transition:none !important; animation:none !important}}
 </style>
 </head>
@@ -244,10 +295,12 @@
 <div class="bar">
   <div class="bar-in">
     <div class="brand"><b>Gardiennage</b><span id="barsub">Bureau de la sécurité privée · Québec</span></div>
-    <button class="iconbtn" id="homeBtn" hidden title="Retour à l'accueil" aria-label="Retour à l'accueil">✕</button>
+    <span class="livescore mono" id="live" hidden></span>
+    <button class="iconbtn" id="homeBtn" hidden title="Quitter la série" aria-label="Quitter la série">✕</button>
     <button class="iconbtn" id="themeBtn" title="Changer le thème" aria-label="Changer le thème">◐</button>
   </div>
   <div class="progress"><i id="bar"></i></div>
+  <div class="segs" id="segs" hidden aria-hidden="true"></div>
 </div>
 
 <main class="wrap">
@@ -301,7 +354,7 @@
     <p class="qtext" id="qtext"></p>
     <p class="qhint" id="qhint"></p>
     <div id="answer"></div>
-    <div id="fbslot"></div>
+    <div id="fbslot" role="status" aria-live="polite"></div>
     <div class="actions" id="actions"></div>
   </div>
 
@@ -318,10 +371,8 @@
     </div>
     <div class="blk-h" style="margin-top:26px"><h2>Par chapitre</h2></div>
     <div class="breakdown" id="dbreak"></div>
-    <div id="dmisswrap" hidden>
-      <div class="blk-h" style="margin-top:26px"><h2>À revoir</h2><em id="dmisscount"></em></div>
-      <div class="missed" id="dmissed"></div>
-    </div>
+    <div class="blk-h" style="margin-top:26px"><h2>Relecture</h2><em id="dmisscount"></em></div>
+    <div class="review" id="dreview"></div>
     <div class="actions" style="margin-top:26px">
       <button class="btn go" id="againWrong">Reprendre mes erreurs</button>
       <button class="btn" id="againAll">Refaire la série</button>
@@ -352,6 +403,15 @@ const CHAPS = [
   {n:"10", t:"Rédaction de rapports", s:"Chapitre 10"},
   {n:"Ann.", t:"Annexes : chartes, Code criminel, embauche", s:"Annexes"},
   {n:"Cas", t:"Mises en situation : jugement sur le terrain", s:"Mises en situation"}
+];
+
+/* Regroupement selon la table des matières du manuel */
+const PARTS = [
+  {t:"Introduction", ch:[0]},
+  {t:"Partie 1 — Rôles et responsabilités sur le terrain", ch:[1,2,3,4,5,6,7]},
+  {t:"Partie 2 — Mesures d'urgence et protocoles", ch:[8,9,10]},
+  {t:"Annexes", ch:[11]},
+  {t:"Jugement sur le terrain", ch:[12]}
 ];
 
 const Q = [
@@ -784,21 +844,34 @@ function renderHome(){
     b.setAttribute("aria-pressed", String(b.dataset.fmt === fmt)));
 
   const box = $("#chaps"); box.innerHTML = "";
-  CHAPS.forEach((ch,i)=>{
-    const list = poolFor(Q.filter(q=>q.c===i));
-    const b = el("button","chap");
-    b.type = "button"; b.disabled = list.length===0;
-    if(list.length===0) b.style.opacity = ".4";
-    const num = el("span","num mono", ch.n); b.appendChild(num);
-    const t = el("span","ttl", ch.t);
-    const sub = el("i","", ch.s + " · " + list.length + " question" + (list.length>1?"s":""));
-    t.appendChild(sub); b.appendChild(t);
-    const meta = el("span","meta");
-    const last = (store.chap||{})[i];
-    meta.appendChild(ring(last));
-    b.appendChild(meta);
-    b.addEventListener("click", ()=> list.length && start(list, ch.s, {chap:i}));
-    box.appendChild(b);
+  PARTS.forEach(part => {
+    const rows = part.ch.map(i => ({i, ch:CHAPS[i], list:poolFor(Q.filter(q=>q.c===i))}))
+                        .filter(r => r.list.length);
+    if(!rows.length) return;
+    const wrap = el("div","part");
+    const h = el("div","part-h");
+    h.appendChild(el("b","", part.t));
+    h.appendChild(el("span","mono", rows.reduce((n,r)=>n+r.list.length,0) + " questions"));
+    wrap.appendChild(h);
+    const grid = el("div","chaps");
+    rows.forEach(({i, ch, list}) => {
+      const b = el("button","chap"); b.type = "button";
+      b.appendChild(el("span","num mono", ch.n));
+      const t = el("span","ttl", ch.t);
+      t.appendChild(el("i","", list.length + " question" + (list.length>1?"s":"")));
+      b.appendChild(t);
+      const meta = el("span","meta");
+      const weak = list.filter(q => wOf(q.id) > 0).length;
+      if(weak) meta.appendChild(el("span","badge mono", weak + " à revoir"));
+      meta.appendChild(ring((store.chap||{})[i]));
+      b.appendChild(meta);
+      b.setAttribute("aria-label", ch.t + ", " + list.length + " questions"
+        + (weak ? ", " + weak + " à revoir" : ""));
+      b.addEventListener("click", ()=> start(list, ch.s, {chap:i}));
+      grid.appendChild(b);
+    });
+    wrap.appendChild(grid);
+    box.appendChild(wrap);
   });
 }
 function ring(pct){
@@ -853,11 +926,20 @@ function show(view){
 function start(list, label, opt){
   S = {list, label, opt:opt||{}, i:0, results:[], answered:false};
   $("#barsub").textContent = label;
+  $("#segs").innerHTML = "";
+  renderLive();
   show("quiz"); renderQ();
 }
 $("#homeBtn").addEventListener("click", goHome);
 $("#backHome").addEventListener("click", goHome);
-function goHome(){ S=null; $("#barsub").textContent="Bureau de la sécurité privée · Québec"; $("#bar").style.width="0"; renderHome(); show("home"); }
+function goHome(){
+  S = null;
+  $("#barsub").textContent = "Bureau de la sécurité privée · Québec";
+  $("#bar").style.width = "0";
+  $("#live").hidden = true;
+  $("#segs").hidden = true; $("#segs").innerHTML = "";
+  renderHome(); show("home");
+}
 
 let sel = null;   // qcm/vf index | multi Set
 function renderQ(){
@@ -887,8 +969,13 @@ function renderQ(){
     if(q.t==="vf"){ S.ord = null; opts = ["Vrai","Faux"]; }
     else { S.ord = shuffle(q.o.map((_,i)=>i)); opts = S.ord.map(i => q.o[i]); }
     const box = el("div","opts"); box.id = "opts";
+    box.setAttribute("role", q.t==="multi" ? "group" : "radiogroup");
+    box.setAttribute("aria-labelledby","qtext");
     opts.forEach((txt,idx)=>{
-      const b = el("button","opt"); b.type="button"; b.setAttribute("aria-pressed","false");
+      const b = el("button","opt"); b.type="button";
+      b.setAttribute("role", q.t==="multi" ? "checkbox" : "radio");
+      b.setAttribute("aria-checked","false");
+      b.setAttribute("aria-pressed","false");
       b.appendChild(el("span","k mono", String(idx+1)));
       b.appendChild(el("span","", txt));
       b.addEventListener("click", ()=>{
@@ -896,9 +983,14 @@ function renderQ(){
         if(q.t==="multi"){
           if(sel.has(idx)) sel.delete(idx); else sel.add(idx);
           b.setAttribute("aria-pressed", String(sel.has(idx)));
+          b.setAttribute("aria-checked", String(sel.has(idx)));
+          syncPrimary();
         } else {
           sel = idx;
-          box.querySelectorAll(".opt").forEach((o,j)=> o.setAttribute("aria-pressed", String(j===idx)));
+          box.querySelectorAll(".opt").forEach((o,j)=>{
+            o.setAttribute("aria-pressed", String(j===idx));
+            o.setAttribute("aria-checked", String(j===idx));
+          });
           check();
         }
       });
@@ -912,25 +1004,69 @@ function renderQ(){
     else { f = document.createElement("input"); f.type = "text"; }
     f.id = "field"; f.placeholder = q.t==="liste" ? "Une réponse par ligne…" : "Votre réponse…";
     f.autocomplete = "off"; f.spellcheck = false;
+    f.setAttribute("aria-labelledby","qtext");
     f.addEventListener("keydown", e=>{
       if(e.key==="Enter" && (q.t!=="liste" || e.ctrlKey || e.metaKey)){ e.preventDefault(); if(!S.answered) check(); else next(); }
     });
+    f.addEventListener("input", syncPrimary);
     box.appendChild(f); A.appendChild(box);
     setTimeout(()=>f.focus(), 30);
   }
   renderActions();
+  renderSegs();
+}
+
+/* Le bouton principal ne s'active qu'une fois une réponse donnée :
+   on ne perd plus un point en cliquant « Vérifier » à vide. */
+function syncPrimary(){
+  const b = document.getElementById("goBtn");
+  if(!b || !S || S.answered) return;
+  const q = S.list[S.i];
+  let pret;
+  if(q.t === "multi") pret = sel && sel.size > 0;
+  else { const f = document.getElementById("field"); pret = !!(f && f.value.trim()); }
+  b.disabled = !pret;
+}
+
+/* Bande de résultats : un cran par question. Au-delà de 60 questions,
+   les crans seraient illisibles — la barre de progression suffit. */
+function renderSegs(){
+  const box = $("#segs");
+  if(!S || S.list.length > 60){ box.hidden = true; box.innerHTML = ""; return; }
+  box.hidden = false;
+  if(box.childElementCount !== S.list.length){
+    box.innerHTML = "";
+    for(let i=0;i<S.list.length;i++) box.appendChild(el("span"));
+  }
+  [...box.children].forEach((s,i)=>{
+    const r = S.results[i];
+    s.className = r ? (r.good ? "ok" : "ko") : (i === S.i ? "now" : "");
+  });
+}
+
+function renderLive(){
+  const l = $("#live");
+  if(!S || !S.results.length){ l.hidden = true; return; }
+  const ok = S.results.filter(r=>r.good).length, ko = S.results.length - ok;
+  l.hidden = false;
+  l.innerHTML = "";
+  const b = el("b","", "✓ " + ok); l.appendChild(b);
+  l.appendChild(document.createTextNode("  "));
+  const i = el("i","", "✕ " + ko); l.appendChild(i);
 }
 function renderActions(){
   const q = S.list[S.i], bar = $("#actions"); bar.innerHTML = "";
   if(!S.answered){
     if(q.t!=="qcm" && q.t!=="vf"){
-      const b = el("button","btn go","Vérifier"); b.type="button";
-      b.addEventListener("click", check); bar.appendChild(b);
+      const b = el("button","btn go","Vérifier"); b.type="button"; b.id="goBtn";
+      b.addEventListener("click", ()=>check()); bar.appendChild(b);
     }
-    const sk = el("button","btn ghost","Voir la réponse"); sk.type="button";
+    const sk = el("button","btn ghost","Passer et voir la réponse"); sk.type="button";
+    sk.title = "Compte comme une erreur";
     sk.addEventListener("click", ()=>check(true)); bar.appendChild(sk);
-    const k = el("span","kbd", q.t==="qcm"||q.t==="vf"||q.t==="multi" ? "touches 1–9 · Entrée" : "Entrée");
+    const k = el("span","kbd", q.t==="qcm"||q.t==="vf" ? "touches 1–9" : q.t==="multi" ? "touches 1–9 · Entrée pour valider" : "Entrée");
     bar.appendChild(k);
+    syncPrimary();
   } else {
     const b = el("button","btn go", S.i===S.list.length-1 ? "Voir le résultat" : "Question suivante");
     b.type="button"; b.id="nextBtn"; b.addEventListener("click", next); bar.appendChild(b);
@@ -984,7 +1120,12 @@ function check(reveal){
 
   feedback(q, good, given, detail);
   renderActions();
+  renderSegs();
+  renderLive();
   $("#bar").style.width = ((S.i+1) / S.list.length * 100) + "%";
+  /* Le verdict doit être visible sans avoir à chercher. */
+  const fb = $("#fbslot").firstElementChild;
+  if(fb) requestAnimationFrame(()=> fb.scrollIntoView({block:"nearest", behavior:"smooth"}));
 }
 function feedback(q, good, given, detail){
   const fb = el("div","fb " + (good?"ok":"bad"));
@@ -1075,22 +1216,34 @@ function results(){
     bd.appendChild(row);
   });
 
+  /* Relecture : toutes les questions, les ratées ouvertes d'emblée. */
   const miss = S.results.filter(r=>!r.good);
-  $("#dmisswrap").hidden = miss.length===0;
-  $("#dmisscount").textContent = miss.length + " question" + (miss.length>1?"s":"");
-  const mw = $("#dmissed"); mw.innerHTML="";
-  miss.forEach(r=>{
-    const d = el("div","miss");
-    d.appendChild(el("div","q", r.q.q));
-    const a = el("div","a");
-    a.appendChild(el("b","", "→ "));
+  $("#dmisscount").textContent = miss.length
+    ? miss.length + " ratée" + (miss.length>1?"s":"") + ", ouverte" + (miss.length>1?"s":"") + " ci-dessous"
+    : "tout est bon — les explications restent consultables";
+  const rw = $("#dreview"); rw.innerHTML = "";
+  S.results.forEach(r=>{
+    const q = r.q;
+    const d = document.createElement("details");
+    d.className = "rev " + (r.good ? "ok" : "ko");
+    if(!r.good) d.open = true;
+    const sm = document.createElement("summary");
+    sm.appendChild(el("span","m", r.good ? "✓" : "✕"));
+    sm.appendChild(el("span","", q.q));
+    sm.appendChild(el("span","chev", "▸"));
+    d.appendChild(sm);
+    const body = el("div","body");
+    body.appendChild(el("span","lbl", q.t==="txt"||q.t==="liste" ? "Réponse attendue" : "Bonne réponse"));
     let txt;
-    if(r.q.t==="vf") txt = r.q.a ? "Vrai" : "Faux";
-    else if(r.q.t==="qcm") txt = r.q.o[r.q.a];
-    else if(r.q.t==="multi") txt = r.q.a.map(i=>r.q.o[i]).join(" · ");
-    else txt = r.q.d;
-    a.appendChild(document.createTextNode(txt + "  (" + r.q.s + ")"));
-    d.appendChild(a); mw.appendChild(d);
+    if(q.t==="vf") txt = q.a ? "Vrai" : "Faux";
+    else if(q.t==="qcm") txt = q.o[q.a];
+    else if(q.t==="multi") txt = q.a.map(i=>"• "+q.o[i]).join("\n");
+    else txt = q.d;
+    body.appendChild(el("div","val", txt));
+    if(q.e) body.appendChild(el("p","", q.e));
+    body.appendChild(el("div","src", "→ " + q.s));
+    d.appendChild(body);
+    rw.appendChild(d);
   });
 
   $("#againWrong").disabled = miss.length===0;
